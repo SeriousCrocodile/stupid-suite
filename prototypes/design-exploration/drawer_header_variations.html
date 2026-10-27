@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-[#0B0C10]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Déclinaisons En-Tête Fiche Atelier — Stupid Stock</title>
+  <link rel="icon" type="image/png" href="/data/favicon/favicon_stupid_stock.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', -apple-system, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .btn-tactile {
+      transition: transform 80ms ease, background-color 120ms ease;
+    }
+    .btn-tactile:active { transform: scale(0.97); }
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="min-h-full bg-[#0B0C10] text-slate-100 p-4 sm:p-8 select-none">
+
+  <div class="max-w-6xl mx-auto space-y-8">
+
+    <!-- Top Navigation & Context -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono text-[11px] font-bold">
+            DESIGN EXPLORATION • STUPID STOCK
+          </span>
+          <span class="text-xs text-slate-500 font-mono">Drawer Header Architecture</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1.5">
+          En-Tête Fiche Atelier : 3 Déclinaisons Ergonomiques
+        </h1>
+        <p class="text-sm text-slate-400 mt-1 max-w-2xl">
+          Hiérarchisation visuelle des 4 éléments clés avant la galerie photo : 
+          <code class="text-blue-300 font-mono text-xs">Fiche Atelier</code>, 
+          <code class="text-blue-300 font-mono text-xs">SKU Modifiable</code>, 
+          <code class="text-blue-300 font-mono text-xs">Titre Produit</code> et 
+          <code class="text-blue-300 font-mono text-xs">Dossier Centralisé d'Images</code>.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="/" class="btn-tactile px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 flex items-center gap-2">
+          <span>⚡ Retour à l'App</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Live Interactive Test Controller -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg font-bold">
+          🎛️
+        </div>
+        <div>
+          <div class="text-xs font-bold text-white">Données de Test Dynamiques</div>
+          <div class="text-[11px] text-slate-400">Modifiez le SKU ou le Titre pour tester la réactivité des 3 variantes en direct.</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-xs">
+          <span class="text-slate-500 font-mono font-bold text-[10px]">TEST SKU:</span>
+          <input 
+            type="text" 
+            id="global-sku-input" 
+            value="KM-SEP-001" 
+            class="bg-transparent font-mono font-bold text-blue-400 uppercase w-28 outline-none"
+            oninput="syncGlobalSku(this.value)"
+          />
+        </div>
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-xs">
+          <span class="text-slate-500 font-mono font-bold text-[10px]">TITRE:</span>
+          <input 
+            type="text" 
+            id="global-title-input" 
+            value="Darma Biomechanical Clicker" 
+            class="bg-transparent font-sans font-semibold text-slate-200 w-48 outline-none truncate"
+            oninput="syncGlobalTitle(this.value)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Variations Grid (Rendered at exact drawer width: 380px) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- ======================================================= -->
+      <!-- VARIATION A: HAUTE JOAILLERIE ÉPURÉE                    -->
+      <!-- ======================================================= -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-400 font-mono font-bold text-xs flex items-center justify-center">A</span>
+            <span class="font-bold text-sm text-white">Haute Joaillerie Épurée</span>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Recommandé Luxe</span>
+        </div>
+        <p class="text-[11px] text-slate-400 px-1 leading-relaxed">
+          Titre commercial mis en vedette. SKU sous forme de pilule satinée éditable + dossier accessible d'un clic sans surcharge visuelle.
+        </p>
+
+        <!-- Mock Drawer Window -->
+        <div class="w-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900">
+          <!-- The Header Under Test -->
+          <div class="p-4 border-b border-slate-100 bg-white space-y-2.5">
+            <!-- Top Eyebrow -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold">Fiche Atelier</span>
+                <span class="text-slate-300">•</span>
+                <span class="text-[10px] font-mono text-slate-400">Kaya Movement</span>
+              </div>
+              <button class="text-slate-400 hover:text-slate-700 text-xs font-bold p-1 rounded-md hover:bg-slate-100 transition btn-tactile">✕</button>
+            </div>
+
+            <!-- Commercial Title -->
+            <h3 class="text-base font-extrabold text-slate-900 leading-snug tracking-tight var-title">
+              Darma Biomechanical Clicker
+            </h3>
+
+            <!-- Bottom Row: Editable SKU Pill + Folder Copy Chip -->
+            <div class="flex items-center gap-2 pt-0.5">
+              <!-- Editable SKU Pill -->
+              <div class="inline-flex items-center gap-1.5 bg-blue-50/80 border border-blue-200/90 rounded-lg px-2.5 py-1 focus-within:ring-2 focus-within:ring-blue-500 shadow-2xs">
+                <span class="text-[9px] font-mono font-bold text-blue-500 uppercase select-none">SKU</span>
+                <input 
+                  type="text" 
+                  value="KM-SEP-001" 
+                  class="font-mono text-xs font-black text-blue-700 bg-transparent border-0 outline-none uppercase w-24 tracking-wide cursor-text p-0 var-sku"
+                  onfocus="this.select()"
+                  oninput="syncGlobalSku(this.value)"
+                />
+                <span class="text-blue-400 text-[10px]" title="Modifiable">✎</span>
+              </div>
+
+              <!-- Folder Path Chip -->
+              <div onclick="mockCopyPath(this)" class="flex-1 min-w-0 flex items-center justify-between bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-lg px-2.5 py-1 cursor-pointer transition btn-tactile group shadow-2xs" title="Copier le chemin">
+                <div class="flex items-center gap-1.5 truncate text-[10px] font-mono text-slate-600">
+                  <span class="text-blue-600 font-bold shrink-0">📁</span>
+                  <span class="truncate font-medium var-path">data/.../KM-SEP-001/images/</span>
+                </div>
+                <span class="text-[10px] font-medium text-slate-400 group-hover:text-blue-600 ml-1 shrink-0 copy-feedback">📋</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dummy Gallery & Drawer Body to see Context -->
+          <div class="p-4 bg-slate-50/50 space-y-3 opacity-75 pointer-events-none">
+            <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase">
+              <span>Galerie Packshot (2)</span>
+              <span class="text-blue-500">⚡ Stupid Shoot</span>
+            </div>
+            <div class="w-full h-32 rounded-xl bg-slate-200/80 flex items-center justify-center text-slate-400 text-xs font-mono">
+              [ Preview Packshot non tronquée ]
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1.5 text-xs text-slate-400 pt-1">
+          <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+            <span>✓</span> <span>Titre très lisible en tête de fiche</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+            <span>✓</span> <span>Bouton dossier ultra-ergonomique & compact</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================= -->
+      <!-- VARIATION B: PASSEPORT TECHNIQUE & MÉTAL STAMPING       -->
+      <!-- ======================================================= -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 font-mono font-bold text-xs flex items-center justify-center">B</span>
+            <span class="font-bold text-sm text-white">Passeport Technique d'Atelier</span>
+          </div>
+          <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Style Industriel</span>
+        </div>
+        <p class="text-[11px] text-slate-400 px-1 leading-relaxed">
+          SKU noir contrasté style plaque gravée de casier physique. Conçu pour les sessions de tri d'atelier à haut débit.
+        </p>
+
+        <!-- Mock Drawer Window -->
+        <div class="w-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900">
+          <!-- The Header Under Test -->
+          <div class="p-4 border-b border-slate-100 bg-slate-50/90 space-y-2.5">
+            <!-- Top: Dark Metal SKU Tag + Badge + Close -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1 shadow-xs focus-within:ring-2 focus-within:ring-blue-400">
+                <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 font-bold select-none border-r border-slate-700 pr-1.5">SKU</span>
+                <input 
+                  type="text" 
+                  value="KM-SEP-001" 
+                  class="font-mono text-xs font-bold text-white bg-transparent border-0 outline-none uppercase w-24 tracking-wider cursor-text p-0 var-sku"
+                  onfocus="this.select()"
+                  oninput="syncGlobalSku(this.value)"
+                />
+                <span class="text-slate-500 text-[10px]">✎</span>
+              </div>
+
+              <div class="flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded bg-slate-200/80 text-[10px] font-mono text-slate-700 font-semibold">
+                  Fiche Atelier
+                </span>
+                <button class="text-slate-400 hover:text-slate-700 text-xs font-bold p-1 rounded-md hover:bg-slate-200 transition btn-tactile">✕</button>
+              </div>
+            </div>
+
+            <!-- Commercial Title -->
+            <h3 class="text-sm font-bold text-slate-900 truncate leading-snug var-title">
+              Darma Biomechanical Clicker
+            </h3>
+
+            <!-- Terminal Directory Bar -->
+            <div class="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-slate-200 text-[10px] font-mono shadow-2xs">
+              <div class="flex items-center gap-1.5 truncate text-slate-600">
+                <span class="text-amber-600 font-bold shrink-0">📁</span>
+                <span class="truncate text-slate-700 font-medium var-path">data/sample_shops/kaya_movement/products/KM-SEP-001/images/</span>
+              </div>
+              <button onclick="mockCopyPath(this)" class="text-slate-600 hover:text-blue-600 font-sans text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 hover:bg-blue-50 transition btn-tactile shrink-0 ml-1.5 copy-feedback">
+                Copier
+              </button>
+            </div>
+          </div>
+
+          <!-- Dummy Gallery & Drawer Body -->
+          <div class="p-4 bg-slate-50/50 space-y-3 opacity-75 pointer-events-none">
+            <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase">
+              <span>Galerie Packshot (2)</span>
+              <span class="text-blue-500">⚡ Stupid Shoot</span>
+            </div>
+            <div class="w-full h-32 rounded-xl bg-slate-200/80 flex items-center justify-center text-slate-400 text-xs font-mono">
+              [ Preview Packshot non tronquée ]
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1.5 text-xs text-slate-400 pt-1">
+          <div class="flex items-center gap-1.5 text-amber-400 font-semibold">
+            <span>✓</span> <span>SKU immédiatement repérable (haut contraste)</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-amber-400 font-semibold">
+            <span>✓</span> <span>Chemin de dossier complet visible</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================= -->
+      <!-- VARIATION C: LINEAR SAAS POWER LOCKUP                   -->
+      <!-- ======================================================= -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-400 font-mono font-bold text-xs flex items-center justify-center">C</span>
+            <span class="font-bold text-sm text-white">Linear SaaS Power Lockup</span>
+          </div>
+          <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">Ultra-Compact</span>
+        </div>
+        <p class="text-[11px] text-slate-400 px-1 leading-relaxed">
+          SKU et Titre fusionnés sur la même ligne. Hauteur verticale minimale : la galerie et les variantes apparaissent plus haut à l'écran.
+        </p>
+
+        <!-- Mock Drawer Window -->
+        <div class="w-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900">
+          <!-- The Header Under Test -->
+          <div class="p-3.5 border-b border-slate-100 bg-white space-y-2">
+            <!-- Top: Breadcrumb Hierarchy + Casier + Close -->
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 font-bold">FICHE ATELIER</span>
+                <span>›</span>
+                <span class="text-slate-600 font-medium">Septum & Piercings</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-600 font-semibold">Casier A-01</span>
+                <button class="text-slate-400 hover:text-slate-700 text-xs font-bold p-1 rounded-md hover:bg-slate-100 transition btn-tactile">✕</button>
+              </div>
+            </div>
+
+            <!-- Single-Line Power Lockup: [SKU] Title -->
+            <div class="flex items-center gap-2">
+              <div class="shrink-0 inline-flex items-center bg-slate-100 hover:bg-slate-200/80 border border-slate-200/90 rounded-md px-2 py-0.5 focus-within:ring-2 focus-within:ring-blue-500 focus-within:bg-white transition">
+                <input 
+                  type="text" 
+                  value="KM-SEP-001" 
+                  class="font-mono text-xs font-black text-slate-900 bg-transparent border-0 outline-none uppercase w-24 tracking-wide cursor-text p-0 var-sku"
+                  onfocus="this.select()"
+                  oninput="syncGlobalSku(this.value)"
+                  title="Modifier SKU"
+                />
+              </div>
+              <h3 class="text-sm font-bold text-slate-900 truncate leading-none flex-1 min-w-0 var-title">
+                Darma Biomechanical Clicker
+              </h3>
+            </div>
+
+            <!-- Hairline Repo Path with Copy -->
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-0.5">
+              <div class="flex items-center gap-1.5 truncate">
+                <span class="text-blue-500">📁</span>
+                <span class="truncate text-slate-500 var-path">data/.../KM-SEP-001/images/</span>
+              </div>
+              <button onclick="mockCopyPath(this)" class="text-blue-600 hover:text-blue-700 font-semibold shrink-0 ml-2 btn-tactile text-[10px] copy-feedback">
+                Copier
+              </button>
+            </div>
+          </div>
+
+          <!-- Dummy Gallery & Drawer Body -->
+          <div class="p-4 bg-slate-50/50 space-y-3 opacity-75 pointer-events-none">
+            <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase">
+              <span>Galerie Packshot (2)</span>
+              <span class="text-blue-500">⚡ Stupid Shoot</span>
+            </div>
+            <div class="w-full h-32 rounded-xl bg-slate-200/80 flex items-center justify-center text-slate-400 text-xs font-mono">
+              [ Preview Packshot non tronquée ]
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1.5 text-xs text-slate-400 pt-1">
+          <div class="flex items-center gap-1.5 text-purple-400 font-semibold">
+            <span>✓</span> <span>Économise 35px de hauteur verticale</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-purple-400 font-semibold">
+            <span>✓</span> <span>Disposition inspirée de Linear & Raycast</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comparative Matrix Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 overflow-x-auto">
+      <h2 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+        <span>📊 Tableau Comparatif des 3 Approches</span>
+      </h2>
+      <table class="w-full text-left text-xs font-sans border-collapse">
+        <thead>
+          <tr class="border-b border-slate-800 text-slate-400 font-mono text-[11px] uppercase">
+            <th class="py-2.5 px-3">Critère d'Atelier</th>
+            <th class="py-2.5 px-3 text-blue-400 font-bold">Variation A (Luxe Épuré)</th>
+            <th class="py-2.5 px-3 text-amber-400 font-bold">Variation B (Passeport Industriel)</th>
+            <th class="py-2.5 px-3 text-purple-400 font-bold">Variation C (Linear Lockup)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+          <tr>
+            <td class="py-3 px-3 font-semibold text-white">Hiérarchie Typographique</td>
+            <td class="py-3 px-3">Titre en vedette (16px), SKU en sous-badge</td>
+            <td class="py-3 px-3">SKU en vedette (plaque noire), Titre en dessous</td>
+            <td class="py-3 px-3">SKU et Titre fusionnés à égalité (14px)</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-3 font-semibold text-white">Consommation Verticale</td>
+            <td class="py-3 px-3">Moyenne (95px)</td>
+            <td class="py-3 px-3">Confortable (108px)</td>
+            <td class="py-3 px-3 text-emerald-400 font-semibold">Ultra-compacte (72px)</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-3 font-semibold text-white">Édition du SKU en Direct</td>
+            <td class="py-3 px-3">Champ bleu pastel doux avec icône ✎</td>
+            <td class="py-3 px-3">Champ noir à fort contraste (ambiance terminal)</td>
+            <td class="py-3 px-3">Puce grise sobre intégrée au titre</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-3 font-semibold text-white">Accès au Dossier Photo</td>
+            <td class="py-3 px-3">Puce cliquable 1-tap avec icône 📋</td>
+            <td class="py-3 px-3">Barre dédiée complète avec bouton [Copier]</td>
+            <td class="py-3 px-3">Ligne discrète avec bouton Copier à droite</td>
+          </tr>
+          <tr>
+            <td class="py-3 px-3 font-semibold text-white">Idéal pour...</td>
+            <td class="py-3 px-3 text-blue-300">Marque joaillière, DA exigeante, studio photo</td>
+            <td class="py-3 px-3 text-amber-300">Gestion de stock physique, préparation de colis</td>
+            <td class="py-3 px-3 text-purple-300">Écrans d'ordinateur portables (13"), flux rapide</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Instructions / Next Action -->
+    <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-900/30 via-slate-900 to-slate-900 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-sm font-bold text-white">Prêt à figer votre choix dans Stupid Stock ?</h3>
+        <p class="text-xs text-slate-400 mt-0.5">
+          Un sélecteur interactif A / B / C est également intégré directement dans le tiroir de l'application pour tester en direct.
+        </p>
+      </div>
+      <a href="/" class="btn-tactile px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-500/20 whitespace-nowrap">
+        Ouvrir l'App &amp; Tester le Tiroir →
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    function syncGlobalSku(val) {
+      val = val.trim().toUpperCase();
+      document.getElementById('global-sku-input').value = val;
+      document.querySelectorAll('.var-sku').forEach(el => el.value = val);
+      document.querySelectorAll('.var-path').forEach(el => {
+        el.textContent = `data/sample_shops/kaya_movement/products/${val || '...'}/images/`;
+      });
+    }
+
+    function syncGlobalTitle(val) {
+      document.getElementById('global-title-input').value = val;
+      document.querySelectorAll('.var-title').forEach(el => el.textContent = val || 'Titre Produit');
+    }
+
+    function mockCopyPath(triggerEl) {
+      const sku = document.getElementById('global-sku-input').value || 'KM-SEP-001';
+      const path = `data/sample_shops/kaya_movement/products/${sku}/images/`;
+      navigator.clipboard.writeText(path).catch(() => {});
+      
+      const feedbackEl = triggerEl.querySelector('.copy-feedback') || triggerEl;
+      const originalText = feedbackEl.textContent;
+      feedbackEl.textContent = '✓ Copié !';
+      feedbackEl.classList.add('text-emerald-400');
+      setTimeout(() => {
+        feedbackEl.textContent = originalText;
+        feedbackEl.classList.remove('text-emerald-400');
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

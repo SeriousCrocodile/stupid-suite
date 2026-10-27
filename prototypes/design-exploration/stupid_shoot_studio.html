@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stupid Shoot — Studio Photo AI &amp; Flowboard 2x2 | Serious Studio</title>
+  <link rel="icon" type="image/png" href="/data/favicon/favicon_stupid_sheet.png">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body {
+      background-color: #0e0f12;
+      color: #e4e4e7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .btn-tactile {
+      transition: all 0.08s ease-in-out;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+    .btn-tactile:active {
+      transform: translateY(1px);
+    }
+    .panel-slide {
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #121317;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2b36;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f4052;
+    }
+    .active-cell-border {
+      border: 2px solid #c5a059 !important;
+      box-shadow: 0 0 15px rgba(197, 160, 89, 0.25);
+    }
+    .node-canvas-grid {
+      background-image: radial-gradient(#252632 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-row overflow-hidden bg-[#0e0f12] text-zinc-200 antialiased selection:bg-[#c5a059] selection:text-black">
+
+  <!-- ======================================================== -->
+  <!-- 1. EXTREME LEFT MINI-RAIL (APPS ICONS ONLY, 64px wide)     -->
+  <!-- ======================================================== -->
+  <nav class="w-16 bg-[#0B0C10] border-r border-slate-800/80 flex flex-col items-center py-4 justify-between shrink-0 z-40 select-none">
+    
+    <!-- Top Brand Logo & App Icons -->
+    <div class="flex flex-col items-center space-y-5 w-full">
+      
+      <!-- Serious Studio Favicon Logo -->
+      <a href="/index.html" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700/60 p-1.5 flex items-center justify-center shadow-lg cursor-pointer btn-tactile hover:scale-105 hover:border-slate-500 transition" title="Serious Studio Operating System">
+        <img src="/data/favicon/favicon_serious-studio.png" alt="Serious Studio" class="w-full h-full object-contain">
+      </a>
+
+      <div class="w-8 h-px bg-slate-800/80"></div>
+
+      <!-- The 6 Suite Apps Column -->
+      <div class="flex flex-col items-center space-y-2.5 w-full">
+        
+        <!-- App 1: 01. Stupid Stock -->
+        <div class="relative flex items-center justify-center w-full group">
+          <a href="/index.html" class="w-10 h-10 rounded-xl p-1.5 hover:bg-slate-800/80 flex items-center justify-center transition btn-tactile opacity-75 hover:opacity-100" title="01. Stupid Stock (Atelier &amp; Casiers)">
+            <img src="/data/favicon/favicon_stupid_stock.png" alt="Stupid Stock" class="w-full h-full object-contain">
+          </a>
+        </div>
+
+        <!-- App 2: 02. Stupid Shoot (ACTIVE with Amber Indicator) -->
+        <div class="relative flex items-center justify-center w-full group">
+          <!-- Active Left Amber Indicator Pill -->
+          <div class="absolute left-0 w-1 h-5 bg-[#F59E0B] rounded-r-full shadow-[0_0_8px_#F59E0B]"></div>
+          
+          <a href="/stupid_shoot_studio.html" class="w-10 h-10 rounded-xl bg-[#2A2215] border border-amber-500/40 p-1.5 flex items-center justify-center shadow-sm" title="02. Stupid Shoot (Actif)">
+            <img src="/data/favicon/favicon_stupid_sheet.png" alt="Stupid Shoot" class="w-full h-full object-contain drop-shadow">
+          </a>
+        </div>
+
+        <!-- App 3: 03. Stupid Shop -->
+        <div class="relative flex items-center justify-center w-full group">
+          <a href="/stupid_shop_gateway.html" class="w-10 h-10 rounded-xl p-1.5 hover:bg-slate-800/80 flex items-center justify-center transition btn-tactile opacity-75 hover:opacity-100" title="03. Stupid Shop (Shopify / Etsy Gateway)">
+            <img src="/data/favicon/favicon_stupid_shop.png" alt="Stupid Shop" class="w-full h-full object-contain">
+          </a>
+        </div>
+
+        <!-- App 4: 04. Stupid Content -->
+        <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center cursor-not-allowed opacity-40 hover:opacity-60 transition" title="04. Stupid Content (Bientôt)">
+          <img src="/data/favicon/favicon_stupid_content.png" alt="Stupid Content" class="w-full h-full object-contain">
+        </div>
+
+        <!-- App 5: 05. Stupid Dispatch -->
+        <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center cursor-not-allowed opacity-40 hover:opacity-60 transition" title="05. Stupid Dispatch (Bientôt)">
+          <img src="/data/favicon/favicon_stupid_dispatch.png" alt="Stupid Dispatch" class="w-full h-full object-contain">
+        </div>
+
+        <!-- App 6: 06. Stupid Money -->
+        <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center cursor-not-allowed opacity-40 hover:opacity-60 transition" title="06. Stupid Money (Bientôt)">
+          <img src="/data/favicon/favicon_stupid_money.png" alt="Stupid Money" class="w-full h-full object-contain">
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Rail: System Status & User Settings -->
+    <div class="flex flex-col items-center space-y-3 w-full">
+      <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10B981]" title="SQLite &amp; Bridge Connectés"></div>
+      <div class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 flex items-center justify-center cursor-pointer" title="Kaya Movement Atelier Lille">
+        KM
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- ======================================================== -->
+  <!-- 2. STUDIO WORKSPACE CANVAS                               -->
+  <!-- ======================================================== -->
+  <div class="flex-1 min-w-0 flex flex-col h-full overflow-hidden">
+
+  <!-- ======================================================== -->
+  <!-- 2A. STUPID SHOOT SUB-HEADER (STUDIO CONTROLS)            -->
+  <!-- ======================================================== -->
+  <div class="h-11 border-b border-[#24252e] bg-[#101116] px-4 flex items-center justify-between shrink-0 font-mono text-xs z-30 select-none">
+    
+    <!-- Left: Studio Mode Switcher + Product Context -->
+    <div class="flex items-center gap-4">
+      <!-- Mode Switcher: Packshot 2x2 vs Flowboard Expert -->
+      <div class="bg-[#121317] p-0.5 border border-[#2b2c37] flex text-[11px]">
+        <button onclick="switchStudioMode('packshot')" id="btn-mode-packshot" class="px-2.5 py-1 bg-[#252733] border border-[#3e4052] text-white font-bold transition flex items-center gap-1.5">
+          <span>🎛️</span>
+          <span>Packshot Studio (2x2)</span>
+        </button>
+        <button onclick="switchStudioMode('flowboard')" id="btn-mode-flowboard" class="px-2.5 py-1 text-zinc-400 hover:text-white transition flex items-center gap-1.5">
+          <span>🕸️</span>
+          <span>Flowboard Expert (Nodal)</span>
+        </button>
+      </div>
+
+      <!-- Active Target SKU Context Badge in Sub-header -->
+      <div class="hidden md:flex items-center gap-2 text-zinc-400 text-xs">
+        <span class="text-zinc-600">|</span>
+        <span class="text-zinc-500 text-[11px]">Cible :</span>
+        <span id="sub-active-sku" class="font-bold text-[#c5a059] font-mono">KM-SEP-001</span>
+        <span class="text-zinc-600">•</span>
+        <span id="sub-active-title" class="text-zinc-300 truncate max-w-[260px]">Darma Biomechanical Clicker Hoop Septum</span>
+        <button onclick="openShootProductModal('edit', activeProduct ? activeProduct.sku : null)" class="btn-tactile text-[10px] px-1.5 py-0.5 bg-[#1a1b24] hover:bg-[#252735] text-zinc-300 hover:text-[#c5a059] border border-zinc-700 flex items-center gap-1 ml-1" title="Modifier la fiche produit cible">
+          <span>✏️</span> Éditer
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Studio Controls (Cyclo, Batch Runner, Inspector Toggle) -->
+    <div class="flex items-center gap-3">
+      <!-- Cyclo Fast Quick Selectors -->
+      <div class="hidden sm:flex items-center gap-1.5 bg-[#14151b] px-2 py-1 border border-[#24252e] text-[10px]">
+        <span class="text-zinc-500 uppercase font-bold text-[9px]">Cyclo :</span>
+        <button onclick="setCycloColor('#EFEFEF')" class="w-3.5 h-3.5 rounded-full bg-[#EFEFEF] border border-white/40 hover:scale-110 transition" title="Gris Studio standard (#EFEFEF)"></button>
+        <button onclick="setCycloColor('#1A1A1A')" class="w-3.5 h-3.5 rounded-full bg-[#1A1A1A] border border-white/20 hover:scale-110 transition" title="Deep Charcoal (#1A1A1A)"></button>
+        <button onclick="setCycloColor('#D97443')" class="w-3.5 h-3.5 rounded-full bg-[#D97443] border border-white/20 hover:scale-110 transition" title="Terracotta Atelier (#D97443)"></button>
+      </div>
+
+      <!-- Batch Processor Shortcut -->
+      <button onclick="toggleBatchDrawer()" class="btn-tactile px-3 py-1 bg-[#1c1d25] border border-[#2e303d] hover:border-[#c5a059] text-zinc-200 hover:text-white font-mono text-xs flex items-center gap-1.5">
+        <span>⚡</span>
+        <span>Batch Queue</span>
+        <span class="text-[10px] px-1 bg-[#282936] text-[#c5a059]" id="batch-queue-badge">5 prêts</span>
+      </button>
+
+      <!-- Toggle Right Inspector Panel -->
+      <button onclick="toggleRightInspector()" id="btn-toggle-inspector" class="btn-tactile px-3 py-1 bg-[#252733] border border-[#c5a059] text-white font-mono text-xs flex items-center gap-1.5" title="Masquer / Afficher l'inspecteur">
+        <span>⚙️</span>
+        <span>Inspecteur</span>
+        <span id="inspector-status-badge" class="text-[10px] px-1 bg-[#333544] text-[#c5a059]">Ouvert ✓</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. MAIN WORKSPACE CONTAINER                              -->
+  <!-- ======================================================== -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR: INGESTION, PRODUCT SELECTOR & REFS         -->
+    <!-- ======================================================== -->
+    <aside class="w-72 md:w-80 border-r border-[#24252e] bg-[#121317] flex flex-col justify-between shrink-0 overflow-y-auto font-mono text-xs select-none">
+      
+      <div class="p-3 space-y-4">
+        
+        <!-- 1. BRAND SELECTOR -->
+        <div>
+          <div class="text-[10px] uppercase tracking-wider text-zinc-500 font-bold px-1 mb-2">Marque Studio Active</div>
+          <div class="space-y-1">
+            <button onclick="filterByBrand('ALL')" id="brand-tab-ALL" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition">
+              <span>❖ Toutes les Marques</span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#1e1f28] text-zinc-400">15 pièces</span>
+            </button>
+            <button onclick="filterByBrand('KM')" id="brand-tab-KM" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 bg-[#1e1f26] border-l-2 border-[#c5a059] text-white font-semibold text-left">
+              <span class="flex items-center gap-2">
+                <span class="text-[#c5a059]">💍</span>
+                <span>Kaya Movement</span>
+              </span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#2a2b36] text-[#c5a059]">5 pièces</span>
+            </button>
+            <button onclick="filterByBrand('AE')" id="brand-tab-AE" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition">
+              <span class="flex items-center gap-2">
+                <span class="text-zinc-300">🌑</span>
+                <span>Ask &amp; Embla</span>
+              </span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#1e1f28] text-zinc-400">5 pièces</span>
+            </button>
+            <button onclick="filterByBrand('P4')" id="brand-tab-P4" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition">
+              <span class="flex items-center gap-2">
+                <span class="text-[#8A9A86]">🗿</span>
+                <span>Parts of Four</span>
+              </span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#1e1f28] text-zinc-400">5 pièces</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. CATALOG PRODUCT SELECTOR (SKU TO SHOOT) -->
+        <div class="pt-3 border-t border-[#22232c]">
+          <div class="flex items-center justify-between px-1 mb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">Produit à Shooter</span>
+              <span class="text-[10px] px-1 bg-[#1b1c25] text-[#c5a059] font-mono" id="prod-counter">15 pièces</span>
+            </div>
+            <button onclick="openShootProductModal('create')" class="btn-tactile text-[10px] px-2 py-0.5 bg-[#c5a059] hover:bg-[#d8b36c] text-black font-bold flex items-center gap-1 shadow-[1px_1px_0px_#ffffff]" title="Ajouter un nouveau produit à shooter">
+              <span>+</span> Nouveau
+            </button>
+          </div>
+
+          <div class="space-y-1.5 max-h-48 overflow-y-auto pr-1" id="productListContainer">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- 3. MANDATORY PRODUCT REFERENCE STACK (ANTI-HALLUCINATION) -->
+        <div class="pt-3 border-t border-[#22232c] space-y-2">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-[10px] uppercase tracking-wider text-[#c5a059] font-bold">Stack Références (3/3 ✓)</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[9px] px-1.5 py-0.2 bg-emerald-950/70 border border-emerald-800 text-emerald-300">Anti-Hallucination</span>
+              <button onclick="openShootProductModal('edit', activeProduct.sku)" class="text-[10px] text-zinc-400 hover:text-[#c5a059] flex items-center gap-1" title="Modifier les références physiques">
+                <span>✏️</span> Éditer
+              </button>
+            </div>
+          </div>
+          <p class="text-[11px] text-zinc-400 px-1 leading-tight">
+            Chaque packshot nécessite 3 photos réelles pour garantir la géométrie exacte du métal.
+          </p>
+
+          <div class="grid grid-cols-3 gap-1.5" id="ref-stack-container">
+            <!-- Ref 1: Face -->
+            <div class="p-1.5 bg-[#16171d] border border-emerald-800/60 text-center space-y-1 rounded">
+              <div class="w-full h-14 bg-black rounded overflow-hidden border border-zinc-700/60 flex items-center justify-center">
+                <img id="ref-img-1" src="../../data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg" alt="Face" class="w-full h-full object-cover">
+              </div>
+              <div class="text-[10px] font-bold text-white leading-tight">1. Face</div>
+              <div class="text-[9px] text-emerald-400 font-mono truncate" id="ref-status-1">photo_1.jpg ✓</div>
+            </div>
+            <!-- Ref 2: Angle 45° -->
+            <div class="p-1.5 bg-[#16171d] border border-emerald-800/60 text-center space-y-1 rounded">
+              <div class="w-full h-14 bg-black rounded overflow-hidden border border-zinc-700/60 flex items-center justify-center">
+                <img id="ref-img-2" src="../../data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_2.jpg" alt="Angle 45°" class="w-full h-full object-cover">
+              </div>
+              <div class="text-[10px] font-bold text-white leading-tight">2. Angle 45°</div>
+              <div class="text-[9px] text-emerald-400 font-mono truncate" id="ref-status-2">photo_2.jpg ✓</div>
+            </div>
+            <!-- Ref 3: Macro -->
+            <div class="p-1.5 bg-[#16171d] border border-emerald-800/60 text-center space-y-1 rounded">
+              <div class="w-full h-14 bg-black rounded overflow-hidden border border-zinc-700/60 flex items-center justify-center relative">
+                <img id="ref-img-3" src="../../data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg" alt="Macro" class="w-full h-full object-cover scale-150">
+              </div>
+              <div class="text-[10px] font-bold text-white leading-tight">3. Macro</div>
+              <div class="text-[9px] text-emerald-400 font-mono truncate" id="ref-status-3">clasp.jpg ✓</div>
+            </div>
+          </div>
+
+          <button onclick="simulateUploadReference()" class="btn-tactile w-full py-1.5 bg-[#1a1b22] border border-[#2e303d] hover:border-zinc-400 text-zinc-300 hover:text-white text-[11px] flex items-center justify-center gap-1.5 mt-1">
+            <span>+</span> Remplacer une photo de référence...
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sidebar: Fast Actions -->
+      <div class="p-3 border-t border-[#24252e] bg-[#0e0f12] text-zinc-400 space-y-2">
+        <button onclick="toggleBatchDrawer()" class="btn-tactile w-full py-2 bg-[#222430] border border-[#c5a059] text-[#c5a059] hover:text-white font-bold text-xs flex items-center justify-center gap-2">
+          <span>📦</span>
+          <span>Lancer Traitement par Lot (Batch)</span>
+        </button>
+      </div>
+
+    </aside>
+
+<!-- ======================================================== -->
+    <!-- CENTRAL CANVAS: 2x2 CONTACT SHEET STUDIO                 -->
+    <!-- ======================================================== -->
+    <main id="mainCanvasArea" class="flex-1 flex flex-col overflow-hidden bg-[#0a0b0d]">
+
+      <!-- CANVAS A: 2x2 PACKSHOT STUDIO (DEFAULT MODE) -->
+      <div id="view-packshot-studio" class="flex-1 flex flex-col overflow-hidden">
+        
+        <!-- Canvas Top Toolbar (Grid Settings & Triggers) -->
+        <div class="h-12 border-b border-[#24252e] bg-[#121317] px-4 flex items-center justify-between shrink-0 font-mono text-xs">
+          
+          <!-- Left: Active Product Specs Badge -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-white" id="activeSkuDisplay">KM-SEP-001</span>
+            <span class="text-zinc-500">•</span>
+            <span class="text-zinc-300 truncate max-w-xs" id="activeTitleDisplay">Darma Biomechanical Clicker Hoop Septum (16g)</span>
+          </div>
+
+          <!-- Center: Cyclorama & Cardinality Controls -->
+          <div class="flex items-center gap-3">
+            <!-- Cyclorama Palette Picker -->
+            <div class="flex items-center gap-1.5 bg-[#181920] px-2 py-1 border border-[#2b2c37]">
+              <span class="text-[10px] text-zinc-400 uppercase font-bold">Fond Cyclo :</span>
+              <button onclick="setCyclorama('#EFEFEF', 'Neutre Studio')" id="cyclo-btn-light" class="w-4 h-4 rounded-full bg-[#EFEFEF] border-2 border-white shadow-sm" title="Gris Cyclorama Neutre #EFEFEF"></button>
+              <button onclick="setCyclorama('#1A1A1A', 'Charcoal Minimal')" id="cyclo-btn-dark" class="w-4 h-4 rounded-full bg-[#1A1A1A] border border-zinc-600" title="Noir Cyclorama #1A1A1A"></button>
+              <button onclick="setCyclorama('#D97443', 'Terracotta Kaya')" id="cyclo-btn-warm" class="w-4 h-4 rounded-full bg-[#D97443] border border-zinc-600" title="Terracotta Chaud #D97443"></button>
+            </div>
+
+            <!-- Cardinality Toggle -->
+            <div class="bg-[#181920] p-0.5 border border-[#2b2c37] flex text-[10px]">
+              <button onclick="setCardinality('single')" id="btn-card-single" class="px-2 py-0.5 bg-[#252733] text-white font-bold transition">Single (1 pc)</button>
+              <button onclick="setCardinality('pair')" id="btn-card-pair" class="px-2 py-0.5 text-zinc-400 hover:text-white transition">Pair (Paire)</button>
+            </div>
+          </div>
+
+          <!-- Right: Execution Triggers -->
+          <div class="flex items-center gap-2">
+            <button onclick="triggerGenerate2x2()" id="btn-generate-flow" class="btn-tactile px-3.5 py-1.5 bg-[#c5a059] hover:bg-[#d6b268] text-black font-bold font-mono text-xs flex items-center gap-1.5 shadow-md">
+              <span>⚡</span>
+              <span>Générer Planche 2x2</span>
+            </button>
+            <button onclick="triggerSlicer()" id="btn-slice-action" class="btn-tactile px-3 py-1.5 bg-[#1c1d25] border border-[#3b3d52] hover:border-zinc-400 text-white font-mono text-xs flex items-center gap-1.5">
+              <span>✂</span>
+              <span>Découper (4 Slices)</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Central 2x2 Photographic Grid Canvas Container -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-6 flex items-center justify-center">
+          
+          <!-- 2x2 GRID (STRICT 4-QUADRANT PACKSHOT COMPOSITE) -->
+          <div id="contactSheetGrid" class="w-full max-w-2xl aspect-[3/4] bg-[#EFEFEF] p-3 shadow-2xl border-4 border-[#1c1d25] grid grid-cols-2 grid-rows-2 gap-3 transition-colors duration-300">
+            
+            <!-- CELL 1: FRONT UPRIGHT HERO (TOP-LEFT) -->
+            <div onclick="selectCell(1)" id="cell-1" class="relative bg-[#EFEFEF] border-2 border-transparent hover:border-zinc-400 cursor-pointer flex flex-col justify-between p-3 active-cell-border transition">
+              <div class="flex justify-between items-start text-[10px] font-mono z-10">
+                <span class="px-1.5 py-0.5 bg-black/70 text-white font-bold">01 • Face Hero</span>
+                <span class="px-1 py-0.2 bg-white/80 text-black text-[9px]">85mm Prime</span>
+              </div>
+              
+              <!-- Visual Mock Representation -->
+              <div class="my-auto flex flex-col items-center justify-center text-center w-full">
+                <div class="w-32 h-32 max-h-36 rounded border border-black/10 overflow-hidden shadow-sm mb-2 bg-white/40 flex items-center justify-center p-1">
+                  <img id="cell-img-1" src="../../data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg" alt="Hero Packshot" class="w-full h-full object-contain">
+                </div>
+                <div class="text-[11px] font-bold text-zinc-800 tracking-wider uppercase font-mono" id="mock-text-cell-1">Darma Clicker (Front)</div>
+                <div class="text-[9px] text-zinc-600 font-mono mt-0.5">Vertical Upright • 80% Frame</div>
+              </div>
+
+              <div class="flex justify-between text-[9px] font-mono text-zinc-600 z-10">
+                <span>Bowens Softbox 45°</span>
+                <span class="text-emerald-700 font-bold">100% Géométrie</span>
+              </div>
+            </div>
+
+            <!-- CELL 2: 45° ISOMETRIC PROFILE (TOP-RIGHT) -->
+            <div onclick="selectCell(2)" id="cell-2" class="relative bg-[#EFEFEF] border-2 border-transparent hover:border-zinc-400 cursor-pointer flex flex-col justify-between p-3 transition">
+              <div class="flex justify-between items-start text-[10px] font-mono z-10">
+                <span class="px-1.5 py-0.5 bg-black/70 text-white font-bold">02 • Profil 45°</span>
+                <span class="px-1 py-0.2 bg-white/80 text-black text-[9px]">85mm F/5.6</span>
+              </div>
+
+              <!-- Visual Mock Representation -->
+              <div class="my-auto flex flex-col items-center justify-center text-center w-full">
+                <div class="w-32 h-32 max-h-36 rounded border border-black/10 overflow-hidden shadow-sm mb-2 bg-white/40 flex items-center justify-center p-1">
+                  <img id="cell-img-2" src="../../data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_2.jpg" alt="Profile Packshot" class="w-full h-full object-contain">
+                </div>
+                <div class="text-[11px] font-bold text-zinc-800 tracking-wider uppercase font-mono" id="mock-text-cell-2">Profil 45°</div>
+                <div class="text-[9px] text-zinc-600 font-mono mt-0.5">Reflet Spéculaire &amp; Tranche</div>
+              </div>
+
+              <div class="flex justify-between text-[9px] font-mono text-zinc-600 z-10">
+                <span>Rim Light Arrière</span>
+                <span class="text-emerald-700 font-bold">Volume Réel</span>
+              </div>
+            </div>
+
+            <!-- CELL 3: MACRO HARDWARE & TEXTURE (BOTTOM-LEFT) -->
+            <div onclick="selectCell(3)" id="cell-3" class="relative bg-[#EFEFEF] border-2 border-transparent hover:border-zinc-400 cursor-pointer flex flex-col justify-between p-3 transition">
+              <div class="flex justify-between items-start text-[10px] font-mono z-10">
+                <span class="px-1.5 py-0.5 bg-black/70 text-white font-bold">03 • Macro Fermoir</span>
+                <span class="px-1 py-0.2 bg-white/80 text-black text-[9px]">100mm Macro 1:1</span>
+              </div>
+
+              <!-- Visual Mock Representation -->
+              <div class="my-auto flex flex-col items-center justify-center text-center w-full">
+                <div class="w-32 h-32 max-h-36 rounded border border-black/10 overflow-hidden shadow-sm mb-2 bg-white/40 flex items-center justify-center p-1 relative">
+                  <img id="cell-img-3" src="../../data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg" alt="Macro Detail" class="w-full h-full object-cover scale-150">
+                </div>
+                <div class="text-[11px] font-bold text-zinc-800 tracking-wider uppercase font-mono" id="mock-text-cell-3">Macro Fermoir</div>
+                <div class="text-[9px] text-zinc-600 font-mono mt-0.5">Texture Métal &amp; Poinçon</div>
+              </div>
+
+              <div class="flex justify-between text-[9px] font-mono text-zinc-600 z-10">
+                <span>Lumière Rasante</span>
+                <span class="text-emerald-700 font-bold">Détail Fini</span>
+              </div>
+            </div>
+
+            <!-- CELL 4: EDITORIAL WORN ON MODEL (BOTTOM-RIGHT) -->
+            <div onclick="selectCell(4)" id="cell-4" class="relative bg-[#EFEFEF] border-2 border-transparent hover:border-zinc-400 cursor-pointer flex flex-col justify-between p-3 transition">
+              <div class="flex justify-between items-start text-[10px] font-mono z-10">
+                <span class="px-1.5 py-0.5 bg-black/70 text-white font-bold">04 • Éditorial Porté</span>
+                <span class="px-1 py-0.2 bg-white/80 text-black text-[9px]">85mm Natural Skin</span>
+              </div>
+
+              <div class="my-auto flex flex-col items-center justify-center text-center">
+                <div class="text-4xl text-zinc-800 mb-1" id="mock-icon-cell-4">👤</div>
+                <div class="text-[11px] font-bold text-zinc-800 tracking-wider uppercase font-mono" id="mock-text-cell-4">Porté Septum Réel</div>
+                <div class="text-[9px] text-zinc-600 font-mono mt-0.5">Contact Peau • Échelle Humaine</div>
+              </div>
+
+              <div class="flex justify-between text-[9px] font-mono text-zinc-600 z-10">
+                <span>Lumière du Jour Douce</span>
+                <span class="text-emerald-700 font-bold">Modèle Astrid</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CANVAS B: FLOWBOARD EXPERT (NODAL VISUAL CANVAS) -->
+      <div id="view-flowboard-canvas" class="flex-1 flex flex-col overflow-hidden hidden node-canvas-grid relative">
+        
+        <!-- Flowboard Control Strip -->
+        <div class="h-10 border-b border-[#24252e] bg-[#14151a]/90 backdrop-blur px-4 flex items-center justify-between font-mono text-xs z-20">
+          <div class="flex items-center gap-2">
+            <span class="text-[#c5a059] font-bold">🕸️ Serious Flowboard Nodal</span>
+            <span class="text-zinc-500">•</span>
+            <span class="text-zinc-400 text-[11px]">Éditeur de Campagnes &amp; Hero Shots Uniques</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="switchStudioMode('packshot')" class="px-2.5 py-1 bg-[#1e1f26] border border-[#2e303d] text-white hover:border-[#c5a059] text-[11px]">
+              ➔ Retour Packshot 2x2
+            </button>
+          </div>
+        </div>
+
+        <!-- Draggable Nodal Canvas Area (Interactive Mock) -->
+        <div class="flex-1 relative p-8 overflow-auto">
+          
+          <!-- Node 1: Product Input Reference -->
+          <div class="absolute top-16 left-12 w-64 bg-[#14151a] border border-[#2e303d] p-3 shadow-2xl font-mono text-xs space-y-2">
+            <div class="flex justify-between items-center border-b border-[#24252e] pb-1.5">
+              <span class="font-bold text-[#c5a059]">1. Product Reference</span>
+              <span class="text-[9px] text-emerald-400">INPUT</span>
+            </div>
+            <div class="text-[11px] text-white font-bold" id="flowboard-prod-name">KM-SEP-001 (Darma Clicker)</div>
+            <div class="text-[10px] text-zinc-400">3 photos réelles attachées</div>
+            <div class="h-16 bg-[#1a1b24] border border-[#2b2c37] flex items-center justify-center text-2xl">💍</div>
+          </div>
+
+          <!-- Connecting line SVG -->
+          <svg class="absolute inset-0 pointer-events-none w-full h-full">
+            <path d="M 320 120 C 400 120, 420 180, 500 180" stroke="#c5a059" stroke-width="2" fill="none" stroke-dasharray="4,4"/>
+            <path d="M 760 180 C 820 180, 840 220, 900 220" stroke="#3b82f6" stroke-width="2" fill="none"/>
+          </svg>
+
+          <!-- Node 2: Style & Atmosphere Modifier Node -->
+          <div class="absolute top-28 left-[500px] w-64 bg-[#14151a] border-2 border-[#c5a059] p-3 shadow-2xl font-mono text-xs space-y-2">
+            <div class="flex justify-between items-center border-b border-[#24252e] pb-1.5">
+              <span class="font-bold text-white">2. Atmospheric Rig</span>
+              <span class="text-[9px] text-[#c5a059]">PROMPT INJECT</span>
+            </div>
+            <div>
+              <label class="text-[10px] text-zinc-500 uppercase">Style Directeur :</label>
+              <select class="w-full mt-0.5 p-1 bg-black border border-zinc-700 text-white text-[11px]">
+                <option>Low-Key Dramatic Chiaroscuro</option>
+                <option>Brutalist Architectural Sunset</option>
+                <option>Wet Concrete Editorial Campaign</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] text-zinc-500 uppercase">Focale Caméra :</label>
+              <input type="text" value="Hasselblad H6D-100c, 85mm F/1.8" class="w-full mt-0.5 p-1 bg-black border border-zinc-700 text-white text-[10px]">
+            </div>
+          </div>
+
+          <!-- Node 3: 4K Master Generation Output -->
+          <div class="absolute top-36 left-[900px] w-72 bg-[#14151a] border border-[#2e303d] p-3 shadow-2xl font-mono text-xs space-y-2">
+            <div class="flex justify-between items-center border-b border-[#24252e] pb-1.5">
+              <span class="font-bold text-blue-400">3. Hero Shot 4K</span>
+              <span class="text-[9px] text-emerald-400">READY</span>
+            </div>
+            <div class="h-32 bg-[#1a1b24] border border-[#2b2c37] flex flex-col items-center justify-center text-center p-2">
+              <div class="text-3xl mb-1">🖼️</div>
+              <div class="text-[10px] text-white font-bold">Hero Porté Editorial Résolution 4K</div>
+              <div class="text-[9px] text-zinc-500">Prêt pour Lookbook &amp; Campagne</div>
+            </div>
+            <button onclick="alert('Téléchargement du Hero Shot 4K lancé !')" class="btn-tactile w-full py-1.5 bg-[#252733] border border-blue-500 text-white text-center font-bold text-[11px]">
+              Télécharger Rendu 4K
+            </button>
+          </div>
+
+          <!-- Dynamic Nodes Container (Spawned from Floating Toolbar) -->
+          <div id="dynamic-nodes-container"></div>
+
+          <!-- FLOATING ACTION TOOLBAR: ADD NODES -->
+          <div class="absolute bottom-6 right-8 bg-[#15161c]/95 border-2 border-[#c5a059] p-2 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur flex items-center gap-2 z-30 font-mono text-xs">
+            <div class="flex items-center gap-1.5 px-2 text-[#c5a059] font-bold">
+              <span>+</span>
+              <span>Ajouter un Node :</span>
+            </div>
+            <button onclick="addFlowboardNode('ref')" class="btn-tactile px-2.5 py-1.5 bg-[#1e2029] hover:bg-[#282a36] text-white border border-[#333544] flex items-center gap-1 text-[11px]">
+              <span>🖼️</span> Ref Photo
+            </button>
+            <button onclick="addFlowboardNode('light')" class="btn-tactile px-2.5 py-1.5 bg-[#1e2029] hover:bg-[#282a36] text-white border border-[#333544] flex items-center gap-1 text-[11px]">
+              <span>💡</span> Rig Lumière
+            </button>
+            <button onclick="addFlowboardNode('optics')" class="btn-tactile px-2.5 py-1.5 bg-[#1e2029] hover:bg-[#282a36] text-white border border-[#333544] flex items-center gap-1 text-[11px]">
+              <span>📐</span> Objectif 100mm
+            </button>
+            <button onclick="addFlowboardNode('prompt')" class="btn-tactile px-2.5 py-1.5 bg-[#1e2029] hover:bg-[#282a36] text-white border border-[#333544] flex items-center gap-1 text-[11px]">
+              <span>✨</span> Style Modifier
+            </button>
+            <button onclick="addFlowboardNode('upscale')" class="btn-tactile px-3 py-1.5 bg-[#c5a059] hover:bg-[#d8b36c] text-black font-bold flex items-center gap-1 text-[11px] shadow-[2px_2px_0px_#ffffff]">
+              <span>🚀</span> Upscaler 4K
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT DOCKED INSPECTOR: SETTINGS & SLICER ENGINE         -->
+    <!-- ======================================================== -->
+    <aside id="rightInspectorPanel" class="w-80 md:w-96 border-l border-[#24252e] bg-[#131418] flex flex-col justify-between shrink-0 overflow-hidden font-mono text-xs select-none">
+      
+      <!-- Top Inspector Header with 3 Tabs -->
+      <div class="p-3 border-b border-[#24252e] bg-[#16171d] shrink-0 font-mono">
+        <div class="flex items-center justify-between mb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#c5a059] animate-pulse"></span>
+            <span class="text-xs font-bold text-white tracking-wider uppercase">Inspecteur de Shoot</span>
+          </div>
+          <button onclick="toggleRightInspector()" class="btn-tactile text-zinc-400 hover:text-white text-xs px-1 py-0.5">[Masquer ✕]</button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-1 bg-[#101115] p-1 border border-[#2b2c37] text-[11px]">
+          <button onclick="switchInspectorTab('directives')" id="tab-btn-directives" class="py-1 px-1.5 text-center text-white bg-[#252733] border border-[#3e4052] font-semibold transition">
+            📐 Cellule <span id="activeCellBadge">1</span>
+          </button>
+          <button onclick="switchInspectorTab('casting')" id="tab-btn-casting" class="py-1 px-1.5 text-center text-zinc-400 hover:text-white transition">
+            👤 Casting
+          </button>
+          <button onclick="switchInspectorTab('slicer')" id="tab-btn-slicer" class="py-1 px-1.5 text-center text-[#c5a059] hover:text-white transition font-bold">
+            ✂ Slicer
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Scrollable Body -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+        
+        <!-- ==================================================== -->
+        <!-- TAB 1: CELL DIRECTIVES & CAMERA SETTINGS             -->
+        <!-- ==================================================== -->
+        <div id="inspector-tab-directives" class="space-y-3.5">
+          <div class="flex justify-between items-center border-b border-[#24252e] pb-2">
+            <div>
+              <span class="text-[10px] text-zinc-500 uppercase font-bold">Configuration Cadrage</span>
+              <h4 class="text-sm font-bold text-[#c5a059] mt-0.5" id="inspectorCellTitle">Cellule 1 : Front Upright Hero</h4>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 bg-[#1b1c25] border border-[#2e3040] text-zinc-300">Case Active</span>
+          </div>
+
+          <div>
+            <label class="text-[10px] text-zinc-400 uppercase font-bold">Angle de Caméra &amp; Perspective :</label>
+            <select id="cellAngleSelect" onchange="updateCellDirectives()" class="w-full mt-1 p-1.5 bg-black border border-zinc-700 text-white text-xs">
+              <option value="front">Eye-Level Frontal 90° (Hero Packshot)</option>
+              <option value="angle45">Trois-Quarts Isométrique 45°</option>
+              <option value="macro">Macro 100mm Gros Plan (Fermoir &amp; Matière)</option>
+              <option value="worn">Éditorial Porté sur Peau (Échelle Humaine)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="text-[10px] text-zinc-400 uppercase font-bold">Optique / Focale :</label>
+              <select class="w-full mt-1 p-1.5 bg-black border border-zinc-700 text-white text-xs">
+                <option>85mm Prime F/4.0</option>
+                <option>100mm Macro 1:1</option>
+                <option>50mm Standard Studio</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] text-zinc-400 uppercase font-bold">Cadrage / Ratio :</label>
+              <select class="w-full mt-1 p-1.5 bg-black border border-zinc-700 text-white text-xs">
+                <option>Vertical 3:4 (80% Frame)</option>
+                <option>Square 1:1 Plein Cadre</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Upright Front Lock Guardrail -->
+          <div class="p-2.5 bg-[#16171d] border border-[#2b2c37] flex items-center justify-between">
+            <div>
+              <div class="text-[11px] font-bold text-white">Upright Front Lock</div>
+              <div class="text-[9px] text-zinc-500">Maintient la bague ou le septum 100% droit</div>
+            </div>
+            <input type="checkbox" checked class="cursor-pointer">
+          </div>
+
+          <!-- Prompt Slice Preview for this specific Cell -->
+          <div>
+            <div class="flex justify-between items-center text-[10px] text-zinc-400 uppercase font-bold mb-1">
+              <span>Directive Prompt pour cette Cellule :</span>
+              <span class="text-emerald-400">0 Texte Incrusté ✓</span>
+            </div>
+            <div id="cellPromptPreview" class="p-2.5 bg-black border border-zinc-800 text-[10px] text-zinc-300 leading-relaxed font-mono select-text">
+              Front upright commercial jewelry hero shot of the reference Darma Biomechanical Clicker, perfectly centered on #EFEFEF cyclorama studio, zero text, Hasselblad H6D-100c clarity.
+            </div>
+          </div>
+
+          <button onclick="applyCellSettings()" class="btn-tactile w-full py-2 bg-[#c5a059] text-black font-bold text-xs">
+            Appliquer à la Cellule <span id="applyCellNumber">1</span>
+          </button>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- TAB 2: MODEL CASTING (FOR CELL 4 EDITORIAL)          -->
+        <!-- ==================================================== -->
+        <div id="inspector-tab-casting" class="space-y-3.5 hidden">
+          <div class="border-b border-[#24252e] pb-2">
+            <span class="text-[10px] text-zinc-500 uppercase font-bold">Casting Agence Mannequins</span>
+            <h4 class="text-sm font-bold text-white mt-0.5">Continuité Biométrique Cellule 4</h4>
+          </div>
+
+          <div class="space-y-2">
+            <!-- Model 1 -->
+            <div onclick="selectModel('Astrid', 'Fair / Porcelaine')" class="p-2.5 bg-[#181920] border-2 border-[#c5a059] cursor-pointer space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-white text-xs">Astrid (Europe du Nord)</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-[#2a2b36] text-[#c5a059]">Sélectionnée</span>
+              </div>
+              <p class="text-[10px] text-zinc-400">Peau claire, pommettes anguleuses, cheveux sombres tirés, adaptée piercings faciaux &amp; septums.</p>
+            </div>
+
+            <!-- Model 2 -->
+            <div onclick="selectModel('Kenji', 'Warm Ochre / Métisse')" class="p-2.5 bg-[#181920] border border-[#2b2c37] hover:border-zinc-400 cursor-pointer space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-white text-xs">Kenji (Asie / Épuré)</span>
+                <span class="text-[9px] text-zinc-500">Disponible</span>
+              </div>
+              <p class="text-[10px] text-zinc-400">Teint hâlé chaud, structure faciale géométrique, idéal bagues massives &amp; manchettes brutes.</p>
+            </div>
+
+            <!-- Model 3 -->
+            <div onclick="selectModel('Zuri', 'Deep Melanin / Sombre')" class="p-2.5 bg-[#181920] border border-[#2b2c37] hover:border-zinc-400 cursor-pointer space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-white text-xs">Zuri (Ébène / Lumineux)</span>
+                <span class="text-[9px] text-zinc-500">Disponible</span>
+              </div>
+              <p class="text-[10px] text-zinc-400">Contraste maximum avec l'Argent 925 et les diamants bruts, reflets peau naturels.</p>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[10px] text-zinc-400 uppercase font-bold">Zone d'Adornment (Porté) :</label>
+            <select class="w-full mt-1 p-1.5 bg-black border border-zinc-700 text-white text-xs">
+              <option>Septum Facial (Focus Nez &amp; Lèvres)</option>
+              <option>Lobe d'Oreille (Poids &amp; Hangers)</option>
+              <option>Main &amp; Doigts (Bagues)</option>
+              <option>Clavicule &amp; Cou (Colliers Torcs)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- TAB 3: FLOW BRIDGE & SLICER OUTPUT                   -->
+        <!-- ==================================================== -->
+        <div id="inspector-tab-slicer" class="space-y-3.5 hidden">
+          <div class="border-b border-[#24252e] pb-2">
+            <span class="text-[10px] text-zinc-500 uppercase font-bold">Moteur Découpeur &amp; Export</span>
+            <h4 class="text-sm font-bold text-emerald-400 mt-0.5">4 Packshots 2048x2048 Prêts</h4>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+            <div class="p-2 bg-black border border-zinc-800 space-y-1">
+              <div class="text-lg">💍</div>
+              <div class="text-white font-bold">01_front.png</div>
+              <div class="text-emerald-400 text-[9px]">2048 × 2048 px</div>
+            </div>
+            <div class="p-2 bg-black border border-zinc-800 space-y-1">
+              <div class="text-lg">📐</div>
+              <div class="text-white font-bold">02_angle.png</div>
+              <div class="text-emerald-400 text-[9px]">2048 × 2048 px</div>
+            </div>
+            <div class="p-2 bg-black border border-zinc-800 space-y-1">
+              <div class="text-lg">🔍</div>
+              <div class="text-white font-bold">03_macro.png</div>
+              <div class="text-emerald-400 text-[9px]">2048 × 2048 px</div>
+            </div>
+            <div class="p-2 bg-black border border-zinc-800 space-y-1">
+              <div class="text-lg">👤</div>
+              <div class="text-white font-bold">04_worn.png</div>
+              <div class="text-emerald-400 text-[9px]">2048 × 2048 px</div>
+            </div>
+          </div>
+
+          <!-- Master Prompt Preview -->
+          <div>
+            <div class="text-[10px] text-zinc-400 uppercase font-bold mb-1">Master Prompt Compilé (Pont Flow 8100) :</div>
+            <div class="p-2 bg-black border border-zinc-800 text-[9px] text-zinc-400 h-24 overflow-y-auto leading-relaxed font-mono select-text" id="masterPromptBox">
+              A professional 2x2 luxury commercial jewelry contact sheet, 4 vertical 3:4 portrait vignettes, edge-to-edge full bleed, solid #EFEFEF cyclorama background, zero text, zero labels, shot on Hasselblad H6D-100c. Cell 1: front upright hero. Cell 2: 45 degree isometric. Cell 3: 100mm macro clasp detail. Cell 4: editorial worn on Nordic model Astrid.
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-[#24252e] space-y-2">
+            <button onclick="exportSlicesToStock()" class="btn-tactile w-full py-2 bg-[#c5a059] text-black font-bold text-xs flex items-center justify-center gap-1.5 shadow-lg">
+              <span>📦</span>
+              <span>Injecter les 4 Slices dans Stupid Stock</span>
+            </button>
+            <button onclick="openInStupidShopFromShoot()" class="btn-tactile w-full py-1.5 bg-[#252733] border border-[#3e4052] hover:border-emerald-400 text-zinc-200 hover:text-white text-xs flex items-center justify-center gap-1.5 font-mono">
+              <span>🛍️</span>
+              <span>Créer Fiche dans Stupid Shop ➔</span>
+            </button>
+            <button onclick="alert('Téléchargement du ZIP contenant les 4 images 2K...')" class="btn-tactile w-full py-1.5 bg-[#1e1f26] border border-[#2e303d] text-zinc-300 hover:text-white text-xs">
+              Télécharger l'Archive ZIP (4 Packshots)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Inspector Footer -->
+      <div class="p-3 border-t border-[#24252e] bg-[#101115] font-mono text-[10px] text-zinc-500 flex justify-between items-center shrink-0">
+        <span>Stupid Shoot Engine • Serious Studio</span>
+        <span class="text-[#c5a059]">2x2 Isomorphe</span>
+      </div>
+
+    </aside>
+
+  </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- SLIDING DRAWER: BATCH PROCESSOR QUEUE                    -->
+  <!-- ======================================================== -->
+  <div id="batchDrawerBackdrop" onclick="toggleBatchDrawer()" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-40 transition-opacity"></div>
+  <aside id="batchDrawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-[#14151a] border-l border-[#2e2f3b] shadow-2xl p-6 z-50 transform translate-x-full panel-slide overflow-y-auto font-mono text-xs">
+    
+    <div class="flex items-center justify-between border-b border-[#24252e] pb-3">
+      <div>
+        <span class="text-[10px] text-[#c5a059] uppercase font-bold">Automatisation Studio</span>
+        <h3 class="text-sm font-bold text-white mt-0.5">Batch Processor (File Multi-SKU)</h3>
+      </div>
+      <button onclick="toggleBatchDrawer()" class="btn-tactile text-zinc-400 hover:text-white text-xs">[Fermer ✕]</button>
+    </div>
+
+    <div class="mt-4 space-y-3">
+      <p class="text-[11px] text-zinc-400">
+        Lance la génération séquentielle des planches 2x2 et la découpe automatique pour l'ensemble des articles sélectionnés.
+      </p>
+
+      <!-- Batch Queue List -->
+      <div class="space-y-2 border border-[#24252e] bg-[#101115] p-3 max-h-72 overflow-y-auto" id="batchQueueItems">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Batch Progress Simulation -->
+      <div id="batchProgressBarContainer" class="hidden p-3 bg-[#181920] border border-[#262732] space-y-2">
+        <div class="flex justify-between items-center text-[10px]">
+          <span class="text-white font-bold" id="batchStatusText">Envoi au Pont Flow : port 8100...</span>
+          <span class="text-[#c5a059] font-bold" id="batchPercentText">0%</span>
+        </div>
+        <div class="w-full h-2 bg-zinc-800 overflow-hidden">
+          <div id="batchProgressBar" class="h-full bg-[#c5a059] transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-[#24252e] flex justify-end gap-2">
+        <button onclick="toggleBatchDrawer()" class="btn-tactile px-3 py-1.5 bg-[#1e1f26] text-zinc-300">Annuler</button>
+        <button onclick="runBatchProcess()" id="btnStartBatch" class="btn-tactile px-4 py-1.5 bg-[#c5a059] text-black font-bold flex items-center gap-1.5">
+          <span>⚡</span>
+          <span>Démarrer le Batch (5 Produits)</span>
+        </button>
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- ======================================================== -->
+  <!-- MODAL / DRAWER: SHOOT PRODUCT MANAGER (ADD / EDIT / DEL) -->
+  <!-- ======================================================== -->
+  <div id="shootProductModalBackdrop" onclick="closeShootProductModal()" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  <div id="shootProductModal" class="fixed inset-y-0 right-0 w-full max-w-lg bg-[#14151a] border-l border-[#2e303d] shadow-2xl p-5 z-50 flex flex-col justify-between font-mono text-xs select-none hidden transform transition-transform">
+    
+    <!-- Top Header -->
+    <div>
+      <div class="flex items-center justify-between border-b border-[#24252e] pb-3 mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 bg-[#c5a059]"></span>
+          <div>
+            <span class="text-[10px] text-[#c5a059] uppercase font-bold tracking-wider" id="shootModalSubTitle">Gestion Catalogue Studio</span>
+            <h3 class="text-sm font-bold text-white" id="shootModalTitle">Ajouter un Produit à Shooter</h3>
+          </div>
+        </div>
+        <button onclick="closeShootProductModal()" class="btn-tactile text-zinc-400 hover:text-white px-2 py-1 bg-[#1c1d25] border border-zinc-700">[Fermer ✕]</button>
+      </div>
+
+      <!-- Scrollable Form Body -->
+      <div class="space-y-4 max-h-[calc(100vh-180px)] overflow-y-auto pr-1">
+        
+        <!-- Hidden input for current editing SKU -->
+        <input type="hidden" id="editOriginalSku" value="">
+
+        <!-- 1. Brand Selection -->
+        <div>
+          <label class="text-[10px] text-zinc-400 uppercase font-bold block mb-1">Marque du Produit :</label>
+          <select id="modalProductBrand" onchange="autoSuggestSku()" class="w-full p-2 bg-black border border-zinc-700 text-white text-xs focus:border-[#c5a059] focus:outline-none">
+            <option value="KM">💍 Kaya Movement (KM)</option>
+            <option value="AE">🌑 Ask &amp; Embla (AE)</option>
+            <option value="P4">🗿 Parts of Four (P4)</option>
+            <option value="SER">✦ Serious Atelier Custom (SER)</option>
+          </select>
+        </div>
+
+        <!-- 2. SKU and Auto-generate -->
+        <div class="grid grid-cols-3 gap-2">
+          <div class="col-span-2">
+            <label class="text-[10px] text-zinc-400 uppercase font-bold block mb-1">Code SKU / Référence :</label>
+            <input type="text" id="modalProductSku" placeholder="ex: KM-RNG-006" class="w-full p-2 bg-black border border-zinc-700 text-white font-mono text-xs focus:border-[#c5a059] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] text-transparent block mb-1">Action</label>
+            <button type="button" onclick="autoSuggestSku(true)" class="btn-tactile w-full p-2 bg-[#20212b] border border-zinc-700 hover:border-[#c5a059] text-zinc-300 text-[11px] text-center" title="Générer un code SKU libre">
+              ⚡ Auto-SKU
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Title -->
+        <div>
+          <label class="text-[10px] text-zinc-400 uppercase font-bold block mb-1">Nom du Modèle / Titre :</label>
+          <input type="text" id="modalProductTitle" placeholder="ex: Biomechanical Talisman Ring" class="w-full p-2 bg-black border border-zinc-700 text-white text-xs focus:border-[#c5a059] focus:outline-none">
+        </div>
+
+        <!-- 4. Category -->
+        <div>
+          <label class="text-[10px] text-zinc-400 uppercase font-bold block mb-1">Catégorie Studio :</label>
+          <select id="modalProductCategory" class="w-full p-2 bg-black border border-zinc-700 text-white text-xs focus:border-[#c5a059] focus:outline-none">
+            <option value="Rings / Statement Rings">Rings / Statement Rings</option>
+            <option value="Rings / Mega Pavé">Rings / Mega Pavé</option>
+            <option value="Septum Rings / Clickers">Septum Rings / Clickers</option>
+            <option value="Gauged Earrings / Weights &amp; Hangers">Gauged Earrings / Weights &amp; Hangers</option>
+            <option value="Hoop &amp; Disc Earrings">Hoop &amp; Disc Earrings</option>
+            <option value="Necklaces / Pendants">Necklaces / Pendants</option>
+            <option value="Necklaces / Disks &amp; Torcs">Necklaces / Disks &amp; Torcs</option>
+            <option value="Lip Cuffs / Face Jewelry">Lip Cuffs / Face Jewelry</option>
+            <option value="Bracelets / Cuffs">Bracelets / Cuffs</option>
+            <option value="Leather Accessories / Gloves &amp; Holsters">Leather Accessories / Gloves &amp; Holsters</option>
+          </select>
+        </div>
+
+        <!-- 5. Materials & Finish -->
+        <div>
+          <label class="text-[10px] text-zinc-400 uppercase font-bold block mb-1">Matières &amp; Finitions :</label>
+          <input type="text" id="modalProductMaterials" placeholder="ex: Argent 925 patiné, Laiton doré, Diamants bruts" class="w-full p-2 bg-black border border-zinc-700 text-white text-xs focus:border-[#c5a059] focus:outline-none">
+        </div>
+
+        <!-- 6. Mandatory 3-Photo Reference Stack (Anti-Hallucination) -->
+        <div class="p-3 bg-[#171821] border border-[#2b2c37] space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] text-[#c5a059] uppercase font-bold">Photos de Référence Physiques (3 requises)</span>
+            <span class="text-[9px] px-1.5 py-0.2 bg-emerald-950 border border-emerald-800 text-emerald-300">Anti-Hallucination</span>
+          </div>
+          <p class="text-[10px] text-zinc-400">
+            Téléversez ou liez les 3 angles de l'objet pour verrouiller les reflets du métal et la texture.
+          </p>
+
+          <div class="grid grid-cols-3 gap-2">
+            <!-- Slot 1: Face -->
+            <div class="p-2 bg-black border border-zinc-700 text-center space-y-1.5">
+              <div class="text-[9px] text-zinc-400 uppercase font-bold">1. Face Hero</div>
+              <div class="w-full h-16 bg-[#1a1b22] border border-zinc-800 flex items-center justify-center overflow-hidden" id="modalRefPreview1">
+                <span class="text-xl">📸</span>
+              </div>
+              <button type="button" onclick="simulateRefUpload(1)" class="btn-tactile w-full py-0.5 bg-[#252632] hover:bg-zinc-700 text-[10px] text-zinc-200">
+                Parcourir...
+              </button>
+            </div>
+
+            <!-- Slot 2: Angle 45 -->
+            <div class="p-2 bg-black border border-zinc-700 text-center space-y-1.5">
+              <div class="text-[9px] text-zinc-400 uppercase font-bold">2. Profil 45°</div>
+              <div class="w-full h-16 bg-[#1a1b22] border border-zinc-800 flex items-center justify-center overflow-hidden" id="modalRefPreview2">
+                <span class="text-xl">📐</span>
+              </div>
+              <button type="button" onclick="simulateRefUpload(2)" class="btn-tactile w-full py-0.5 bg-[#252632] hover:bg-zinc-700 text-[10px] text-zinc-200">
+                Parcourir...
+              </button>
+            </div>
+
+            <!-- Slot 3: Macro -->
+            <div class="p-2 bg-black border border-zinc-700 text-center space-y-1.5">
+              <div class="text-[9px] text-zinc-400 uppercase font-bold">3. Macro Poinçon</div>
+              <div class="w-full h-16 bg-[#1a1b22] border border-zinc-800 flex items-center justify-center overflow-hidden" id="modalRefPreview3">
+                <span class="text-xl">🔍</span>
+              </div>
+              <button type="button" onclick="simulateRefUpload(3)" class="btn-tactile w-full py-0.5 bg-[#252632] hover:bg-zinc-700 text-[10px] text-zinc-200">
+                Parcourir...
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="pt-4 border-t border-[#24252e] flex items-center justify-between gap-2 shrink-0">
+      <div id="modalDeleteBtnContainer">
+        <!-- In edit mode, contains delete button -->
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="closeShootProductModal()" class="btn-tactile px-3 py-1.5 bg-[#1e1f26] hover:bg-zinc-800 text-zinc-300 text-xs">
+          Annuler
+        </button>
+        <button type="button" onclick="saveShootProductFromModal()" id="btnSaveShootProduct" class="btn-tactile px-4 py-1.5 bg-[#c5a059] hover:bg-[#d8b36c] text-black font-bold text-xs flex items-center gap-1.5 shadow-[2px_2px_0px_#ffffff]">
+          <span>✓</span>
+          <span id="btnSaveShootProductText">Ajouter au Studio ➔</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT STUDIO ENGINE                                 -->
+  <!-- ======================================================== -->
+  <script>
+    // Embedded Catalog Data from catalog_seed.json
+    const catalogData = [
+  {
+    "sku": "KM-SEP-001",
+    "brand_id": "kaya_movement",
+    "brand_name": "Kaya Movement",
+    "title": "Darma Biomechanical Clicker Hoop Septum (16g - Silver)",
+    "category": "Septum Rings / Clickers",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "925 Sterling Silver",
+      "Hypoallergenic White Brass Substructure"
+    ],
+    "specs": {
+      "gauge": "16g (1.2mm)",
+      "inner_diameter": "8mm & 10mm options",
+      "outer_diameter": "12.5mm",
+      "closure": "Precision Hinged Clicker Segment",
+      "finish": "Oxidized Antique Silver with Hand-Polished High-Relief Bevels",
+      "weight": "3.2g"
+    },
+    "variants": [
+      {
+        "variant_sku": "KM-SEP-001-8MM",
+        "name": "16g / 8mm Inner Diameter",
+        "specs": {
+          "gauge": "16g",
+          "inner_diameter": "8mm"
+        },
+        "stock": 12,
+        "shelf_bin": "LIL-A04-1",
+        "price_override": null
+      },
+      {
+        "variant_sku": "KM-SEP-001-10MM",
+        "name": "16g / 10mm Inner Diameter",
+        "specs": {
+          "gauge": "16g",
+          "inner_diameter": "10mm"
+        },
+        "stock": 14,
+        "shelf_bin": "LIL-A04-2",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "LIL-A04",
+    "stock_by_location": {
+      "lille_hub": 10,
+      "bali_workshop": 16
+    },
+    "production_cost": 28.0,
+    "retail_price": 115.0,
+    "wholesale_price": 57.5,
+    "margin_percentage": 75.7,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Darma Biomechanical Clicker Hoop Septum (16g - Silver). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural biomechanical clicker ring in solid 925 sterling silver with deep blackened oxidation in carved crevices and mirror-polished angular bevels. Precision hinged closure mechanism with audible seamless snap. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Perfectly centered frontal eye-level packshot of the single Darma clicker standing upright on stone base, showcasing organic exoskeleton contours and mechanical symmetry. Cell 2 (3/4 Perspective): 45-degree angle displaying dimensional relief, hinge thickness, and sculptural depth. Cell 3 (Side Profile): 90-degree lateral profile emphasizing curved ergonomic septum arch and tapered segment pin. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct 90-degree top-down macro flat lay on #EFEFEF surface displaying open clicker hinge angle and precise micro-pivot. Cell 5 (Optical Macro): Extreme optical macro close-up filling frame, revealing fine hand-filed industrial facets, silver hallmarks (925), and brushed satin metal texture. Cell 6 (Mechanical Detail): Technical macro focus on the precision tongue-and-groove clicker latch closure mechanism. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with striking bone structure, wearing the silver Darma clicker in septum piercing, natural skin texture, understated neutral styling. Cell 8 (Intimate Micro-Crop): Tight macro crop on the philtrum, upper lip, and columella, displaying the silver clicker resting comfortably against skin with realistic subsurface scattering. Cell 9 (Dynamic Lifestyle): 3/4 low-angle editorial styling shot highlighting light play and reflections along the silver biomechanical ridges. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/septum-rings-piercing-biomech-silver-16g-1.jpg",
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/septum-rings-piercing-biomech-silver-16g-2.jpg"
+    ]
+  },
+  {
+    "sku": "KM-WGT-002",
+    "brand_id": "kaya_movement",
+    "brand_name": "Kaya Movement",
+    "title": "EXRO Biomechanical Keyhole Ear Weights (2g - Gold Brass)",
+    "category": "Gauged Earrings / Weights & Hangers",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Solid Cast Antique Gold Brass"
+    ],
+    "specs": {
+      "min_lobe_size": "2g (6mm)",
+      "dimensions": "42mm x 28mm x 8mm",
+      "weight_per_piece": "32g (64g total pair)",
+      "closure": "Sculpted Keyhole Insertion Hook",
+      "finish": "Hand-Polished Satin Gold Brass with Deep Recessed Oxidation",
+      "pair_mode": "MATCHED_PAIR"
+    },
+    "variants": [
+      {
+        "variant_sku": "KM-WGT-002-PAIR",
+        "name": "Standard Pair (2 Pieces) - 2g Minimum Lobe",
+        "specs": {
+          "min_lobe": "2g (6mm)",
+          "pair": true
+        },
+        "stock": 18,
+        "shelf_bin": "LIL-B02-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "LIL-B02",
+    "stock_by_location": {
+      "lille_hub": 8,
+      "bali_workshop": 10
+    },
+    "production_cost": 34.0,
+    "retail_price": 145.0,
+    "wholesale_price": 72.5,
+    "margin_percentage": 76.6,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the EXRO Biomechanical Keyhole Ear Weights (2g - Gold Brass). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Heavy sculpted ear weights in solid antique gold brass, geometric keyhole silhouette, interlocking cybernetic ribs with dark oxidised relief recesses. Mode: MATCHED_PAIR (Symmetrical identical pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Perfectly centered frontal eye-level packshot of the matched pair of EXRO ear weights standing upright side-by-side on stone plinth, showing sacred geometry and brass weight balance. Cell 2 (3/4 Perspective): Three-quarter angle displaying the flared keyhole gap, dimensional bevels, and thick ergonomic saddle contour. Cell 3 (Side Profile): Lateral 90-degree view showing the 8mm thickness and smooth continuous curve of the hook. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay of the symmetrical pair arranged organically on the #EFEFEF surface. Cell 5 (Optical Macro): Extreme optical macro close-up on the deep sculpted biomechanical ridges and warm hand-rubbed brass patina. Cell 6 (Mechanical Detail): Technical focus on the smooth polished 6mm insertion saddle designed for comfortable stretched ear wear. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with 10mm stretched earlobes wearing the EXRO brass weights, clean bone structure, neutral attire. Cell 8 (Intimate Micro-Crop): Intimate close-up framing the stretched earlobe, highlighting how the 32g brass weight sits and drapes gracefully under gravity against the jawline. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing warm light glints on the golden brass surfaces. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/KeyholeearhangerHrgiger6mm-4.jpg",
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/KeyholeearhangerHrgiger6mm-2.jpg"
+    ]
+  },
+  {
+    "sku": "KM-EAR-003",
+    "brand_id": "kaya_movement",
+    "brand_name": "Kaya Movement",
+    "title": "CIRCUIT Oversized Visionary Disc Hoop Earrings (16g - Gold)",
+    "category": "Hoop & Disc Earrings",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Architectural Cast Brass",
+      "18K Yellow Gold Micron Plating",
+      "Hypoallergenic Surgical Steel Ear Wire"
+    ],
+    "specs": {
+      "gauge": "16g (1.2mm)",
+      "outer_diameter": "55mm",
+      "thickness": "2.2mm",
+      "closure": "Surgical Steel Snap-Bar Clicker",
+      "motifs": "Laser-Etched Visionary Printed Circuit Board Traces & Fractal Mandala",
+      "finish": "Mirror-Polished 18K Yellow Gold Plate with Matte Acid-Etched Traces",
+      "weight_per_pair": "24g (12g each piece)"
+    },
+    "variants": [
+      {
+        "variant_sku": "KM-EAR-003-PAIR",
+        "name": "Standard Pair - 55mm / 16g",
+        "specs": {
+          "diameter": "55mm",
+          "gauge": "16g",
+          "pair": true
+        },
+        "stock": 22,
+        "shelf_bin": "LIL-B05-3",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "LIL-B05",
+    "stock_by_location": {
+      "lille_hub": 12,
+      "bali_workshop": 10
+    },
+    "production_cost": 26.0,
+    "retail_price": 120.0,
+    "wholesale_price": 60.0,
+    "margin_percentage": 78.3,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the CIRCUIT Oversized Visionary Disc Hoop Earrings (16g - Gold). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monumental 55mm disc hoop earrings in 18K gold plated brass, featuring laser-etched cybernetic printed circuit patterns and visionary geometric rings. Mode: MATCHED_PAIR (Symmetrical identical pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the symmetrical pair of CIRCUIT disc hoops standing upright, highlighting geometric disc diameter and shimmering circular reflections. Cell 2 (3/4 Perspective): Three-quarter angle revealing plate thickness, bevelled rim, and curved clasp bar. Cell 3 (Side Profile): Sharp 90-degree profile showing the slender 2.2mm profile and surgical steel pin latch. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the full labyrinthine mandala of circuit board traces. Cell 5 (Optical Macro): Extreme macro view capturing ultra-fine laser etching micro-details, contrasting matte recesses with high-polish gold surfaces. Cell 6 (Mechanical Detail): Extreme close-up of the surgical steel clicker hinge and secure lock notch. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with sleek pulled-back hair wearing the CIRCUIT hoops, showing scale against cheek and neck. Cell 8 (Intimate Micro-Crop): Close-up crop of the earlobe and neck area highlighting the disc framing the jawline under soft studio light. Cell 9 (Dynamic Lifestyle): 3/4 motion editorial portrait displaying specular highlights sweeping across the gold disc surface. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/sacred-geometry-earrings-extra-large-tribal-2.jpg",
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/DSC4859-Edit.jpg"
+    ]
+  },
+  {
+    "sku": "KM-GLV-004",
+    "brand_id": "kaya_movement",
+    "brand_name": "Kaya Movement",
+    "title": "DZALA Genuine Leather Fingerless Biker Gloves",
+    "category": "Leather Accessories / Gloves",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Full-Grain Cowhide Leather (1.2mm)",
+      "Gunmetal Alloy Snap Rivets",
+      "Waxed Nylon Structural Thread",
+      "Contrast Crimson Edge Lacquer"
+    ],
+    "specs": {
+      "style": "Ergonomic Articulated Fingerless Tactical Biker Gloves",
+      "closure": "Dual Heavy Snap-Button Wrist Tabs with Elasticated Gusset",
+      "palmar_reinforcement": "Double-Stitched Padded Cowhide Abrasion Patch",
+      "details": "Perforated Knuckle Ventilation Holes & Hand-Burnished Crimson Contrast Edges",
+      "sizing": "Unisex S, M, L",
+      "pair_mode": "MATCHED_PAIR"
+    },
+    "variants": [
+      {
+        "variant_sku": "KM-GLV-004-S",
+        "name": "Size S (Hand Circumference 18-19cm)",
+        "specs": {
+          "size": "S",
+          "circumference_cm": "18-19"
+        },
+        "stock": 6,
+        "shelf_bin": "LIL-C01-1",
+        "price_override": null
+      },
+      {
+        "variant_sku": "KM-GLV-004-M",
+        "name": "Size M (Hand Circumference 20-21cm)",
+        "specs": {
+          "size": "M",
+          "circumference_cm": "20-21"
+        },
+        "stock": 10,
+        "shelf_bin": "LIL-C01-2",
+        "price_override": null
+      },
+      {
+        "variant_sku": "KM-GLV-004-L",
+        "name": "Size L (Hand Circumference 22-23cm)",
+        "specs": {
+          "size": "L",
+          "circumference_cm": "22-23"
+        },
+        "stock": 8,
+        "shelf_bin": "LIL-C01-3",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "LIL-C01",
+    "stock_by_location": {
+      "lille_hub": 14,
+      "bali_workshop": 10
+    },
+    "production_cost": 42.0,
+    "retail_price": 180.0,
+    "wholesale_price": 90.0,
+    "margin_percentage": 76.7,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury accessories 3x3 contact sheet featuring the DZALA Genuine Leather Fingerless Biker Gloves. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Tactile fingerless biker gloves in supple matte black full-grain cowhide leather with crimson edge burnishing, articulated knuckle padding, and gunmetal industrial snap buttons. Mode: MATCHED_PAIR (Left and right glove pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Symmetrical frontal packshot of the pair of DZALA gloves arranged side by side showing dorsal knuckle architecture and crimson accents. Cell 2 (3/4 Perspective): Three-quarter perspective showing thumb gusset, curved wrist strap, and ergonomic anatomical contours. Cell 3 (Side Profile): Lateral profile detailing the edge paint burnishing and wrist closure tabs. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay with gloves turned palms up, displaying the reinforced palm grip pad and heavy double stitching. Cell 5 (Optical Macro): Extreme macro close-up of natural cowhide leather grain, micro-perforations, and waxed red perimeter thread. Cell 6 (Mechanical Detail): Technical focus on the heavy gunmetal snap buttons and elasticated wrist gusset. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Avant-garde editorial portrait of model with hands clasped across chest wearing the DZALA gloves, sleek dark aesthetic. Cell 8 (Intimate Micro-Crop): Intimate close-up of hands gripping an architectural surface, highlighting leather flexing over knuckles and finger articulation. Cell 9 (Dynamic Lifestyle): Dynamic 3/4 styling shot showing the gloves paired with minimalist dark fashion wear. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/files/A7405782.jpg",
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/files/A7405785.jpg"
+    ]
+  },
+  {
+    "sku": "KM-BAG-005",
+    "brand_id": "kaya_movement",
+    "brand_name": "Kaya Movement",
+    "title": "KERO Unisex Lightweight Leather Holster Bag",
+    "category": "Leather Bags / Holster Bags",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Vegetable-Tanned Full-Grain Cowhide (1.8mm)",
+      "Matte Black Industrial Zinc Buckles",
+      "YKK Excella Matte Black Metal Zippers",
+      "RFID-Blocking Internal Microfiber Lining"
+    ],
+    "specs": {
+      "design": "Dual Modular Body Holster Harness System",
+      "pocket_dimensions": "18cm height x 12cm width x 3.5cm depth (x2 independent pouches)",
+      "strap_adjustment": "Chest & Back Modular Webbing 85cm - 135cm Range",
+      "security": "Hidden Internal Passport & Card Stash Sleeve with RFID Shielding",
+      "finish": "Hand-Waxed Matte Charcoal Black Pull-Up Leather",
+      "weight": "420g total harness"
+    },
+    "variants": [
+      {
+        "variant_sku": "KM-BAG-005-BLK",
+        "name": "Charcoal Black - One Size Modular",
+        "specs": {
+          "color": "Charcoal Black",
+          "size": "One Size (Adjustable)"
+        },
+        "stock": 15,
+        "shelf_bin": "LIL-D03-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "LIL-D03",
+    "stock_by_location": {
+      "lille_hub": 7,
+      "bali_workshop": 8
+    },
+    "production_cost": 75.0,
+    "retail_price": 290.0,
+    "wholesale_price": 145.0,
+    "margin_percentage": 74.1,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury accessories 3x3 contact sheet featuring the KERO Unisex Lightweight Leather Holster Bag. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Avant-garde dual holster bag in waxed charcoal black vegetable-tanned leather, featuring crossover harness straps, matte black industrial hardware, and streamlined rectangular pouches. Mode: SINGLE_ITEM (Complete Holster System). Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the KERO holster suspended symmetrically in space, displaying both bilateral pouches and chest connector. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing pocket volume, zipper arch, and heavy leather strap thickness. Cell 3 (Side Profile): Lateral view showcasing how the slim pouch profile hugs the torso line without bulk. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF background demonstrating the geometric X-back harness strap arrangement. Cell 5 (Optical Macro): Extreme optical macro close-up of the YKK Excella metal zipper teeth and waxed pull-up leather texture. Cell 6 (Mechanical Detail): Technical focus on the matte black zinc harness adjustment buckle and riveted swivel hardware. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model wearing the KERO holster over a tailored minimalist dark blazer. Cell 8 (Intimate Micro-Crop): Close-up crop at the ribcage showing the leather pouch resting cleanly against the body, with hand reaching toward the zipper pull. Cell 9 (Dynamic Lifestyle): Back view editorial styling shot showing the clean crossed harness strapping across the shoulders. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_1.jpg",
+      "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/13102019-SS19_61.jpg",
+      "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/13102019-SS19_64.jpg"
+    ]
+  },
+  {
+    "sku": "AE-NCK-001",
+    "brand_id": "ask_and_embla",
+    "brand_name": "Ask & Embla",
+    "title": "UNHOLY GRAIL Necklace",
+    "category": "Necklaces / Pendants",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "316L Surgical Stainless Steel",
+      "Acid-Resistant Black Enamel Inlay"
+    ],
+    "specs": {
+      "pendant_dimensions": "48mm height x 26mm width x 5mm depth",
+      "chain_type": "Heavy Modified Wheat Chain (4mm link diameter)",
+      "chain_length": "55cm with 5cm micro-adjuster extension",
+      "clasp": "Custom Sculpted Gothic Lobster Clasp",
+      "finish": "Mirror-Polished Chrome with Deep Recessed Antique Blackening",
+      "weight": "48g"
+    },
+    "variants": [
+      {
+        "variant_sku": "AE-NCK-001-55CM",
+        "name": "55cm + 5cm Extender - Surgical Steel",
+        "specs": {
+          "chain_length": "55cm-60cm",
+          "finish": "Mirror Chrome / Black"
+        },
+        "stock": 35,
+        "shelf_bin": "BER-N01-2",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "BER-N01",
+    "stock_by_location": {
+      "singapore_hq": 15,
+      "lille_hub": 12,
+      "berlin_depot": 8
+    },
+    "production_cost": 22.0,
+    "retail_price": 98.0,
+    "wholesale_price": 49.0,
+    "margin_percentage": 77.6,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the UNHOLY GRAIL Necklace. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural gothic talisman necklace in 316L surgical stainless steel featuring an inverted sacred chalice with relief thorns and black enamel shadows, suspended from a heavy wheat chain. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Perfectly centered frontal eye-level packshot of the UNHOLY GRAIL pendant suspended upright with wheat chain draped symmetrically on matte stone. Cell 2 (3/4 Perspective): Three-quarter angle highlighting the relief goblet stem, sculpted thorn filigree, and depth of the hollow bowl. Cell 3 (Side Profile): Lateral 90-degree profile showing the 5mm solid pendant thickness and substantial bail loop. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the wheat chain coiled in a fluid halo around the central talisman. Cell 5 (Optical Macro): Extreme macro view capturing the liquid mirror chrome polish contrasted with blackened antique filigree crevices. Cell 6 (Mechanical Detail): Technical macro focus on the custom gothic lobster claw clasp and engraved steel hallmark (316L). Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with dark styling, wearing the UNHOLY GRAIL necklace resting along the collarbone. Cell 8 (Intimate Micro-Crop): Close-up crop centered on the sternum and throat, showing the cold steel pendant resting directly against human skin. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing crisp specular light glints across the steel chalice curves. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/NL0977_-_S_-_1.jpg",
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/BL0913_-_S_-_1.jpg"
+    ]
+  },
+  {
+    "sku": "AE-LIP-002",
+    "brand_id": "ask_and_embla",
+    "brand_name": "Ask & Embla",
+    "title": "Iridium Lip Cuff",
+    "category": "Lip Cuffs / Face Jewelry",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Solid 925 Sterling Silver",
+      "High-Shine Rhodium Barrier Plating"
+    ],
+    "specs": {
+      "type": "Non-Piercing Ergonomic Lip Adornment",
+      "dimensions": "12mm height x 8mm inner arch width",
+      "thickness": "1.8mm comfort rounded edge",
+      "tension": "Calibrated Gentle Mechanical Compression Grip",
+      "finish": "Liquid Mirror Chrome Rhodium Finish",
+      "weight": "2.1g"
+    },
+    "variants": [
+      {
+        "variant_sku": "AE-LIP-002-SLV",
+        "name": "Universal Fit - 925 Sterling Silver Mirror",
+        "specs": {
+          "size": "Universal Fit",
+          "finish": "Mirror Rhodium"
+        },
+        "stock": 40,
+        "shelf_bin": "BER-L03-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "BER-L03",
+    "stock_by_location": {
+      "singapore_hq": 20,
+      "lille_hub": 15,
+      "berlin_depot": 5
+    },
+    "production_cost": 14.5,
+    "retail_price": 68.0,
+    "wholesale_price": 34.0,
+    "margin_percentage": 78.7,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Iridium Lip Cuff. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Minimalist sculptural non-piercing lip cuff in rhodium-plated 925 sterling silver, fluid ergonomic U-curve with comfort-beveled tips. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the single Iridium cuff resting upright on stone base, showcasing liquid metallic reflections and pure minimalist curve. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing continuous tapered thickness and mirror shine. Cell 3 (Side Profile): Lateral 90-degree profile showing the precision tension gap designed for non-pierced lip wear. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the symmetric U-profile of the cuff. Cell 5 (Optical Macro): Extreme macro view capturing the microscopic rhodium mirror finish and comfort-rounded inner edges. Cell 6 (Mechanical Detail): Technical focus on the subtle hallmark stamp (925) and tension retention curve. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): High-fashion editorial beauty portrait of model wearing the silver Iridium cuff clipped securely to the center of the lower lip. Cell 8 (Intimate Micro-Crop): Ultra-tight macro crop on the lips and chin, displaying the gleaming silver hugging the natural vermilion border of the lower lip with soft skin texture. Cell 9 (Dynamic Lifestyle): 3/4 editorial angle showing subtle head tilt and dramatic light play on the chrome curve. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/3529-Edit.jpg",
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/AskandEmblaDeliriumLipCuff6.jpg"
+    ]
+  },
+  {
+    "sku": "AE-RNG-003",
+    "brand_id": "ask_and_embla",
+    "brand_name": "Ask & Embla",
+    "title": "Sorcerer Serpent Ring",
+    "category": "Rings / Statement Rings",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "316L Surgical Stainless Steel",
+      "Natural Faceted Black Obsidian Gemstone Insets"
+    ],
+    "specs": {
+      "band_type": "Continuous Wrap-Around Ouroboros Serpent Band",
+      "width": "18mm at serpent head tapering to 6mm at tail",
+      "stone_accents": "2x 1.5mm Natural Faceted Black Obsidian Inset Eyes",
+      "finish": "Smoked Gunmetal Antique Patina with Polished Scale Facets",
+      "weight": "11.5g"
+    },
+    "variants": [
+      {
+        "variant_sku": "AE-RNG-003-US7",
+        "name": "US 7 / EU 54",
+        "specs": {
+          "us_size": 7,
+          "eu_size": 54,
+          "inner_diameter_mm": 17.3
+        },
+        "stock": 10,
+        "shelf_bin": "BER-R02-1",
+        "price_override": null
+      },
+      {
+        "variant_sku": "AE-RNG-003-US9",
+        "name": "US 9 / EU 60",
+        "specs": {
+          "us_size": 9,
+          "eu_size": 60,
+          "inner_diameter_mm": 19.0
+        },
+        "stock": 12,
+        "shelf_bin": "BER-R02-2",
+        "price_override": null
+      },
+      {
+        "variant_sku": "AE-RNG-003-US11",
+        "name": "US 11 / EU 65",
+        "specs": {
+          "us_size": 11,
+          "eu_size": 65,
+          "inner_diameter_mm": 20.6
+        },
+        "stock": 8,
+        "shelf_bin": "BER-R02-3",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "BER-R02",
+    "stock_by_location": {
+      "singapore_hq": 12,
+      "lille_hub": 10,
+      "berlin_depot": 8
+    },
+    "production_cost": 18.0,
+    "retail_price": 82.0,
+    "wholesale_price": 41.0,
+    "margin_percentage": 78.0,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/ask_and_embla/products/AE-RNG-003/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-RNG-003/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Sorcerer Serpent Ring. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural wrap-around snake ring in smoked gunmetal 316L steel, hand-carved overlapping scales, flared serpent cobra hood, and two faceted black obsidian gemstone eyes. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the Sorcerer ring standing upright, showcasing the viper head with obsidian eyes peering forward in immaculate balance. Cell 2 (3/4 Perspective): Three-quarter angle showing the coiled serpent body wrapping around the finger axis. Cell 3 (Side Profile): Lateral 90-degree view highlighting the tapered tail wrapping beneath the main head. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the organic spiral circular opening. Cell 5 (Optical Macro): Extreme macro view capturing the microscopic hexagonal scale texture and the faceted obsidian stone bezel setting. Cell 6 (Mechanical Detail): Technical focus on the smooth ergonomic comfort-fit interior band with engraved logo hallmark. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with hands positioned gracefully near face, wearing the Sorcerer ring on the index finger. Cell 8 (Intimate Micro-Crop): Close-up crop of the hand resting against dark textured fabric, highlighting the serpent coiling around the finger with realistic skin creases. Cell 9 (Dynamic Lifestyle): 3/4 styling perspective capturing mysterious light reflections dancing across the smoked gunmetal scales. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/ask_and_embla/products/AE-RNG-003/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-RNG-003/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/RN0005_-_S_-_1.jpg",
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/RN0005_-_S_-_2.jpg"
+    ]
+  },
+  {
+    "sku": "AE-NCK-004",
+    "brand_id": "ask_and_embla",
+    "brand_name": "Ask & Embla",
+    "title": "Vertebrae Necklace",
+    "category": "Statement Necklaces",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "316L Surgical Stainless Steel"
+    ],
+    "specs": {
+      "construction": "16 Anatomically Articulated Cervical Vertebrae Segments",
+      "choker_length": "42cm collar circumference",
+      "drop_length": "8cm articulating spinal drop tail",
+      "clasp": "Concealed Mechanical Bone-Interlock Clasp",
+      "finish": "Satin Gunmetal & Polished Articulation Knuckles",
+      "weight": "86g"
+    },
+    "variants": [
+      {
+        "variant_sku": "AE-NCK-004-STD",
+        "name": "Standard 42cm Collar + 8cm Spine Drop",
+        "specs": {
+          "collar_length": "42cm",
+          "drop_tail": "8cm"
+        },
+        "stock": 20,
+        "shelf_bin": "BER-N04-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "BER-N04",
+    "stock_by_location": {
+      "singapore_hq": 8,
+      "lille_hub": 8,
+      "berlin_depot": 4
+    },
+    "production_cost": 38.0,
+    "retail_price": 165.0,
+    "wholesale_price": 82.5,
+    "margin_percentage": 77.0,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Vertebrae Necklace. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monumental anatomical statement necklace in 316L surgical stainless steel constructed from 16 individually cast, hinged cervical vertebrae links ending in a dramatic spine drop tail. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the Vertebrae necklace arranged in a curved cervical arc on stone surface, displaying organic spinal symmetry. Cell 2 (3/4 Perspective): Three-quarter view showing the protruding spinous process spurs and articulated joint interlocks. Cell 3 (Side Profile): Lateral view showing the spinal curve and flex of the individual bone segments. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the fluid serpentine layout of the complete 16-link chain. Cell 5 (Optical Macro): Extreme macro view capturing the precision hinge pins connecting two spinal segments, showing satin steel brushing. Cell 6 (Mechanical Detail): Technical macro focus on the concealed bone-interlock clasp mechanism seamlessly hidden inside the terminal vertebra. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model wearing the Vertebrae choker collar tightly framing the neck, dark avant-garde styling. Cell 8 (Intimate Micro-Crop): Close-up crop at the suprasternal notch and clavicle bones, showing the spinal drop resting directly along the center of the chest. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot displaying how the necklace flexes organically with neck movement. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/CH1312-S-1.jpg",
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/EP1313-S-1.jpg"
+    ]
+  },
+  {
+    "sku": "AE-EAR-005",
+    "brand_id": "ask_and_embla",
+    "brand_name": "Ask & Embla",
+    "title": "Arcana Earrings",
+    "category": "Earrings / Hangers",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Solid 925 Sterling Silver"
+    ],
+    "specs": {
+      "gauge": "18g (1.0mm) Standard Pierced Post",
+      "total_drop": "62mm",
+      "width": "22mm",
+      "closure": "Concealed Hinged Clicker Wire",
+      "motifs": "Guilloché Geometric Sigil & Talismanic Drop",
+      "finish": "Blackened Antique Patina with Diamond-Cut Edge Highlights",
+      "weight_per_pair": "16g (8g each piece)",
+      "pair_mode": "MATCHED_PAIR"
+    },
+    "variants": [
+      {
+        "variant_sku": "AE-EAR-005-PAIR",
+        "name": "Standard Pair (2 Pieces) - 925 Sterling Silver",
+        "specs": {
+          "gauge": "18g",
+          "pair": true
+        },
+        "stock": 28,
+        "shelf_bin": "BER-E01-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "BER-E01",
+    "stock_by_location": {
+      "singapore_hq": 14,
+      "lille_hub": 10,
+      "berlin_depot": 4
+    },
+    "production_cost": 24.0,
+    "retail_price": 110.0,
+    "wholesale_price": 55.0,
+    "margin_percentage": 78.2,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Arcana Earrings. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural talismanic drop earrings in solid 925 sterling silver with intricate guilloché geometric occult sigils, blackened antique recesses, and bright diamond-cut bevels. Mode: MATCHED_PAIR (Symmetrical identical pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the matched pair of Arcana earrings hanging vertically side by side, displaying elongated 62mm drop symmetry. Cell 2 (3/4 Perspective): Three-quarter angle highlighting the multi-layered depth of the engraved silver plate. Cell 3 (Side Profile): Lateral 90-degree view showing the slender profile and curved clicker ear wire. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing both earrings arranged in parallel harmony. Cell 5 (Optical Macro): Extreme macro view capturing the microscopic engraved sacred geometry lines and contrast between blackened silver and polished facets. Cell 6 (Mechanical Detail): Technical macro focus on the concealed clicker hinge latch at the apex of the ear wire. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with hair swept behind ears wearing the Arcana drops brushing the collarbone. Cell 8 (Intimate Micro-Crop): Close-up crop at the earlobe and neck, showing the silver talisman swinging gracefully beside the jawline. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing light reflections flashing across the diamond-cut silver edges. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_1.jpg",
+      "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/RN1110-S-1.jpg",
+      "https://cdn.shopify.com/s/files/1/0200/8686/files/RN1091-G-1.jpg"
+    ]
+  },
+  {
+    "sku": "P4-RNG-001",
+    "brand_id": "parts_of_four",
+    "brand_name": "Parts of Four",
+    "title": "Sistema Ring Mega Pavé (12mm)",
+    "category": "Rings / Mega Pavé",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Acid-Dipped 925 Sterling Silver",
+      "Raw Industrial Diamond Pavé (~3.20 ct total weight)"
+    ],
+    "specs": {
+      "band_width": "12mm Brutalist Flat Architectural Band",
+      "profile": "Rectilinear Square Outer Silhouette with Ergonomic Comfort-Fit Interior",
+      "setting": "Monolithic Flush Mega Pavé Setting across Top Plane",
+      "treatment": "Signature P4 Dirty Acid Immersion Bath with Raw Matte Ground",
+      "weight": "28g"
+    },
+    "variants": [
+      {
+        "variant_sku": "P4-RNG-001-US8",
+        "name": "US 8 / EU 57 (12mm Band)",
+        "specs": {
+          "width": "12mm",
+          "us_size": 8,
+          "eu_size": 57
+        },
+        "stock": 3,
+        "shelf_bin": "PAR-S01-1",
+        "price_override": null
+      },
+      {
+        "variant_sku": "P4-RNG-001-US10",
+        "name": "US 10 / EU 62 (12mm Band)",
+        "specs": {
+          "width": "12mm",
+          "us_size": 10,
+          "eu_size": 62
+        },
+        "stock": 4,
+        "shelf_bin": "PAR-S01-2",
+        "price_override": null
+      },
+      {
+        "variant_sku": "P4-RNG-001-US12",
+        "name": "US 12 / EU 67 (12mm Band)",
+        "specs": {
+          "width": "12mm",
+          "us_size": 12,
+          "eu_size": 67
+        },
+        "stock": 2,
+        "shelf_bin": "PAR-S01-3",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "PAR-S01",
+    "stock_by_location": {
+      "paris_atelier": 4,
+      "bali_foundry": 3,
+      "lille_hub": 2
+    },
+    "production_cost": 410.0,
+    "retail_price": 1750.0,
+    "wholesale_price": 875.0,
+    "margin_percentage": 76.6,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury fine jewelry 3x3 contact sheet featuring the Sistema Ring Mega Pavé (12mm). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monolithic brutalist architectural ring in acid-treated 925 sterling silver with a 12mm wide top plane blanketed by an organic mega pavé of raw grey and black industrial diamond shards (3.20 ct). Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the massive Sistema Ring standing upright on a rough mineral slab, showing the brutalist rectilinear silhouette and dense field of raw diamonds. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing the 12mm flat top plane, raw hand-forged sidewalls, and sparkling diamond facet fields. Cell 3 (Side Profile): Sharp 90-degree lateral profile showing the heavy silver mass and distinctive square outer profile. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface looking into the smooth polished circular inner core contrasted with square exterior. Cell 5 (Optical Macro): Extreme optical macro close-up of the rough uncut diamond shards, raw metal prongs, and sulfuric acid patina on silver ground. Cell 6 (Mechanical Detail): Technical focus on the hand-stamped P4 hallmark and individual artisan serial engraving on inside band. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with contemplative expression, resting chin on hand adorned with the Sistema ring. Cell 8 (Intimate Micro-Crop): Close-up crop of the ring worn on the middle finger against rough dark wool fabric, highlighting monumental stone-and-metal scale. Cell 9 (Dynamic Lifestyle): 3/4 styling shot showing the diamond pavé scattering subtle organic glints under controlled directional studio light. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/e6234aabd1164c0388aa71eb2fe35b0d.thumbnail.0000000000.jpg",
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/c4d5ca72337042aca10f7918155e712c.thumbnail.0000000000.jpg"
+    ]
+  },
+  {
+    "sku": "P4-BRC-002",
+    "brand_id": "parts_of_four",
+    "brand_name": "Parts of Four",
+    "title": "Crescent Plane Bracelet Hybrid Deco Bars (30mm)",
+    "category": "Bracelets / Cuffs",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Hand-Forged 925 Sterling Silver",
+      "Cast Raw White Brass Deco Bars",
+      "Cold-Pounded Industrial Steel Rivets"
+    ],
+    "specs": {
+      "width": "30mm Monolithic Cuff Band",
+      "inner_diameter": "62mm (Size M) / 68mm (Size L)",
+      "profile": "Asymmetric Curved Crescent Plane with Modular Riveted Deco Bar Splines",
+      "weight": "145g Heavy Solid Cast",
+      "finish": "Distressed Heavy Brush Antique Patina with Deep Matte Acid Oxidation"
+    },
+    "variants": [
+      {
+        "variant_sku": "P4-BRC-002-MED",
+        "name": "Size M (Wrist Circumference 16-18cm)",
+        "specs": {
+          "size": "M",
+          "inner_diameter": "62mm",
+          "width": "30mm"
+        },
+        "stock": 4,
+        "shelf_bin": "PAR-C02-1",
+        "price_override": null
+      },
+      {
+        "variant_sku": "P4-BRC-002-LRG",
+        "name": "Size L (Wrist Circumference 18-20cm)",
+        "specs": {
+          "size": "L",
+          "inner_diameter": "68mm",
+          "width": "30mm"
+        },
+        "stock": 3,
+        "shelf_bin": "PAR-C02-2",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "PAR-C02",
+    "stock_by_location": {
+      "paris_atelier": 3,
+      "bali_foundry": 3,
+      "lille_hub": 1
+    },
+    "production_cost": 290.0,
+    "retail_price": 1250.0,
+    "wholesale_price": 625.0,
+    "margin_percentage": 76.8,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/parts_of_four/products/P4-BRC-002/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-BRC-002/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Crescent Plane Bracelet Hybrid Deco Bars (30mm). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monumental 30mm broad crescent cuff bracelet in distressed solid 925 sterling silver, reinforced with modular cast white brass deco bars secured by industrial cold-rivets. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the Crescent Plane cuff resting vertically on its edge, showcasing monumental width and brutalist architectural curves. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing the contrast between the dark oxidized silver plane and raw brass deco bar spines. Cell 3 (Side Profile): Lateral 90-degree view showing the opening gap and solid 4mm gauge thickness. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface revealing the continuous ergonomic oval curvature of the cuff. Cell 5 (Optical Macro): Extreme macro view capturing the heavy brush marks, acid-etched micro-pitting, and hammered steel rivet heads. Cell 6 (Mechanical Detail): Technical focus on the seam where the white brass deco bar fuses mechanically to the silver chassis. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of model with forearm raised across torso, wearing the 145g crescent cuff, stark minimalist styling. Cell 8 (Intimate Micro-Crop): Close-up crop at the wrist bone showing the heavy cuff sitting sculpturally against bare skin. Cell 9 (Dynamic Lifestyle): 3/4 styling shot highlighting how the broad silver surface catches ambient studio rim lighting. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/parts_of_four/products/P4-BRC-002/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-BRC-002/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/dc40180e0de442de9eb92866296cd79b.thumbnail.0000000000.jpg",
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/43fe512ba28a48da9470bba2385ad845.thumbnail.0000000000.jpg"
+    ]
+  },
+  {
+    "sku": "P4-NCK-003",
+    "brand_id": "parts_of_four",
+    "brand_name": "Parts of Four",
+    "title": "Disk Necklace 25mm (Black Hex Diamond)",
+    "category": "Necklaces / Disks",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "925 Sterling Silver",
+      "Natural Sliced Raw Hexagonal Black Diamond (~1.85 ct)"
+    ],
+    "specs": {
+      "disk_diameter": "25mm Hand-Hammered Plate",
+      "plate_thickness": "4.0mm Monolithic Thickness",
+      "gemstone": "Sliced Raw Black Diamond Slab with Natural Hexagonal Geometry",
+      "chain": "Heavy 2.5mm Oxidized Silver Curb Chain (70cm length)",
+      "finish": "Signature P4 Raw Acid Wash Silver Ground with Mirror-Polished Hex Bezel",
+      "weight": "36g"
+    },
+    "variants": [
+      {
+        "variant_sku": "P4-NCK-003-70CM",
+        "name": "25mm Disk / 70cm Heavy Curb Chain",
+        "specs": {
+          "disk_size": "25mm",
+          "chain_length": "70cm",
+          "gemstone": "1.85ct Hex Diamond"
+        },
+        "stock": 6,
+        "shelf_bin": "PAR-D04-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "PAR-D04",
+    "stock_by_location": {
+      "paris_atelier": 3,
+      "bali_foundry": 2,
+      "lille_hub": 1
+    },
+    "production_cost": 215.0,
+    "retail_price": 890.0,
+    "wholesale_price": 445.0,
+    "margin_percentage": 75.8,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/parts_of_four/products/P4-NCK-003/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-NCK-003/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Disk Necklace 25mm (Black Hex Diamond). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monolithic circular talisman pendant in 4mm thick acid-washed 925 sterling silver, inset with an organic slice of hexagonal black diamond (1.85 ct), suspended from a 70cm oxidized curb chain. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the 25mm silver disk standing centered with the dark hexagonal diamond facing forward, chain draped symmetrically. Cell 2 (3/4 Perspective): Three-quarter view highlighting the 4mm chunky plate edge and raw forged disk profile. Cell 3 (Side Profile): Lateral 90-degree profile showing the solid slab thickness and integrated flush-mounted bail hole. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the heavy 70cm curb chain arranged around the disk talisman. Cell 5 (Optical Macro): Extreme macro view capturing the natural mineral inclusions and faceted edges of the raw black hex diamond slab against textured silver. Cell 6 (Mechanical Detail): Technical macro focus on the custom heavy S-hook clasp and engraved 925 hallmark. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with deep gaze wearing the 70cm disk necklace resting over an oversized dark tunic. Cell 8 (Intimate Micro-Crop): Close-up crop at mid-torso showing the textured silver disk and black diamond catching ambient studio highlights. Cell 9 (Dynamic Lifestyle): 3/4 low-angle editorial styling shot showing pendant proportion against the silhouette in motion. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/parts_of_four/products/P4-NCK-003/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-NCK-003/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/9dc79420bad6433984026e6de1c9e7c2.thumbnail.0000000000.jpg",
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/18829d5c97db4bc4914b860580b9c7f2.thumbnail.0000000000.jpg"
+    ]
+  },
+  {
+    "sku": "P4-WAT-004",
+    "brand_id": "parts_of_four",
+    "brand_name": "Parts of Four",
+    "title": "Apple Watch Bracelet Model 1 (Wedge Strap, Mega Pavé)",
+    "category": "Watches / Watch Straps",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Matte Black Oiled Horween Leather",
+      "Cast 925 Sterling Silver Wedge Lugs",
+      "Treated Blue & Teal Raw Diamond Shards (~1.60 ct)",
+      "Hand-Forged Silver Roller Pin Buckle"
+    ],
+    "specs": {
+      "case_compatibility": "Apple Watch 44mm, 45mm, and Apple Watch Ultra 49mm",
+      "strap_width": "26mm at lugs tapering to 22mm at buckle",
+      "wrist_fit": "155mm - 215mm with 7 precision oval sizing holes",
+      "hardware": "Solid Cast Silver Wedge End-Pieces with Recessed Raw Blue Diamond Pavé",
+      "finish": "Deep Matte Black Leather, Acid-Treated Silver Hardware",
+      "weight": "82g"
+    },
+    "variants": [
+      {
+        "variant_sku": "P4-WAT-004-45MM",
+        "name": "Apple Watch 44/45/49mm Fit - Matte Black / Blue Diamond Pavé",
+        "specs": {
+          "case_size": "44mm/45mm/49mm Ultra",
+          "lug_width": "26mm"
+        },
+        "stock": 5,
+        "shelf_bin": "PAR-W01-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "PAR-W01",
+    "stock_by_location": {
+      "paris_atelier": 2,
+      "bali_foundry": 2,
+      "lille_hub": 1
+    },
+    "production_cost": 320.0,
+    "retail_price": 1390.0,
+    "wholesale_price": 695.0,
+    "margin_percentage": 77.0,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/parts_of_four/products/P4-WAT-004/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-WAT-004/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury watch accessory 3x3 contact sheet featuring the Apple Watch Bracelet Model 1 (Wedge Strap, Mega Pavé). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural avant-garde Apple Watch replacement band in matte black oiled Horween leather, featuring solid cast silver wedge end-lugs embedded with raw blue diamond pavé (1.60 ct) and custom roller buckle. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the watch bracelet curved as if mounted on wrist, displaying both silver pavé wedge lugs and black leather body. Cell 2 (3/4 Perspective): Three-quarter view highlighting the chunky sculptural lug integration and leather edge beveling. Cell 3 (Side Profile): Lateral 90-degree profile showing the 4.5mm thick leather profile and heavy silver pin buckle. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing strap laid out flat with precision laser-cut oval sizing holes. Cell 5 (Optical Macro): Extreme macro view capturing the vivid blue raw diamond shards clustered inside the acid-blackened silver wedge cavity. Cell 6 (Mechanical Detail): Technical macro focus on the precision sliding Apple Watch connector mechanism and security spring pins. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with hands resting calmly on knees, wearing the pavé watch strap paired with a smartwatch body. Cell 8 (Intimate Micro-Crop): Close-up crop at the wrist showing the raw blue diamond pavé glistening against skin next to the watch case. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing the rich contrast between high-tech watch glass and brutalist artisan leather. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/parts_of_four/products/P4-WAT-004/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-WAT-004/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/003a0c448f8d44b98a7c7ab5478e3f1d.thumbnail.0000000000.jpg",
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/62a4cdb3f3f94bc990afffd802a4a685.thumbnail.0000000000.jpg"
+    ]
+  },
+  {
+    "sku": "P4-NCK-005",
+    "brand_id": "parts_of_four",
+    "brand_name": "Parts of Four",
+    "title": "Monster Necklace YS",
+    "category": "Necklaces / Torcs",
+    "tier": "B2C_FINISHED",
+    "materials": [
+      "Solid Cast Yellow Sun Brass (YS)",
+      "Tempered 925 Sterling Silver Internal Spine Core",
+      "Neodymium Magnetic Mechanical Locking Core"
+    ],
+    "specs": {
+      "design": "Monolithic Hinged Sculptural Torc / Choker Collar",
+      "inner_circumference": "40cm Architectural Fit",
+      "bar_diameter": "14mm solid bar at throat tapering to 9mm at nape",
+      "closure": "Concealed High-Power Magnetic Tension Clasp with Silver Safety Pin",
+      "finish": "Raw Unlacquered Yellow Sun (YS) Cast Brass with Organic Foundry Crust Patina",
+      "weight": "380g Heavy Monumental Casting"
+    },
+    "variants": [
+      {
+        "variant_sku": "P4-NCK-005-40CM",
+        "name": "40cm Inner Collar - Yellow Sun Brass (YS)",
+        "specs": {
+          "inner_circumference": "40cm",
+          "metal": "Yellow Sun Brass"
+        },
+        "stock": 4,
+        "shelf_bin": "PAR-M05-1",
+        "price_override": null
+      }
+    ],
+    "shelf_coordinate": "PAR-M05",
+    "stock_by_location": {
+      "paris_atelier": 2,
+      "bali_foundry": 2,
+      "lille_hub": 0
+    },
+    "production_cost": 240.0,
+    "retail_price": 990.0,
+    "wholesale_price": 495.0,
+    "margin_percentage": 75.8,
+    "currency": "EUR",
+    "photos": [
+      "data/sample_shops/parts_of_four/products/P4-NCK-005/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-NCK-005/images/photo_2.jpg"
+    ],
+    "has_photos": true,
+    "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Monster Necklace YS. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monolithic 380g cast Yellow Sun brass torc necklace, 14mm thick brutalist choker collar tapering toward the neck nape, featuring unpolished raw foundry crust and concealed internal magnetic hinge lock. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the monumental Monster torc collar standing upright on a raw dark graphite block, highlighting its sweeping brutalist golden arc. Cell 2 (3/4 Perspective): Three-quarter angle showing the massive 14mm solid circular cross-section and organic rough-cast brass skin. Cell 3 (Side Profile): Lateral 90-degree profile showing the ergonomic anatomical slope engineered to sit flush upon clavicles. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the perfect architectural ellipse of the collar. Cell 5 (Optical Macro): Extreme macro view capturing the porous golden foundry crust, micro-cavities, and warm natural yellow sun brass tones. Cell 6 (Mechanical Detail): Technical macro focus on the concealed precision magnetic closure seam and silver safety pin interlock. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with statuesque posture, wearing the massive brass Monster torc around the base of the neck. Cell 8 (Intimate Micro-Crop): Close-up crop at the throat and collarbones, showing the monumental brass bar resting powerfully against skin with natural shadows. Cell 9 (Dynamic Lifestyle): 3/4 styling shot highlighting golden ambient reflections gleaming across the heavy sculpted metal curves. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+    "created_at": "2026-10-25T12:00:00Z",
+    "updated_at": "2026-10-25T12:00:00Z",
+    "images": [
+      "images/photo_1.jpg",
+      "images/photo_2.jpg"
+    ],
+    "local_images": [
+      "data/sample_shops/parts_of_four/products/P4-NCK-005/images/photo_1.jpg",
+      "data/sample_shops/parts_of_four/products/P4-NCK-005/images/photo_2.jpg"
+    ],
+    "remote_images": [
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/4188dc58e3e74b749a0f7d33dd9a1ba9.thumbnail.0000000000.jpg",
+      "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/fc1479adf1194ab08e2361a0789ab750.thumbnail.0000000000.jpg"
+    ]
+  }
+];
+
+    let activeBrand = 'KM';
+    let activeProduct = catalogData[0];
+    let selectedCell = 1;
+    let currentCyclorama = '#EFEFEF';
+    let currentCardinality = 'single';
+    let selectedModel = 'Astrid';
+
+    // Tactile Audio Click Effect
+    function playTactileClick() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(240, ctx.currentTime);
+        gain.gain.setValueAtTime(0.07, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.035);
+      } catch (e) {}
+    }
+
+    // App Switcher Dropdown
+    function toggleAppDropdown() {
+      playTactileClick();
+      document.getElementById('app-dropdown').classList.toggle('hidden');
+    }
+
+    // Studio Mode Switcher: Packshot 2x2 vs Flowboard Nodal
+    function switchStudioMode(mode) {
+      playTactileClick();
+      const packshotView = document.getElementById('view-packshot-studio');
+      const flowboardView = document.getElementById('view-flowboard-canvas');
+      const btnPackshot = document.getElementById('btn-mode-packshot');
+      const btnFlowboard = document.getElementById('btn-mode-flowboard');
+
+      if (mode === 'packshot') {
+        packshotView.classList.remove('hidden');
+        flowboardView.classList.add('hidden');
+        btnPackshot.className = 'px-2.5 py-1 bg-[#252733] border border-[#3e4052] text-white font-bold transition flex items-center gap-1.5';
+        btnFlowboard.className = 'px-2.5 py-1 text-zinc-400 hover:text-white transition flex items-center gap-1.5';
+      } else {
+        packshotView.classList.add('hidden');
+        flowboardView.classList.remove('hidden');
+        btnPackshot.className = 'px-2.5 py-1 text-zinc-400 hover:text-white transition flex items-center gap-1.5';
+        btnFlowboard.className = 'px-2.5 py-1 bg-[#252733] border border-[#3e4052] text-white font-bold transition flex items-center gap-1.5';
+        document.getElementById('flowboard-prod-name').innerText = activeProduct.sku + ' (' + activeProduct.title + ')';
+      }
+    }
+
+    // Dynamic Flowboard Nodal Spawner
+    let dynamicNodeIndex = 0;
+    function addFlowboardNode(type) {
+      playTactileClick();
+      dynamicNodeIndex++;
+      const container = document.getElementById('dynamic-nodes-container');
+      if (!container) return;
+
+      const nodeDiv = document.createElement('div');
+      const posX = 80 + ((dynamicNodeIndex - 1) % 3) * 270;
+      const posY = 320 + Math.floor((dynamicNodeIndex - 1) / 3) * 160;
+
+      let title = 'Nouveau Node';
+      let badge = 'MODIFIER';
+      let badgeColor = 'text-amber-400';
+      let content = '';
+
+      if (type === 'ref') {
+        title = 'Photo Référence Supplémentaire';
+        badge = 'REF';
+        badgeColor = 'text-emerald-400';
+        content = '<div class="text-[10px] text-zinc-400">Angle 45° ou Macro Détail injecté</div><div class="h-14 bg-[#1b1c24] border border-zinc-700 flex items-center justify-center text-lg mt-1">📸</div>';
+      } else if (type === 'light') {
+        title = 'Rig Éclairage Studio';
+        badge = 'LIGHTING';
+        badgeColor = 'text-yellow-400';
+        content = '<div class="text-[10px] text-zinc-400">Softbox 120cm + Réflecteur Argent</div><select class="w-full mt-1 p-1 bg-black border border-zinc-700 text-white text-[10px]"><option>Diffus Latéral 45°</option><option>Spot Zénithal Haute Précision</option><option>Ringlight Macro Bijou</option></select>';
+      } else if (type === 'optics') {
+        title = 'Directive Optique 100mm';
+        badge = 'CAMERA';
+        badgeColor = 'text-blue-400';
+        content = '<div class="text-[10px] text-zinc-400">Profondeur de champ &amp; Diaphragme</div><input type="text" value="100mm F/2.8 Macro 1:1, Bokeh doux" class="w-full mt-1 p-1 bg-black border border-zinc-700 text-white text-[10px]">';
+      } else if (type === 'prompt') {
+        title = 'Injecteur Prompt Style';
+        badge = 'PROMPT';
+        badgeColor = 'text-purple-400';
+        content = '<div class="text-[10px] text-zinc-400">Modificateur d\'atmosphère Serious</div><textarea rows="2" class="w-full mt-1 p-1 bg-black border border-zinc-700 text-white text-[10px] resize-none">editorial raw brutalist concrete background, film grain 400</textarea>';
+      } else if (type === 'upscale') {
+        title = 'Moteur Upscale 4K';
+        badge = 'RENDER';
+        badgeColor = 'text-emerald-300';
+        content = '<div class="text-[10px] text-zinc-400">Sortie ultra-définition 3840x2160</div><button onclick="alert(\'Rendu haute résolution lancé via Flow Bridge port 8100 !\')" class="btn-tactile w-full mt-1 py-1 bg-[#c5a059] text-black font-bold text-[10px]">Lancer Upscale 4K</button>';
+      }
+
+      nodeDiv.className = 'absolute w-64 bg-[#14151a] border border-[#3e4052] p-3 shadow-2xl font-mono text-xs space-y-2 z-10 transition-all';
+      nodeDiv.style.left = posX + 'px';
+      nodeDiv.style.top = posY + 'px';
+      nodeDiv.id = 'node-dyn-' + dynamicNodeIndex;
+      nodeDiv.innerHTML = `
+        <div class="flex justify-between items-center border-b border-[#24252e] pb-1">
+          <span class="font-bold text-white text-[11px] truncate">${title}</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[9px] ${badgeColor} uppercase font-bold">${badge}</span>
+            <button onclick="document.getElementById('${nodeDiv.id}').remove()" class="text-zinc-500 hover:text-red-400 text-xs px-1">✕</button>
+          </div>
+        </div>
+        ${content}
+      `;
+
+      container.appendChild(nodeDiv);
+    }
+
+    // Render Product List in Left Sidebar
+    function renderProductList() {
+      const container = document.getElementById('productListContainer');
+      container.innerHTML = '';
+      
+      const filtered = activeBrand === 'ALL' 
+        ? catalogData 
+        : catalogData.filter(p => p.sku.startsWith(activeBrand));
+
+      document.getElementById('prod-counter').innerText = filtered.length + ' pièces';
+
+      filtered.forEach(p => {
+        const isSelected = p.sku === activeProduct.sku;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = isSelected 
+          ? 'btn-tactile p-2 bg-[#1c1d27] border-l-2 border-[#c5a059] cursor-pointer space-y-0.5' 
+          : 'btn-tactile p-2 bg-[#16171d] hover:bg-[#1a1b24] border border-transparent hover:border-zinc-700 cursor-pointer space-y-0.5 transition';
+        
+        itemDiv.onclick = () => selectProduct(p);
+        const thumbSrc = (p.local_images && p.local_images[0]) ? ('../../' + p.local_images[0]) : ((p.remote_images && p.remote_images[0]) || '');
+        const fallbackSrc = (p.remote_images && p.remote_images[0]) || '';
+        itemDiv.innerHTML = `
+          <div class="flex items-center gap-2 group">
+            <img src="${thumbSrc}" onerror="this.onerror=null;this.src='${fallbackSrc}'" alt="${p.sku}" class="w-8 h-8 object-cover rounded border border-zinc-700/80 shrink-0 bg-black/40">
+            <div class="min-w-0 flex-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold font-mono text-xs ${isSelected ? 'text-[#c5a059]' : 'text-zinc-200'}">${p.sku}</span>
+                <div class="flex items-center gap-1">
+                  <span class="text-[9px] px-1 bg-black text-emerald-400 font-mono">2 refs ✓</span>
+                  <button onclick="event.stopPropagation(); openShootProductModal('edit', '${p.sku}')" class="p-0.5 hover:text-[#c5a059] text-zinc-400 text-[10px] transition" title="Éditer le produit à shooter">✏️</button>
+                  <button onclick="event.stopPropagation(); deleteShootProduct('${p.sku}')" class="p-0.5 hover:text-red-400 text-zinc-400 text-[10px] transition" title="Supprimer de la file">🗑️</button>
+                </div>
+              </div>
+              <div class="text-[11px] text-zinc-300 truncate font-sans">${p.title}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(itemDiv);
+      });
+    }
+
+    // ========================================================
+    // SHOOT PRODUCT LIFECYCLE (ADD, EDIT, DELETE)
+    // ========================================================
+    let currentModalMode = 'create';
+    let tempModalRefs = { slot1: null, slot2: null, slot3: null };
+
+    function openShootProductModal(mode, sku) {
+      playTactileClick();
+      currentModalMode = mode || 'create';
+      const modal = document.getElementById('shootProductModal');
+      const backdrop = document.getElementById('shootProductModalBackdrop');
+      const titleEl = document.getElementById('shootModalTitle');
+      const subTitleEl = document.getElementById('shootModalSubTitle');
+      const btnSaveText = document.getElementById('btnSaveShootProductText');
+      const deleteContainer = document.getElementById('modalDeleteBtnContainer');
+      const origSkuInput = document.getElementById('editOriginalSku');
+
+      if (currentModalMode === 'create') {
+        titleEl.innerText = 'Ajouter un Produit à Shooter';
+        subTitleEl.innerText = 'Création Nouvel Article Studio';
+        btnSaveText.innerText = 'Ajouter & Shooter ➔';
+        deleteContainer.innerHTML = '';
+        origSkuInput.value = '';
+
+        // Preset brand and suggest SKU
+        const currentBrand = (activeBrand && activeBrand !== 'ALL') ? activeBrand : 'KM';
+        document.getElementById('modalProductBrand').value = currentBrand;
+        autoSuggestSku(true);
+        document.getElementById('modalProductTitle').value = '';
+        document.getElementById('modalProductMaterials').value = 'Argent 925 patiné, Laiton doré';
+        
+        // Reset Ref previews to default icons
+        tempModalRefs = { slot1: null, slot2: null, slot3: null };
+        document.getElementById('modalRefPreview1').innerHTML = '<span class="text-xl">📸</span>';
+        document.getElementById('modalRefPreview2').innerHTML = '<span class="text-xl">📐</span>';
+        document.getElementById('modalRefPreview3').innerHTML = '<span class="text-xl">🔍</span>';
+      } else {
+        const targetSku = sku || (activeProduct ? activeProduct.sku : 'KM-SEP-001');
+        const p = catalogData.find(item => item.sku === targetSku);
+        if (!p) return;
+
+        titleEl.innerText = 'Éditer le Produit à Shooter';
+        subTitleEl.innerText = `Fiche SKU : ${p.sku}`;
+        btnSaveText.innerText = '✓ Sauvegarder les Modifications';
+        origSkuInput.value = p.sku;
+
+        deleteContainer.innerHTML = `
+          <button type="button" onclick="deleteShootProduct('${p.sku}')" class="btn-tactile px-3 py-1.5 bg-red-950/40 border border-red-800/60 hover:bg-red-900 text-red-300 text-xs flex items-center gap-1.5">
+            <span>🗑️</span>
+            <span>Supprimer de la file</span>
+          </button>
+        `;
+
+        // Determine brand code
+        let bCode = 'KM';
+        if (p.sku.startsWith('AE')) bCode = 'AE';
+        else if (p.sku.startsWith('P4')) bCode = 'P4';
+        else if (p.sku.startsWith('SER')) bCode = 'SER';
+
+        document.getElementById('modalProductBrand').value = bCode;
+        document.getElementById('modalProductSku').value = p.sku;
+        document.getElementById('modalProductTitle').value = p.title;
+        document.getElementById('modalProductCategory').value = p.category;
+        document.getElementById('modalProductMaterials').value = Array.isArray(p.materials) ? p.materials.join(', ') : (p.materials || '');
+
+        // Populate Ref Previews
+        const p1 = (p.local_images && p.local_images[0]) ? ('../../' + p.local_images[0]) : ((p.remote_images && p.remote_images[0]) || '');
+        const p2 = (p.local_images && p.local_images[1]) ? ('../../' + p.local_images[1]) : ((p.remote_images && p.remote_images[1]) || p1);
+        tempModalRefs = { slot1: p1, slot2: p2, slot3: p1 };
+
+        document.getElementById('modalRefPreview1').innerHTML = p1 ? `<img src="${p1}" class="w-full h-full object-cover">` : '<span class="text-xl">📸</span>';
+        document.getElementById('modalRefPreview2').innerHTML = p2 ? `<img src="${p2}" class="w-full h-full object-cover">` : '<span class="text-xl">📐</span>';
+        document.getElementById('modalRefPreview3').innerHTML = p1 ? `<img src="${p1}" class="w-full h-full object-cover">` : '<span class="text-xl">🔍</span>';
+      }
+
+      modal.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
+    }
+
+    function closeShootProductModal() {
+      playTactileClick();
+      document.getElementById('shootProductModal').classList.add('hidden');
+      document.getElementById('shootProductModalBackdrop').classList.add('hidden');
+    }
+
+    function autoSuggestSku(force) {
+      const brand = document.getElementById('modalProductBrand').value;
+      const skuInput = document.getElementById('modalProductSku');
+      if (!force && skuInput.value.trim() && currentModalMode === 'edit') return;
+
+      const existingForBrand = catalogData.filter(p => p.sku.startsWith(brand));
+      const nextNum = existingForBrand.length + 1;
+      const numPadded = String(nextNum).padStart(3, '0');
+      skuInput.value = `${brand}-MOD-${numPadded}`;
+    }
+
+    function simulateRefUpload(slot) {
+      playTactileClick();
+      const samplePhotos = [
+        'data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg',
+        'data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_1.jpg',
+        'data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_1.jpg',
+        'data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_1.jpg'
+      ];
+      const randomPhoto = '../../' + samplePhotos[Math.floor(Math.random() * samplePhotos.length)];
+      tempModalRefs['slot' + slot] = randomPhoto;
+      document.getElementById('modalRefPreview' + slot).innerHTML = `<img src="${randomPhoto}" class="w-full h-full object-cover">`;
+    }
+
+    function saveShootProductFromModal() {
+      playTactileClick();
+      const sku = document.getElementById('modalProductSku').value.trim();
+      const title = document.getElementById('modalProductTitle').value.trim();
+      const category = document.getElementById('modalProductCategory').value;
+      const brand = document.getElementById('modalProductBrand').value;
+      const materialsRaw = document.getElementById('modalProductMaterials').value.trim();
+      const materials = materialsRaw.split(',').map(m => m.trim()).filter(Boolean);
+
+      if (!sku) {
+        alert('Erreur: Veuillez saisir un code SKU.');
+        return;
+      }
+      if (!title) {
+        alert('Erreur: Veuillez saisir un titre de produit.');
+        return;
+      }
+
+      const defaultImg = tempModalRefs.slot1 || 'data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg';
+      const defaultImgClean = defaultImg.replace('../../', '');
+      const secondaryImg = tempModalRefs.slot2 ? tempModalRefs.slot2.replace('../../', '') : defaultImgClean;
+
+      if (currentModalMode === 'create') {
+        if (catalogData.some(p => p.sku === sku)) {
+          alert(`Erreur: Le code SKU ${sku} existe déjà dans le catalogue.`);
+          return;
+        }
+
+        const newProd = {
+          sku: sku,
+          brand_id: brand === 'KM' ? 'kaya_movement' : (brand === 'AE' ? 'ask_and_embla' : (brand === 'P4' ? 'parts_of_four' : 'serious_atelier')),
+          brand_name: brand === 'KM' ? 'Kaya Movement' : (brand === 'AE' ? 'Ask & Embla' : (brand === 'P4' ? 'Parts of Four' : 'Serious Atelier')),
+          title: title,
+          category: category,
+          tier: 'B2C_FINISHED',
+          materials: materials.length ? materials : ['Argent 925'],
+          local_images: [defaultImgClean, secondaryImg],
+          remote_images: [],
+          photos: [defaultImgClean, secondaryImg],
+          has_photos: true,
+          workshop_balances: { 'Lille Hub': 5, 'Bali Workshop': 10 }
+        };
+
+        catalogData.unshift(newProd);
+        activeBrand = 'ALL';
+        activeProduct = newProd;
+        renderProductList();
+        selectProduct(activeProduct);
+        closeShootProductModal();
+        alert(`✓ Produit ${sku} (${title}) ajouté au Studio de Shoot !`);
+      } else {
+        const origSku = document.getElementById('editOriginalSku').value;
+        const p = catalogData.find(item => item.sku === origSku);
+        if (p) {
+          p.sku = sku;
+          p.title = title;
+          p.category = category;
+          p.materials = materials;
+          if (tempModalRefs.slot1) {
+            p.local_images = [defaultImgClean, secondaryImg];
+            p.photos = [defaultImgClean, secondaryImg];
+          }
+          if (activeProduct.sku === origSku) {
+            activeProduct = p;
+          }
+          renderProductList();
+          selectProduct(activeProduct);
+          closeShootProductModal();
+          alert(`✓ Produit ${sku} mis à jour avec succès.`);
+        }
+      }
+    }
+
+    function deleteShootProduct(sku) {
+      playTactileClick();
+      const targetSku = sku || (activeProduct ? activeProduct.sku : null);
+      if (!targetSku) return;
+
+      const p = catalogData.find(item => item.sku === targetSku);
+      const title = p ? p.title : targetSku;
+
+      if (!confirm(`Supprimer définitivement "${targetSku} - ${title}" de la file de shoot ?`)) {
+        return;
+      }
+
+      const idx = catalogData.findIndex(item => item.sku === targetSku);
+      if (idx !== -1) {
+        catalogData.splice(idx, 1);
+        if (catalogData.length === 0) {
+          alert('Le catalogue est vide.');
+          return;
+        }
+        if (activeProduct.sku === targetSku) {
+          activeProduct = catalogData[0];
+        }
+        renderProductList();
+        selectProduct(activeProduct);
+        closeShootProductModal();
+        alert(`✓ Produit ${targetSku} supprimé de la file de shoot.`);
+      }
+    }
+
+    // Select Product from Catalog
+    function selectProduct(p) {
+      playTactileClick();
+      activeProduct = p;
+      renderProductList();
+      
+      document.getElementById('activeSkuDisplay').innerText = p.sku;
+      document.getElementById('activeTitleDisplay').innerText = p.title;
+
+      const subSku = document.getElementById('sub-active-sku');
+      if (subSku) subSku.innerText = p.sku;
+      const subTitle = document.getElementById('sub-active-title');
+      if (subTitle) subTitle.innerText = p.title;
+
+      // Update mock representations inside cells
+      document.getElementById('mock-text-cell-1').innerText = p.sku + ' (Face Hero)';
+      document.getElementById('mock-text-cell-2').innerText = p.category;
+      document.getElementById('mock-text-cell-3').innerText = 'Fermoir & ' + (p.materials[0] || 'Métal');
+      document.getElementById('mock-text-cell-4').innerText = 'Porté sur ' + selectedModel;
+
+      // Update Real Photos in Reference Stack and Canvas Cells
+      const p1 = (p.local_images && p.local_images[0]) ? ('../../' + p.local_images[0]) : ((p.remote_images && p.remote_images[0]) || '');
+      const p2 = (p.local_images && p.local_images[1]) ? ('../../' + p.local_images[1]) : ((p.remote_images && p.remote_images[1]) || p1);
+      const r1 = (p.remote_images && p.remote_images[0]) || '';
+      const r2 = (p.remote_images && p.remote_images[1]) || r1;
+
+      const refImg1 = document.getElementById('ref-img-1');
+      if (refImg1 && p1) {
+        refImg1.src = p1;
+        refImg1.onerror = () => { refImg1.onerror = null; refImg1.src = r1; };
+      }
+      const refImg2 = document.getElementById('ref-img-2');
+      if (refImg2 && p2) {
+        refImg2.src = p2;
+        refImg2.onerror = () => { refImg2.onerror = null; refImg2.src = r2; };
+      }
+      const refImg3 = document.getElementById('ref-img-3');
+      if (refImg3 && p1) {
+        refImg3.src = p1;
+        refImg3.onerror = () => { refImg3.onerror = null; refImg3.src = r1; };
+      }
+
+      const cellImg1 = document.getElementById('cell-img-1');
+      if (cellImg1 && p1) {
+        cellImg1.src = p1;
+        cellImg1.onerror = () => { cellImg1.onerror = null; cellImg1.src = r1; };
+      }
+      const cellImg2 = document.getElementById('cell-img-2');
+      if (cellImg2 && p2) {
+        cellImg2.src = p2;
+        cellImg2.onerror = () => { cellImg2.onerror = null; cellImg2.src = r2; };
+      }
+      const cellImg3 = document.getElementById('cell-img-3');
+      if (cellImg3 && p1) {
+        cellImg3.src = p1;
+        cellImg3.onerror = () => { cellImg3.onerror = null; cellImg3.src = r1; };
+      }
+
+      updatePromptBoxes();
+    }
+
+    // Filter Brands
+    function filterByBrand(b) {
+      playTactileClick();
+      activeBrand = b;
+      ['ALL', 'KM', 'AE', 'P4'].forEach(brandKey => {
+        const btn = document.getElementById('brand-tab-' + brandKey);
+        if (btn) {
+          btn.className = brandKey === b 
+            ? 'btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 bg-[#1e1f26] border-l-2 border-[#c5a059] text-white font-semibold text-left'
+            : 'btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition';
+        }
+      });
+
+      // Select first product of this brand
+      const first = activeBrand === 'ALL' ? catalogData[0] : catalogData.find(p => p.sku.startsWith(activeBrand));
+      if (first) activeProduct = first;
+      renderProductList();
+      selectProduct(activeProduct);
+      renderBatchItems();
+    }
+
+    // Interactive 2x2 Cell Selection
+    function selectCell(num) {
+      playTactileClick();
+      selectedCell = num;
+
+      for (let i = 1; i <= 4; i++) {
+        const cell = document.getElementById('cell-' + i);
+        if (i === num) {
+          cell.classList.add('active-cell-border');
+        } else {
+          cell.classList.remove('active-cell-border');
+        }
+      }
+
+      // Update Inspector
+      document.getElementById('activeCellBadge').innerText = num;
+      document.getElementById('applyCellNumber').innerText = num;
+      
+      const titles = {
+        1: 'Cellule 1 : Front Upright Hero',
+        2: 'Cellule 2 : Profil Isométrique 45°',
+        3: 'Cellule 3 : Macro Hardware & Serti',
+        4: 'Cellule 4 : Éditorial Porté sur Peau'
+      };
+      document.getElementById('inspectorCellTitle').innerText = titles[num];
+
+      const angles = { 1: 'front', 2: 'angle45', 3: 'macro', 4: 'worn' };
+      document.getElementById('cellAngleSelect').value = angles[num];
+
+      updatePromptBoxes();
+      switchInspectorTab('directives');
+    }
+
+    // Cyclorama Control
+    function setCyclorama(hex, label) {
+      playTactileClick();
+      currentCyclorama = hex;
+      const grid = document.getElementById('contactSheetGrid');
+      grid.style.backgroundColor = hex;
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('cell-' + i).style.backgroundColor = hex;
+      }
+      updatePromptBoxes();
+    }
+
+    // Cardinality Control
+    function setCardinality(c) {
+      playTactileClick();
+      currentCardinality = c;
+      if (c === 'single') {
+        document.getElementById('btn-card-single').className = 'px-2 py-0.5 bg-[#252733] text-white font-bold transition';
+        document.getElementById('btn-card-pair').className = 'px-2 py-0.5 text-zinc-400 hover:text-white transition';
+      } else {
+        document.getElementById('btn-card-single').className = 'px-2 py-0.5 text-zinc-400 hover:text-white transition';
+        document.getElementById('btn-card-pair').className = 'px-2 py-0.5 bg-[#252733] text-white font-bold transition';
+      }
+      updatePromptBoxes();
+    }
+
+    // Switch Inspector Tab
+    function switchInspectorTab(tab) {
+      playTactileClick();
+      ['directives', 'casting', 'slicer'].forEach(t => {
+        document.getElementById('inspector-tab-' + t).classList.add('hidden');
+        document.getElementById('tab-btn-' + t).className = 'py-1 px-1.5 text-center text-zinc-400 hover:text-white transition';
+      });
+
+      document.getElementById('inspector-tab-' + tab).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-btn-' + tab);
+      if (tab === 'slicer') {
+        activeBtn.className = 'py-1 px-1.5 text-center text-[#c5a059] bg-[#252733] border border-[#c5a059] font-bold transition';
+      } else {
+        activeBtn.className = 'py-1 px-1.5 text-center text-white bg-[#252733] border border-[#3e4052] font-semibold transition';
+      }
+    }
+
+    function toggleRightInspector() {
+      playTactileClick();
+      const panel = document.getElementById('rightInspectorPanel');
+      const badge = document.getElementById('inspector-status-badge');
+      const isHidden = panel.classList.toggle('hidden');
+      badge.innerText = isHidden ? 'Masqué' : 'Ouvert ✓';
+      badge.className = isHidden ? 'text-[10px] px-1 bg-[#20212b] text-zinc-400' : 'text-[10px] px-1 bg-[#333544] text-[#c5a059]';
+    }
+
+    // Update Prompts
+    function updatePromptBoxes() {
+      const cellDirective = `Cell ${selectedCell}: ${activeProduct.title}, ${currentCardinality} item, on solid ${currentCyclorama} cyclorama, Hasselblad H6D-100c precision, zero embedded text.`;
+      document.getElementById('cellPromptPreview').innerText = cellDirective;
+
+      const masterPrompt = `A professional 2x2 luxury commercial jewelry contact sheet, 4 vertical 3:4 portrait vignettes, edge-to-edge full bleed, solid ${currentCyclorama} cyclorama background, zero text, zero labels, shot on Hasselblad H6D-100c. Cell 1: front upright hero of ${activeProduct.title}. Cell 2: 45 degree isometric perspective showing depth. Cell 3: 100mm macro detailing mechanical clasp and materials (${activeProduct.materials.join(', ')}). Cell 4: editorial worn directly against skin on model ${selectedModel} to prove scale.`;
+      document.getElementById('masterPromptBox').innerText = masterPrompt;
+    }
+
+    function selectModel(name, tone) {
+      playTactileClick();
+      selectedModel = name;
+      alert('✓ Mannequin ' + name + ' (' + tone + ') assignée à la cellule éditoriale 4 !');
+      updatePromptBoxes();
+    }
+
+    function applyCellSettings() {
+      playTactileClick();
+      alert('✓ Réglages appliqués à la cellule ' + selectedCell + ' !');
+    }
+
+    // Triggers
+    function triggerGenerate2x2() {
+      playTactileClick();
+      const btn = document.getElementById('btn-generate-flow');
+      btn.innerHTML = '<span>⏳</span> <span>Génération Flow 8100...</span>';
+      btn.classList.add('opacity-75');
+
+      setTimeout(() => {
+        btn.innerHTML = '<span>⚡</span> <span>Générer Planche 2x2</span>';
+        btn.classList.remove('opacity-75');
+        alert('✓ Planche 2x2 générée avec succès via le pont local http://localhost:8100 ! Prête pour le Slicer.');
+        switchInspectorTab('slicer');
+      }, 700);
+    }
+
+    function triggerSlicer() {
+      playTactileClick();
+      switchInspectorTab('slicer');
+      alert('✓ Slicer exécuté : 4 fichiers carrés 2048x2048 découpés sans perte.');
+    }
+
+    function exportSlicesToStock() {
+      playTactileClick();
+      alert('✓ 4 packshots associés au SKU ' + activeProduct.sku + ' dans Stupid Stock ! Statut mis à jour : ✓ 4 Slices Prêts.');
+    }
+
+    function openInStupidShopFromShoot() {
+      playTactileClick();
+      window.location.href = 'stupid_shop_gateway.html?sku=' + encodeURIComponent(activeProduct.sku);
+    }
+
+    function simulateUploadReference() {
+      playTactileClick();
+      alert('Sélectionnez une image de référence (Format JPG/PNG, 2048px recommandé).');
+    }
+
+    // Batch Drawer Operations
+    function toggleBatchDrawer() {
+      playTactileClick();
+      const drawer = document.getElementById('batchDrawer');
+      const backdrop = document.getElementById('batchDrawerBackdrop');
+      drawer.classList.toggle('translate-x-full');
+      backdrop.classList.toggle('hidden');
+    }
+
+    function renderBatchItems() {
+      const container = document.getElementById('batchQueueItems');
+      container.innerHTML = '';
+      
+      const filtered = activeBrand === 'ALL' 
+        ? catalogData 
+        : catalogData.filter(p => p.sku.startsWith(activeBrand));
+
+      document.getElementById('batch-queue-badge').innerText = filtered.length + ' prêts';
+      document.getElementById('btnStartBatch').innerHTML = `<span>⚡</span> <span>Démarrer le Batch (${filtered.length} Produits)</span>`;
+
+      filtered.forEach((p, idx) => {
+        const row = document.createElement('div');
+        row.className = 'p-2 bg-[#16171d] border border-[#24252e] flex items-center justify-between';
+        row.innerHTML = `
+          <div>
+            <div class="font-bold text-white">${p.sku}</div>
+            <div class="text-[10px] text-zinc-400 truncate max-w-[200px]">${p.title}</div>
+          </div>
+          <span class="text-[9px] px-1.5 py-0.2 bg-emerald-950/60 text-emerald-300 border border-emerald-800" id="batch-item-status-${idx}">Prêt (3 refs ✓)</span>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function runBatchProcess() {
+      playTactileClick();
+      const barContainer = document.getElementById('batchProgressBarContainer');
+      const bar = document.getElementById('batchProgressBar');
+      const statusText = document.getElementById('batchStatusText');
+      const percentText = document.getElementById('batchPercentText');
+
+      barContainer.classList.remove('hidden');
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += 20;
+        bar.style.width = progress + '%';
+        percentText.innerText = progress + '%';
+
+        if (progress === 20) statusText.innerText = 'Connexion pont local Flow :8100...';
+        if (progress === 40) statusText.innerText = 'Génération planches 2x2 en cours...';
+        if (progress === 80) statusText.innerText = 'Découpage matriciel slicer_worker.py...';
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          statusText.innerText = '✓ Batch terminé avec succès !';
+          setTimeout(() => {
+            alert('✓ Traitement par lot terminé : 5 planches 2x2 générées et 20 packshots carrés exportés !');
+            toggleBatchDrawer();
+            barContainer.classList.add('hidden');
+          }, 400);
+        }
+      }, 250);
+    }
+
+    // Initial Setup
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check for SKU passed from Stupid Stock via URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const skuParam = urlParams.get('sku');
+      const batchParam = urlParams.get('batch');
+      if (skuParam) {
+        const found = catalogData.find(p => p.sku === skuParam);
+        if (found) {
+          activeProduct = found;
+          if (found.sku.startsWith('KM')) activeBrand = 'KM';
+          else if (found.sku.startsWith('AE')) activeBrand = 'AE';
+          else if (found.sku.startsWith('P4')) activeBrand = 'P4';
+          else if (found.sku.startsWith('SER')) activeBrand = 'SER';
+          else activeBrand = 'ALL';
+        }
+      }
+      if (batchParam) {
+        const batchSkus = batchParam.split(',').map(s => s.trim()).filter(Boolean);
+        if (batchSkus.length > 0) {
+          const firstInBatch = catalogData.find(p => batchSkus.includes(p.sku));
+          if (firstInBatch && !skuParam) {
+            activeProduct = firstInBatch;
+            if (firstInBatch.sku.startsWith('KM')) activeBrand = 'KM';
+            else activeBrand = 'ALL';
+          }
+          toggleBatchDrawer();
+        }
+      }
+      renderProductList();
+      selectProduct(activeProduct);
+      renderBatchItems();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "brand_id": "kaya_movement",
+  "brand_name": "Kaya Movement",
+  "domain": "kayamovement.com",
+  "founder": "Bruno Laignel",
+  "headquarters": "Bali / Lille",
+  "niche": "Alternative Body Jewelry, Avant-Garde Apparel & Handcrafted Leather Goods",
+  "tagline": "Cerebral Design, Conscious Craft.",
+  "universe_description": "Founded and directed by designer Bruno Laignel, Kaya Movement explores a biomechanical, sculptural aesthetic at the intersection of organic anatomy, sacred geometry, and futuristic cyberpunk architecture. Each artifact is sustainably realized using 3D computational modeling, lost-wax casting in 925 sterling silver and solid brass, and hand-finished full-grain leather.",
+  "palette": {
+    "accent_primary": "#D97443",
+    "accent_secondary": "#1A1A1A",
+    "surface_cyclorama": "#EFEFEF",
+    "background_dark": "#1A1A1A"
+  },
+  "locations": [
+    "lille_hub",
+    "bali_workshop"
+  ],
+  "currency": "EUR",
+  "product_skus": [
+    "KM-SEP-001",
+    "KM-WGT-002",
+    "KM-EAR-003",
+    "KM-GLV-004",
+    "KM-BAG-005"
+  ]
+}

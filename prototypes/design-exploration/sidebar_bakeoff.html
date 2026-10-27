@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stupid Suite — Sidebar Architecture Bake-Off (5 Prototypes)</title>
+  <link rel="icon" type="image/png" href="/data/favicon/favicon_serious-studio.png">
+  <script src="/public/vendor/tailwindcss.min.js"></script>
+  <style>
+    body {
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .btn-tactile {
+      transition: all 0.08s ease-in-out;
+    }
+    .btn-tactile:active {
+      transform: translateY(1px);
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0D12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E2330;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3B82F6;
+    }
+    .glass-tab {
+      background: rgba(15, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .pulse-glow {
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col bg-[#08090C] text-slate-200 select-none">
+
+  <!-- ======================================================== -->
+  <!-- TOP BAKE-OFF CONTROL BAR (STANDARD ATELIER MASTER)       -->
+  <!-- ======================================================== -->
+  <header class="h-14 bg-[#0B0D13] border-b border-slate-800/80 px-4 flex items-center justify-between shrink-0 z-50">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366F1]"></span>
+        <span class="font-mono text-xs font-bold tracking-wider text-white uppercase">STUPID SUITE</span>
+        <span class="text-slate-600 font-mono text-xs">/</span>
+        <span class="font-mono text-xs text-indigo-400 font-semibold">01. STUPID STOCK</span>
+        <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 font-bold">STANDARD ATELIER MASTER</span>
+      </div>
+    </div>
+
+    <!-- Central Switcher & Quick Module Launcher -->
+    <div class="flex items-center gap-2.5">
+      <!-- Quick Action: Launch Plateau d'Atelier & QR Organizer -->
+      <button onclick="openCasierOrganizer()" class="btn-tactile px-3.5 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 rounded-xl text-xs font-mono font-bold flex items-center gap-2 cursor-pointer shadow-xs">
+        <span>🗄️</span> <span>Plateau d'Atelier &amp; Casiers</span>
+        <span class="px-1.5 py-0.2 rounded bg-indigo-500/30 text-[10px] text-white">⌘B</span>
+      </button>
+
+      <button onclick="printThermalBatch()" class="btn-tactile px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 cursor-pointer shadow-xs">
+        <span>🏷️</span> <span>Imprimer 50×30</span>
+      </button>
+    </div>
+
+    <!-- Quick Link back to live app -->
+    <div class="flex items-center gap-2">
+      <a href="/index.html" class="btn-tactile px-3 py-1.5 bg-[#1B2130] hover:bg-slate-700/80 border border-slate-700 text-xs text-slate-200 rounded-lg flex items-center gap-1.5 font-mono shadow-xs">
+        <span>← Retour à Stupid Stock (Live)</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- MAIN WORKSPACE: MINI-RAIL (64px) + TEST SUB-SIDEBAR + CANVAS -->
+  <!-- ======================================================== -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- ======================================================== -->
+    <!-- 1. EXTREME LEFT MINI-RAIL (64px wide)                     -->
+    <!-- ======================================================== -->
+    <nav class="w-16 bg-[#0B0C10] border-r border-slate-800/80 flex flex-col items-center py-4 justify-between shrink-0 z-40 select-none">
+      
+      <!-- Top Brand Logo & App Icons -->
+      <div class="flex flex-col items-center space-y-5 w-full">
+        <!-- Serious Studio Favicon Logo -->
+        <a href="/index.html" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700/60 p-1.5 flex items-center justify-center shadow-lg cursor-pointer btn-tactile hover:scale-105 transition" title="Serious Studio Operating System">
+          <img src="/data/favicon/favicon_serious-studio.png" alt="Serious Studio" class="w-full h-full object-contain">
+        </a>
+
+        <div class="w-8 h-px bg-slate-800/80"></div>
+
+        <!-- The 6 Suite Apps Column -->
+        <div class="flex flex-col items-center space-y-2.5 w-full">
+          <!-- App 1: 01. Stupid Stock (ACTIVE) -->
+          <div class="relative flex items-center justify-center w-full group">
+            <div class="absolute left-0 w-1 h-5 bg-[#3B82F6] rounded-r-full shadow-[0_0_8px_#3B82F6]"></div>
+            <button onclick="showToast('App 1: Stupid Stock sélectionné', 'info')" class="w-10 h-10 rounded-xl bg-[#1C2233] border border-blue-500/40 p-1.5 flex items-center justify-center shadow-sm cursor-pointer btn-tactile" title="01. Stupid Stock">
+              <img src="/data/favicon/favicon_stupid_stock.png" alt="Stupid Stock" class="w-full h-full object-contain drop-shadow">
+            </button>
+          </div>
+
+          <!-- App 2: 02. Stupid Shoot -->
+          <div class="relative flex items-center justify-center w-full group">
+            <button onclick="showToast('App 2: Stupid Shoot', 'info')" class="w-10 h-10 rounded-xl p-1.5 hover:bg-slate-800/80 flex items-center justify-center transition btn-tactile opacity-75 hover:opacity-100" title="02. Stupid Shoot">
+              <img src="/data/favicon/favicon_stupid_sheet.png" alt="Stupid Shoot" class="w-full h-full object-contain">
+            </button>
+          </div>
+
+          <!-- App 3: 03. Stupid Shop -->
+          <div class="relative flex items-center justify-center w-full group">
+            <button onclick="showToast('App 3: Stupid Shop', 'info')" class="w-10 h-10 rounded-xl p-1.5 hover:bg-slate-800/80 flex items-center justify-center transition btn-tactile opacity-75 hover:opacity-100" title="03. Stupid Shop">
+              <img src="/data/favicon/favicon_stupid_shop.png" alt="Stupid Shop" class="w-full h-full object-contain">
+            </button>
+          </div>
+
+          <!-- App 4: 04. Stupid Content -->
+          <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center opacity-30 cursor-not-allowed">
+            <img src="/data/favicon/favicon_stupid_content.png" alt="Stupid Content" class="w-full h-full object-contain">
+          </div>
+
+          <!-- App 5: 05. Stupid Dispatch -->
+          <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center opacity-30 cursor-not-allowed">
+            <img src="/data/favicon/favicon_stupid_dispatch.png" alt="Stupid Dispatch" class="w-full h-full object-contain">
+          </div>
+
+          <!-- App 6: 06. Stupid Money -->
+          <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center opacity-30 cursor-not-allowed">
+            <img src="/data/favicon/favicon_stupid_money.png" alt="Stupid Money" class="w-full h-full object-contain">
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Rail: ONLY Avatar KM (Click opens Unified Popover) -->
+      <div class="flex flex-col items-center w-full relative">
+        <button onclick="toggleKmPopover()" id="km-avatar-btn" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-blue-500 text-xs font-bold text-slate-200 flex items-center justify-center cursor-pointer transition btn-tactile shadow-lg relative group" title="Atelier Kaya Movement (Cliquer pour ouvrir le menu d'atelier &amp; settings)">
+          <span>KM</span>
+          <!-- Green Flow/Online status dot attached to avatar -->
+          <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#0B0C10] shadow-[0_0_8px_#10B981]"></span>
+        </button>
+
+        <!-- FLYOUT POPOVER MENU (Anchored to KM Avatar, sliding out to right) -->
+        <div id="km-popover-menu" class="hidden absolute left-14 bottom-0 bg-[#121520] border border-slate-700/80 rounded-2xl shadow-2xl p-3 z-50 w-72 text-slate-200 font-mono text-xs animate-toast select-none">
+          <!-- Atelier Identity Header -->
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-md shrink-0">
+              KM
+            </div>
+            <div class="overflow-hidden">
+              <div class="font-bold text-white text-xs truncate">Kaya Movement</div>
+              <div class="text-[10px] text-emerald-400">Tier 1 Pirate BYOK • Hub Lille</div>
+            </div>
+          </div>
+
+          <!-- Real-Time Bridges Status & Diagnostics -->
+          <div class="py-2.5 border-b border-slate-800 space-y-1.5 text-[11px]">
+            <div onclick="showToast('Flow Bridge opérationnel (port 8100, 12ms)', 'success')" class="flex items-center justify-between p-1.5 rounded-lg bg-black/20 border border-slate-800/80 hover:border-emerald-500/40 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#10B981]"></span>
+                <span class="text-slate-300">Flow Bridge (:8100)</span>
+              </span>
+              <span class="text-emerald-400 font-bold">12ms</span>
+            </div>
+            <div onclick="showToast('Shopify Admin GraphQL connecté', 'info')" class="flex items-center justify-between p-1.5 rounded-lg bg-black/20 border border-slate-800/80 hover:border-blue-500/40 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                <span class="text-slate-300">Shopify GraphQL</span>
+              </span>
+              <span class="text-blue-400">Connecté</span>
+            </div>
+            <div onclick="showToast('Étiqueteuse thermique continue prête', 'info')" class="flex items-center justify-between p-1.5 rounded-lg bg-black/20 border border-slate-800/80 hover:border-purple-500/40 cursor-pointer transition">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                <span class="text-slate-300">Thermique 50×30</span>
+              </span>
+              <span class="text-slate-400">Prête</span>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Actions -->
+          <div class="pt-2 space-y-0.5">
+            <button onclick="openControlCenterModal('settings'); closeKmPopover();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition text-left cursor-pointer">
+              <span class="flex items-center gap-2"><span>⚙️</span> <span>Paramètres Généraux</span></span>
+              <span class="text-[10px] text-slate-500">⌘,</span>
+            </button>
+            <button onclick="openControlCenterModal('profile'); closeKmPopover();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition text-left cursor-pointer">
+              <span class="flex items-center gap-2"><span>👤</span> <span>Profil &amp; Ateliers Hub</span></span>
+            </button>
+            <button onclick="openControlCenterModal('bridges'); closeKmPopover();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition text-left cursor-pointer">
+              <span class="flex items-center gap-2"><span>🔌</span> <span>Diagnostic Ponts API</span></span>
+            </button>
+            <button onclick="openControlCenterModal('hardware'); closeKmPopover();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition text-left cursor-pointer">
+              <span class="flex items-center gap-2"><span>🖨️</span> <span>Calibrage Étiqueteuse</span></span>
+            </button>
+            <button onclick="openControlCenterModal('storage'); closeKmPopover();" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition text-left cursor-pointer">
+              <span class="flex items-center gap-2"><span>💾</span> <span>Backup SQLite Local</span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- ======================================================== -->
+    <!-- 2. TEST SUB-SIDEBAR CONTAINER (INJECTED DYNAMICALLY)      -->
+    <!-- ======================================================== -->
+    <aside id="test-sub-sidebar" class="w-64 bg-[#0F1117] border-r border-slate-800 flex flex-col justify-between shrink-0 z-30 select-none relative transition-all duration-300 ease-in-out">
+      <!-- Content injected by JS renderPrototype() -->
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- 3. MAIN PREVIEW CANVAS (#F8FAFC)                          -->
+    <!-- ======================================================== -->
+    <main class="flex-1 min-w-0 bg-[#F8FAFC] flex flex-col p-4 md:p-6 overflow-hidden">
+      
+      <!-- White Floating Card Canvas (Real Atelier Stock Piercing Environment) -->
+      <div class="flex-1 min-w-0 bg-white rounded-3xl shadow-2xl border border-slate-200/60 p-5 md:p-6 flex flex-col overflow-hidden text-slate-900">
+        
+        <!-- Real App Atelier Header Bar -->
+        <div class="pb-3 border-b border-slate-200/80 flex items-center justify-between gap-4 shrink-0">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl font-black text-slate-950 tracking-tight flex items-center gap-2">
+                <span>Atelier Stock Piercing</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10B981]"></span>
+              </h1>
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">Hub Lille</span>
+            </div>
+            <div class="text-xs text-slate-500 mt-0.5 font-sans flex items-center gap-2">
+              <span>Kaya Movement Atelier</span>
+              <span class="text-slate-300">•</span>
+              <span class="font-mono text-[11px] text-slate-400">serious_core.db (100% Hors-Ligne)</span>
+            </div>
+          </div>
+
+          <!-- Real App Quick Actions & Search -->
+          <div class="flex items-center gap-2">
+            <div class="relative w-64 hidden sm:block">
+              <input type="text" id="canvas-search" placeholder="Rechercher... ⌘K" oninput="onCanvasSearch(this.value)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition font-mono">
+              <span class="absolute right-2.5 top-2 text-[10px] font-mono text-slate-400">⌘K</span>
+            </div>
+            <button onclick="showToast('Ouverture modale création SKU...', 'info')" class="btn-tactile px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold font-mono flex items-center gap-1.5 shadow-sm">
+              <span>+</span> <span>Nouveau SKU</span>
+            </button>
+            <button onclick="showToast('File impression étiquettes thermiques 50×30...', 'info')" class="btn-tactile px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-mono font-semibold flex items-center gap-1 border border-slate-200">
+              <span>🏷️</span> <span>50×30</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Prototype Metadata Strip -->
+        <div class="py-2.5 flex items-center justify-between gap-4 shrink-0 text-xs border-b border-slate-100 bg-slate-50/60 -mx-5 md:-mx-6 px-5 md:px-6">
+          <div class="flex items-center gap-2 overflow-hidden">
+            <span id="canvas-proto-tag" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200 shrink-0">PROTOTYPE</span>
+            <span id="canvas-proto-title" class="font-bold text-slate-800 text-xs shrink-0"></span>
+            <span class="text-slate-300 hidden md:inline">•</span>
+            <span id="canvas-proto-desc" class="text-slate-500 text-[11px] font-normal truncate max-w-xl hidden md:inline-block"></span>
+          </div>
+
+          <div class="flex items-center gap-2 font-mono text-[11px] shrink-0">
+            <span class="text-slate-600 bg-white px-2.5 py-0.5 rounded-lg border border-slate-200" id="filter-state-indicator">Filtre actif : <strong>Tous</strong></span>
+            <span class="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-lg border border-emerald-200 font-semibold" id="items-count-indicator">5 Pièces</span>
+          </div>
+        </div>
+
+        <!-- 4 Actionable Atelier Cockpit Cards (Interactive Click Filters) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 my-3 shrink-0 select-none font-mono">
+          <!-- Bottleneck 1: Shoot Studio -->
+          <button onclick="toggleCockpitCard('shoot')" id="card-cockpit-shoot" class="btn-tactile p-3 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-white text-left transition flex flex-col justify-between cursor-pointer group shadow-2xs">
+            <div class="flex items-center justify-between text-slate-500 text-[10px] font-bold uppercase tracking-wider group-hover:text-blue-600 transition">
+              <span class="flex items-center gap-1.5"><span>📸</span> <span>Shoot Studio</span></span>
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+            </div>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl font-black text-slate-900 font-sans">0</span>
+              <span class="text-[11px] text-slate-500">sans packshot</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">⚡ Prêt Flow Studio</div>
+          </button>
+
+          <!-- Bottleneck 2: Ruptures Imminentes -->
+          <button onclick="toggleCockpitCard('stockout')" id="card-cockpit-stockout" class="btn-tactile p-3 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-white text-left transition flex flex-col justify-between cursor-pointer group shadow-2xs">
+            <div class="flex items-center justify-between text-slate-500 text-[10px] font-bold uppercase tracking-wider group-hover:text-rose-600 transition">
+              <span class="flex items-center gap-1.5"><span>🚨</span> <span>Rupture Imminente</span></span>
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+            </div>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl font-black text-slate-900 font-sans">0</span>
+              <span class="text-[11px] text-slate-500">critiques (≤ 1)</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">⚠️ Priorité réassort</div>
+          </button>
+
+          <!-- Bottleneck 3: Casiers Hub Lille -->
+          <button onclick="toggleCockpitCard('casiers')" id="card-cockpit-casiers" class="btn-tactile p-3 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-white text-left transition flex flex-col justify-between cursor-pointer group shadow-2xs">
+            <div class="flex items-center justify-between text-slate-500 text-[10px] font-bold uppercase tracking-wider group-hover:text-blue-600 transition">
+              <span class="flex items-center gap-1.5"><span>🗄️</span> <span>Casiers Hub Lille</span></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            </div>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl font-black text-slate-900 font-sans">4</span>
+              <span class="text-[11px] text-slate-500">bacs actifs</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">📍 Racks A à D</div>
+          </button>
+
+          <!-- Bottleneck 4: Marge Moyenne -->
+          <button onclick="toggleCockpitCard('margins')" id="card-cockpit-margins" class="btn-tactile p-3 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-white text-left transition flex flex-col justify-between cursor-pointer group shadow-2xs">
+            <div class="flex items-center justify-between text-slate-500 text-[10px] font-bold uppercase tracking-wider group-hover:text-emerald-600 transition">
+              <span class="flex items-center gap-1.5"><span>💎</span> <span>Marge Moyenne</span></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            </div>
+            <div class="mt-1 flex items-baseline gap-2">
+              <span class="text-2xl font-black text-emerald-600 font-sans">76.0%</span>
+              <span class="text-[11px] text-slate-500">brute</span>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">✓ Seuil atelier &gt; 70%</div>
+          </button>
+        </div>
+
+        <!-- Reactive Inventory Table -->
+        <div class="flex-1 overflow-y-auto border border-slate-200/80 rounded-2xl">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-50/90 text-slate-500 font-mono text-[10px] uppercase border-b border-slate-200 sticky top-0 backdrop-blur-xs">
+              <tr>
+                <th class="py-2 px-3">SKU</th>
+                <th class="py-2 px-3">Produit &amp; Collection</th>
+                <th class="py-2 px-3">Matière</th>
+                <th class="py-2 px-3 text-center">Casier</th>
+                <th class="py-2 px-3 text-center">Stock</th>
+                <th class="py-2 px-3 text-right">Prix</th>
+              </tr>
+            </thead>
+            <tbody id="table-body" class="divide-y divide-slate-100 font-sans">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bottom Feedback Note on this Prototype -->
+        <div id="canvas-proto-verdict" class="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-center justify-between shrink-0 font-mono text-[11px]">
+          <div>⚡ <strong>Point Fort :</strong> Navigation fluide et familière pour les développeurs / utilisateurs de Linear.</div>
+          <button onclick="testActionOnActiveProto()" class="btn-tactile px-3 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">
+            Tester l'interaction clé ➔
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 4. MODAL: STUPID SUITE CONTROL CENTER (@felipemenezes098) -->
+  <!-- ======================================================== -->
+  <div id="control-center-modal" class="hidden fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onclick="if(event.target === this) closeControlCenterModal()">
+    <div class="bg-[#0F1117] border border-slate-800 rounded-3xl shadow-2xl w-full max-w-4xl h-[620px] flex overflow-hidden text-slate-200 animate-toast">
+      
+      <!-- Left Modal Sidebar (Tabs) -->
+      <aside class="w-60 border-r border-slate-800 p-4 flex flex-col justify-between shrink-0 bg-[#0B0D13]">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5 px-2">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">KM</div>
+            <div>
+              <div class="text-xs font-bold text-white leading-tight">Kaya Movement</div>
+              <div class="text-[10px] text-blue-400 font-mono">Control Center ⌘,</div>
+            </div>
+          </div>
+
+          <div class="h-px bg-slate-800/80"></div>
+
+          <!-- 5 Control Tabs -->
+          <div class="space-y-1 font-mono text-xs">
+            <button onclick="switchControlTab('profile')" id="ctab-profile" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-white bg-[#1A1F2C] border border-blue-500/30">
+              <span>👤</span> <span>Profil &amp; Ateliers</span>
+            </button>
+            <button onclick="switchControlTab('license')" id="ctab-license" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-slate-400 hover:text-white hover:bg-slate-800/50">
+              <span>🔑</span> <span>Licence &amp; Plan</span>
+            </button>
+            <button onclick="switchControlTab('bridges')" id="ctab-bridges" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-slate-400 hover:text-white hover:bg-slate-800/50">
+              <span>🔌</span> <span>Bridges &amp; API</span>
+            </button>
+            <button onclick="switchControlTab('hardware')" id="ctab-hardware" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-slate-400 hover:text-white hover:bg-slate-800/50">
+              <span>🖨️</span> <span>Matériel &amp; UI</span>
+            </button>
+            <button onclick="switchControlTab('storage')" id="ctab-storage" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-slate-400 hover:text-white hover:bg-slate-800/50">
+              <span>💾</span> <span>SQLite &amp; Backup</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-2 border-t border-slate-800/80 text-[10px] font-mono text-slate-500 flex justify-between items-center">
+          <span>Stupid Suite v1.6.0</span>
+          <span class="text-emerald-400 font-bold">Local Host</span>
+        </div>
+      </aside>
+
+      <!-- Right Modal Content -->
+      <div class="flex-1 flex flex-col justify-between p-6 overflow-y-auto">
+        <div id="control-tab-content">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex justify-end gap-2 shrink-0">
+          <button onclick="closeControlCenterModal()" class="btn-tactile px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl">
+            Fermer (Échap)
+          </button>
+          <button onclick="saveControlSettings()" class="btn-tactile px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl shadow-sm">
+            Enregistrer les modifications
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 5. SLIDING BOTTOM TRAY: PLATEAU D'ATELIER & CASIERS QR   -->
+  <!-- ======================================================== -->
+  <div id="casier-bottom-tray-backdrop" class="hidden fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-50 flex flex-col justify-end transition-opacity duration-200" onclick="if(event.target === this) closeCasierOrganizer()">
+    <div id="casier-bottom-tray" class="bg-[#0D0F16] border-t-2 border-indigo-500/40 rounded-t-3xl shadow-[0_-20px_50px_rgba(0,0,0,0.85)] w-full max-w-7xl mx-auto h-[630px] max-h-[85vh] flex flex-col justify-between text-slate-200 overflow-hidden select-none animate-toast">
+      
+      <!-- Tray Pull Handle & Header -->
+      <div class="px-6 py-3 border-b border-slate-800 flex items-center justify-between shrink-0 bg-[#090A0F]">
+        <!-- Left: Icon & Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center font-bold text-lg shadow-inner">🗄️</div>
+          <div>
+            <div class="flex items-center gap-2.5">
+              <h2 class="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+                <span>Plateau d'Atelier &amp; Casiers Physiques</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">Hub Lille</span>
+              </h2>
+              <span class="text-slate-500 text-xs hidden sm:inline">•</span>
+              <span class="text-xs text-slate-400 font-mono hidden sm:inline">Glissez les cartes ou cliquez sur ➔ Bac</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono mt-0.5">Établi de tri interactif connecté à l'étiqueteuse continue 50×30mm.</p>
+          </div>
+        </div>
+
+        <!-- Center: Quick search inside tray + filter pills -->
+        <div class="flex items-center gap-2">
+          <div class="relative w-64 hidden md:block">
+            <input type="text" id="tray-search-input" placeholder="Filtrer bijoux... (nom, SKU)" oninput="onTraySearch(this.value)" class="w-full bg-[#141724] border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-mono">
+            <span class="absolute right-2.5 top-1.5 text-[10px] font-mono text-slate-400">🔍</span>
+          </div>
+
+          <div class="flex items-center bg-[#141724] p-0.5 rounded-xl border border-slate-800 text-xs font-mono">
+            <button onclick="filterTrayBin('all')" id="tray-bin-filter-all" class="px-2.5 py-1 rounded-lg text-white bg-indigo-600 font-bold text-[11px]">Tous</button>
+            <button onclick="filterTrayBin('LIL-A')" id="tray-bin-filter-LIL-A" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white text-[11px]">Bac A</button>
+            <button onclick="filterTrayBin('LIL-B')" id="tray-bin-filter-LIL-B" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white text-[11px]">Bac B</button>
+            <button onclick="filterTrayBin('LIL-C')" id="tray-bin-filter-LIL-C" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white text-[11px]">Bac C</button>
+            <button onclick="filterTrayBin('LIL-D')" id="tray-bin-filter-LIL-D" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white text-[11px]">Bac D</button>
+          </div>
+        </div>
+
+        <!-- Right: Close Button -->
+        <button onclick="closeCasierOrganizer()" class="text-slate-400 hover:text-white p-2 hover:bg-slate-800 rounded-xl transition text-xs font-mono cursor-pointer flex items-center gap-1.5">
+          <span>✕</span> <span class="text-[10px] text-slate-500 hidden sm:inline">[Échap]</span>
+        </button>
+      </div>
+
+      <!-- Main Tray Content: 3-Column Jeweler Layout -->
+      <div class="flex-1 overflow-hidden p-5 grid grid-cols-12 gap-5">
+        
+        <!-- COLUMN 1: RACKS DROP TARGETS (3 cols) -->
+        <div class="col-span-12 lg:col-span-3 flex flex-col justify-between space-y-3 overflow-y-auto pr-1">
+          <div class="flex items-center justify-between font-mono text-[11px]">
+            <span class="uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+              <span>🎯</span> <span>Casiers Cibles</span>
+            </span>
+            <span class="text-slate-500 text-[10px]">Déposez ici ⇣</span>
+          </div>
+
+          <div class="space-y-2 flex-1" id="organizer-bins-grid">
+            <!-- Dynamically populated with BAC A, B, C, D cards -->
+          </div>
+
+          <div class="p-2.5 rounded-xl bg-[#141722] border border-slate-800/80 text-[10px] font-mono text-slate-400 flex items-center justify-between">
+            <span>Racks Actifs :</span>
+            <span class="text-indigo-400 font-bold" id="hub-total-fill-indicator">4 Casiers configurés</span>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: DRAGGABLE CARD DECK (6 cols) -->
+        <div class="col-span-12 lg:col-span-6 flex flex-col space-y-3 overflow-hidden border-x border-slate-800/70 px-4">
+          <div class="flex items-center justify-between font-mono text-[11px] shrink-0">
+            <span class="uppercase tracking-wider text-slate-300 font-bold flex items-center gap-1.5">
+              <span>💎</span> <span>Cartes Pièces d'Atelier (Glisser ou 1-Clic)</span>
+            </span>
+            <span class="text-emerald-400 text-[10px] font-bold" id="organizer-items-count">5 pièces</span>
+          </div>
+
+          <!-- Scrollable Card Deck -->
+          <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="organizer-draggable-list">
+            <!-- Dynamically populated card deck -->
+          </div>
+        </div>
+
+        <!-- COLUMN 3: CONTINUOUS THERMAL 50×30 PREVIEW & PRINT ACTIONS (3 cols) -->
+        <div class="col-span-12 lg:col-span-3 flex flex-col justify-between space-y-4 overflow-y-auto pl-1 font-mono">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between text-[11px]">
+              <span class="uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+                <span>🏷️</span> <span>Étiquette 50×30mm</span>
+              </span>
+              <span class="text-amber-400 text-[10px] font-bold">Pilote Prêt</span>
+            </div>
+
+            <!-- Crisp 50x30mm white thermal roll sticker card -->
+            <div class="bg-white text-slate-950 p-3.5 rounded-2xl border-2 border-slate-300 shadow-xl flex flex-col justify-between h-[175px] select-none">
+              <div class="flex justify-between items-start border-b border-slate-200 pb-2">
+                <div>
+                  <div class="text-[8px] uppercase tracking-widest font-black text-slate-500">KAYA MOVEMENT • ATELIER</div>
+                  <div class="font-black text-xs text-slate-950 truncate max-w-[155px]" id="thermal-preview-title">Darma Biomechanical Hoop</div>
+                  <div class="text-[10px] text-slate-600 font-semibold" id="thermal-preview-metal">Argent 925 • Piercing</div>
+                </div>
+                <!-- Simulated QR code -->
+                <div class="w-11 h-11 bg-slate-900 rounded p-1 flex items-center justify-center shrink-0">
+                  <svg class="w-full h-full text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="2" width="8" height="8" rx="1"></rect>
+                    <rect x="14" y="2" width="8" height="8" rx="1"></rect>
+                    <rect x="2" y="14" width="8" height="8" rx="1"></rect>
+                    <rect x="14" y="14" width="4" height="4"></rect>
+                    <rect x="18" y="18" width="4" height="4"></rect>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="pt-2 flex justify-between items-end">
+                <div class="space-y-0.5">
+                  <div class="text-[9px] text-slate-500 uppercase">Casier :</div>
+                  <div class="px-2 py-0.5 bg-slate-900 text-white rounded font-bold text-xs inline-block" id="thermal-preview-shelf">LIL-A01</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs font-black text-blue-800" id="thermal-preview-sku">KM-SEP-001</div>
+                  <div class="text-[10px] font-bold text-slate-700" id="thermal-preview-stock">12 pcs en stock</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hardware Diagnostic Details -->
+            <div class="p-3 rounded-xl bg-[#141724] border border-slate-800 space-y-1.5 text-[11px] text-slate-300">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Format :</span>
+                <span class="text-white font-bold">50mm × 30mm</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Marge :</span>
+                <span class="text-amber-400">0mm Bord Perdu</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Imprimante :</span>
+                <span class="text-emerald-400 font-bold">Thermique USB / BLE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Print Actions -->
+          <div class="space-y-2 pt-3 border-t border-slate-800">
+            <button onclick="printSingleThermalLabel()" class="btn-tactile w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+              <span>🏷️</span> <span>Imprimer cette étiquette</span>
+            </button>
+            <button onclick="printThermalBatch()" class="btn-tactile w-full py-2 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-md">
+              <span>🖨️</span> <span>Imprimer Lot (Tous les Bacs)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT LOGIC & PROTOTYPES ENGINE                     -->
+  <!-- ======================================================== -->
+  <script>
+    // State
+    const state = {
+      activeProto: 7,
+      activeFilter: 'all',
+      activeCollection: null,
+      subSidebarCollapsed: false,
+      workspace: 'Kaya Movement (Hub Lille)',
+      hub: 'lille',
+      activeDomainView: 'b2c',
+      facetAccordionOpen: true,
+      dockedFacetsOpen: false,
+      searchQuery: '',
+      filterChips: new Set(),
+      facetFilters: {
+        metals: new Set(['ARGENT', 'OR', 'CUIR']),
+        types: new Set(['septum', 'rings', 'leather']),
+        stockStatus: 'all'
+      },
+      products: [
+        { sku: 'KM-SEP-001', title: 'Darma Biomechanical Clicker Hoop', category: 'septum', collection: 'Darma', metal: 'ARGENT', metalLabel: 'Argent 925', shelf: 'LIL-A01', stock: 12, price: 95 },
+        { sku: 'KM-RNG-002', title: 'Kero Cybernetic Signet Ring', category: 'rings', collection: 'Kero', metal: 'ARGENT', metalLabel: 'Argent 925', shelf: 'LIL-A02', stock: 4, price: 140 },
+        { sku: 'KM-BAG-005', title: 'KERO Unisex Leather Holster Bag', category: 'leather', collection: 'Kero', metal: 'CUIR', metalLabel: 'Cuir Pleine Fleur', shelf: 'LIL-B01', stock: 2, price: 290 },
+        { sku: 'AE-EAR-005', title: 'Arcana Sacred Geometry Earrings', category: 'rings', collection: 'Arcana', metal: 'OR', metalLabel: 'Or 18K', shelf: 'LIL-A03', stock: 6, price: 185 },
+        { sku: 'AE-LIP-002', title: 'Iridium Cyber Labret Spike', category: 'septum', collection: 'Iridium', metal: 'ARGENT', metalLabel: 'Titane & Argent', shelf: 'LIL-C01', stock: 0, price: 65 }
+      ],
+      rawMaterials: [
+        { sku: 'MAT-ARG-001', title: 'Fil rond Argent 925 (1.2mm)', category: 'Matière', collection: 'BOM', metal: 'ARGENT', metalLabel: 'Argent 925', shelf: 'MAT-01', stock: '250 g', price: 180 },
+        { sku: 'MAT-CUIR-002', title: 'Collet Cuir Pleine Fleur Noir 2.5mm', category: 'Cuir', collection: 'BOM', metal: 'CUIR', metalLabel: 'Cuir Plein', shelf: 'MAT-02', stock: '12 peaux', price: 420 },
+        { sku: 'MAT-TIT-005', title: 'Barres Titane G23 Implant Grade', category: 'Titane', collection: 'BOM', metal: 'TITANE', metalLabel: 'Titane G23', shelf: 'MAT-03', stock: '85 tiges', price: 110 },
+        { sku: 'MAT-AGAT-009', title: 'Cabochons Agate Noire Taillés 6mm', category: 'Pierres', collection: 'BOM', metal: 'PIERRE', metalLabel: 'Agate Noire', shelf: 'MAT-04', stock: '40 pcs', price: 95 }
+      ],
+      consignments: [
+        { sku: 'B2B-PARIS', title: 'Boutique Le Marais (Paris 3e)', category: 'Dépôt', collection: 'Paris', metal: 'ARGENT', metalLabel: 'B2B Consign', shelf: 'PARIS-01', stock: '14 pièces', price: 1890 },
+        { sku: 'B2B-BRUX', title: 'Concept Store Sablon (Bruxelles)', category: 'Dépôt', collection: 'Bruxelles', metal: 'OR', metalLabel: 'B2B Consign', shelf: 'BRUX-01', stock: '8 pièces', price: 1120 },
+        { sku: 'B2B-TOKYO', title: 'Shibuya Piercing Lab (Tokyo)', category: 'Dépôt', collection: 'Japon', metal: 'ARGENT', metalLabel: 'B2B Consign', shelf: 'TYO-02', stock: '22 pièces', price: 3450 }
+      ],
+      festivals: [
+        { sku: 'TRK-HELLFEST', title: 'Valise A • Hellfest Open Air Clisson', category: 'Festival', collection: 'Festivals', metal: 'MIX', metalLabel: 'Trunk Stock', shelf: 'TRK-A', stock: '45 pièces', price: 6200 },
+        { sku: 'TRK-DOUR', title: 'Malle B • Dour Festival Edition 2026', category: 'Festival', collection: 'Festivals', metal: 'MIX', metalLabel: 'Trunk Stock', shelf: 'TRK-B', stock: '30 pièces', price: 4100 }
+      ]
+    };
+
+    // Audio click
+    function playTactileClick() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(420, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.03);
+      } catch (e) {}
+    }
+
+    function showToast(msg, type = 'success') {
+      playTactileClick();
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `px-3.5 py-2 rounded-xl text-xs font-mono font-medium shadow-2xl border flex items-center gap-2 pointer-events-auto transition-all duration-200 ${
+        type === 'success' ? 'bg-[#101923] text-emerald-400 border-emerald-500/40' : 'bg-[#181A20] text-blue-400 border-blue-500/40'
+      }`;
+      toast.innerHTML = `<span>✓</span> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => toast.remove(), 250);
+      }, 2400);
+    }
+
+    // Switch between all prototypes (Hybrides 6, 7 & P1..P5)
+    function switchPrototype(n) {
+      playTactileClick();
+      state.activeProto = n;
+      const ids = [6, 7, 1, 2, 3, 4, 5];
+      ids.forEach(i => {
+        const btn = document.getElementById(`proto-btn-${i}`);
+        if (btn) {
+          if (i === n) {
+            btn.className = (i === 6 || i === 7)
+              ? 'btn-tactile px-3 py-1.5 rounded-lg transition bg-blue-600 text-white font-bold flex items-center gap-1.5 font-mono text-[11px] shadow-sm'
+              : 'btn-tactile px-2.5 py-1.5 rounded-lg transition bg-blue-600 text-white font-bold flex items-center gap-1 font-mono text-[10px] shadow-sm';
+          } else {
+            btn.className = (i === 6 || i === 7)
+              ? 'btn-tactile px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white flex items-center gap-1.5 font-mono text-[11px]'
+              : 'btn-tactile px-2.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white flex items-center gap-1 font-mono text-[10px]';
+          }
+        }
+      });
+      renderPrototype(n);
+      renderTable();
+    }
+
+    // -------------------------------------------------------------
+    // RENDER PROTOTYPE SIDEBAR IMPLEMENTATIONS
+    // -------------------------------------------------------------
+    function renderPrototype(n) {
+      const aside = document.getElementById('test-sub-sidebar');
+      const tag = document.getElementById('canvas-proto-tag');
+      const title = document.getElementById('canvas-proto-title');
+      const desc = document.getElementById('canvas-proto-desc');
+      const verdict = document.getElementById('canvas-proto-verdict');
+
+      if (n === 6) {
+        // PROTOTYPE 6: HYBRIDE A — L'Atelier Intégré (Stack Unifié)
+        tag.textContent = '★ HYBRIDE A • SYNTHÈSE ATELIER';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-800 border border-amber-300';
+        title.textContent = "L'Atelier Intégré (Workspace Switcher + Domaines + Casiers + Facettes)";
+        desc.innerHTML = `Synthèse directe de vos retours : Switcher d'ateliers en tête, domaines de catalogue prioritaires, casiers réels Hub Lille avec action QR 50×30mm, et menu Filtres &amp; Facettes repliable dans la colonne. Zéro duplication des paramètres : tout est dans le popover de l'avatar <strong>KM</strong> du mini-rail 64px.`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Répond à 100% du feedback : un seul point d'accès Settings sur KM, facettes escamotables, languette PIN-008.</div>
+          <button onclick="toggleFacetAccordion()" class="btn-tactile px-3 py-1 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 transition">Déplier / Replier Facettes ▾</button>`;
+
+        aside.innerHTML = `
+          <!-- Physical Languette (PIN-008) sticking out on top right edge -->
+          <button onclick="toggleLanguetteFold()" id="languette-btn" class="absolute -right-7 top-4 bg-[#0F1117] border-y border-r border-slate-700/80 rounded-r-lg px-1.5 py-2 text-slate-400 hover:text-white shadow-xl hover:bg-slate-800 transition z-50 flex items-center justify-center cursor-pointer" title="Replier / Déplier le sous-menu (PIN-008)">
+            <span class="text-xs font-mono font-bold">‹</span>
+          </button>
+
+          <div class="p-3 flex flex-col justify-between h-full overflow-y-auto">
+            <div class="space-y-3.5">
+              
+              <!-- 1. Top Workspace & Brand Switcher (21st.dev style) -->
+              <div class="relative">
+                <div onclick="toggleWsDropdown()" class="flex items-center justify-between p-2 rounded-xl hover:bg-white/5 border border-slate-800/90 hover:border-slate-700 cursor-pointer transition select-none group bg-[#13151D]">
+                  <div class="flex items-center gap-2.5 overflow-hidden">
+                    <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                      KM
+                    </div>
+                    <div class="flex flex-col truncate">
+                      <span class="text-xs font-bold text-white truncate">${state.workspace}</span>
+                      <span class="text-[10px] text-slate-400 font-mono">Atelier Central • 4 Casiers</span>
+                    </div>
+                  </div>
+                  <span class="text-slate-500 text-xs">▾</span>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div id="ws-dropdown-menu" class="hidden absolute top-full left-0 w-full mt-1.5 bg-[#141722] border border-slate-700/80 rounded-xl shadow-2xl p-1 z-50 font-mono text-xs space-y-0.5 animate-toast">
+                  <div class="px-2 py-1 text-[9px] text-slate-500 uppercase font-bold tracking-wider">Ateliers &amp; Hubs</div>
+                  <button onclick="setWorkspace('Kaya Movement (Hub Lille)')" class="w-full text-left px-2.5 py-1.5 rounded-lg text-white hover:bg-blue-600/20 hover:text-blue-400 flex items-center justify-between">
+                    <span>Lille Central Hub</span>
+                    <span class="text-[10px] text-emerald-400">Actif</span>
+                  </button>
+                  <button onclick="setWorkspace('Atelier Bali (Production)')" class="w-full text-left px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 flex items-center justify-between">
+                    <span>Atelier Bali</span>
+                    <span class="text-[10px] text-slate-500">Fonte &amp; BOM</span>
+                  </button>
+                  <button onclick="setWorkspace('Sismique Custom Capsule')" class="w-full text-left px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 flex items-center justify-between">
+                    <span>Sismique Studio</span>
+                    <span class="text-[10px] text-purple-400">Pièces Uniques</span>
+                  </button>
+                  <div class="h-px bg-slate-800 my-1"></div>
+                  <button onclick="showToast('Ouverture création de hub...', 'info')" class="w-full text-left px-2.5 py-1 text-slate-400 hover:text-white flex items-center gap-1.5">
+                    <span class="text-blue-400">+</span> <span>Créer un Hub / Atelier</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2. Section: Domaines d'Atelier (Views) -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5 flex justify-between items-center">
+                  <span>DOMAINES D'ATELIER</span>
+                  <span class="text-slate-600 font-normal">5 vues</span>
+                </div>
+                
+                <button onclick="switchDomainView('b2c')" id="domain-btn-b2c" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'b2c' ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30' : 'text-slate-300 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>📦</span> <span>Catalogue B2C (Stock)</span></span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 font-bold">5</span>
+                </button>
+
+                <button onclick="switchDomainView('materials')" id="domain-btn-materials" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'materials' ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>🧱</span> <span>Matières Premières BOM</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">4</span>
+                </button>
+
+                <button onclick="switchDomainView('consignments')" id="domain-btn-consignments" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'consignments' ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>🤝</span> <span>Dépôts-Vente B2B</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">3</span>
+                </button>
+
+                <button onclick="switchDomainView('festivals')" id="domain-btn-festivals" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'festivals' ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>🎪</span> <span>Valises Festivals &amp; Trunk</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">2</span>
+                </button>
+
+                <div class="pt-1 border-t border-slate-800/60 flex items-center gap-1 font-mono text-[10px]">
+                  <button onclick="setAllFilter()" class="flex-1 py-1 px-2 rounded hover:bg-white/5 text-slate-400 hover:text-white text-left truncate">
+                    ★ Toutes pièces
+                  </button>
+                  <button onclick="setCategoryFilter('septum')" class="py-1 px-2 rounded hover:bg-white/5 text-amber-400 hover:text-amber-300">
+                    🚨 Ruptures (0)
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3. Section: Casiers Physiques & Impression QR (Hub Lille) -->
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/70">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5 flex justify-between items-center">
+                  <span>CASIERS PHYSIQUES (HUB LILLE)</span>
+                  <span class="text-amber-400 font-normal">72% plein</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-1.5 font-mono text-xs">
+                  <!-- Casier A -->
+                  <button onclick="setCasierFilter('LIL-A')" class="p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-blue-500/50 text-left transition space-y-1 cursor-pointer">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white">BAC A</span>
+                      <span class="text-emerald-400">3 SKUs</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-full rounded-full" style="width: 75%"></div>
+                    </div>
+                  </button>
+
+                  <!-- Casier B -->
+                  <button onclick="setCasierFilter('LIL-B')" class="p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-blue-500/50 text-left transition space-y-1 cursor-pointer">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white">BAC B</span>
+                      <span class="text-amber-400">1 SKU</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-amber-500 h-full rounded-full" style="width: 35%"></div>
+                    </div>
+                  </button>
+
+                  <!-- Casier C -->
+                  <button onclick="setCasierFilter('LIL-C')" class="p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-blue-500/50 text-left transition space-y-1 cursor-pointer">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white">BAC C</span>
+                      <span class="text-rose-400">Rupture</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-rose-500 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                  </button>
+
+                  <!-- Casier D -->
+                  <button onclick="showToast('Casier D (Réserves)', 'info')" class="p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-blue-500/50 text-left transition space-y-1 opacity-60 cursor-pointer">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white">BAC D</span>
+                      <span class="text-slate-500">Vide</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-slate-700 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                  </button>
+                </div>
+
+                <!-- Action CTA: Étiquettes QR Thermiques 50x30 -->
+                <button onclick="openThermalPrintModal()" class="w-full py-1.5 px-2.5 rounded-xl bg-[#161B28] hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white flex items-center justify-between text-xs font-mono transition cursor-pointer">
+                  <span class="flex items-center gap-2"><span>🏷️</span> <span>Imprimer Étiquettes QR</span></span>
+                  <span class="text-[10px] text-amber-400 font-bold">50×30</span>
+                </button>
+              </div>
+
+              <!-- 4. Section: Filtres & Facettes Dépliables (@flohoeller/filter-menu) -->
+              <div class="pt-2 border-t border-slate-800/70 space-y-2">
+                <div class="flex items-center justify-between px-1">
+                  <button onclick="toggleFacetAccordion()" class="text-[10px] font-mono uppercase tracking-wider text-slate-400 hover:text-white font-bold flex items-center gap-1.5 cursor-pointer">
+                    <span>⚙️</span> <span>FILTRES &amp; FACETTES</span>
+                    <span id="facet-chevron" class="text-xs text-slate-500">${state.facetAccordionOpen ? '▾' : '▸'}</span>
+                  </button>
+                  <button onclick="clearAllFacetFilters()" class="text-[10px] font-mono text-emerald-400 hover:underline cursor-pointer">
+                    Clear all
+                  </button>
+                </div>
+
+                <!-- Collapsible Container for Facets -->
+                <div id="facet-accordion-body" class="${state.facetAccordionOpen ? '' : 'hidden'} space-y-2.5">
+                  <!-- Active Chips -->
+                  <div class="flex flex-wrap gap-1 font-mono text-[10px]">
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      Argent 925 <span class="cursor-pointer font-bold" onclick="toggleFacetMetal('ARGENT')">✕</span>
+                    </span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      Septum <span class="cursor-pointer font-bold" onclick="toggleFacetType('septum')">✕</span>
+                    </span>
+                  </div>
+
+                  <!-- Accordion 1: Matières & Métaux -->
+                  <div class="border border-slate-800 rounded-xl bg-[#12151F] overflow-hidden text-xs">
+                    <div class="px-2.5 py-1.5 font-semibold text-slate-300 flex justify-between items-center bg-slate-800/40">
+                      <span>Métal &amp; Matière</span>
+                      <span class="text-[10px] text-slate-500 font-mono">3 choix</span>
+                    </div>
+                    <div class="p-2 space-y-1 font-mono text-xs">
+                      <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                        <span class="flex items-center gap-1.5">
+                          <input type="checkbox" onchange="toggleFacetMetal('ARGENT')" checked class="rounded border-slate-700 text-emerald-500">
+                          <span>Argent 925</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500">3</span>
+                      </label>
+                      <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                        <span class="flex items-center gap-1.5">
+                          <input type="checkbox" onchange="toggleFacetMetal('OR')" checked class="rounded border-slate-700 text-emerald-500">
+                          <span>Or 18K</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500">1</span>
+                      </label>
+                      <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                        <span class="flex items-center gap-1.5">
+                          <input type="checkbox" onchange="toggleFacetMetal('CUIR')" checked class="rounded border-slate-700 text-emerald-500">
+                          <span>Cuir Pleine Fleur</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500">1</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Accordion 2: Type de Pièce -->
+                  <div class="border border-slate-800 rounded-xl bg-[#12151F] overflow-hidden text-xs">
+                    <div class="px-2.5 py-1.5 font-semibold text-slate-300 flex justify-between items-center bg-slate-800/40">
+                      <span>Type de Pièce</span>
+                      <span class="text-[10px] text-slate-500 font-mono">3 choix</span>
+                    </div>
+                    <div class="p-2 space-y-1 font-mono text-xs">
+                      <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                        <span class="flex items-center gap-1.5">
+                          <input type="checkbox" onchange="toggleFacetType('septum')" checked class="rounded border-slate-700 text-emerald-500">
+                          <span>Septum Clickers</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500">2</span>
+                      </label>
+                      <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                        <span class="flex items-center gap-1.5">
+                          <input type="checkbox" onchange="toggleFacetType('rings')" checked class="rounded border-slate-700 text-emerald-500">
+                          <span>Bagues Signets</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500">2</span>
+                      </label>
+                      <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                        <span class="flex items-center gap-1.5">
+                          <input type="checkbox" onchange="toggleFacetType('leather')" checked class="rounded border-slate-700 text-emerald-500">
+                          <span>Maroquinerie</span>
+                        </span>
+                        <span class="text-[10px] text-slate-500">1</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- ZERO SETTINGS DUPLICATA AT BOTTOM (CLEAN FOOTER) -->
+            <div class="pt-3 pb-1 text-[10px] font-mono text-slate-600 flex justify-between border-t border-slate-800/60 mt-3">
+              <span>Stupid Stock Atelier</span>
+              <span class="text-emerald-500">Hub Actif</span>
+            </div>
+          </div>
+        `;
+
+      } else if (n === 7) {
+        // PROTOTYPE 7: MASTER STANDARD ATELIER (HYBRIDE B+ FINAL)
+        const itemsA = state.products.filter(p => p.shelf.startsWith('LIL-A'));
+        const itemsB = state.products.filter(p => p.shelf.startsWith('LIL-B'));
+        const itemsC = state.products.filter(p => p.shelf.startsWith('LIL-C'));
+        const itemsD = state.products.filter(p => p.shelf.startsWith('LIL-D'));
+        const qtyA = itemsA.reduce((sum, p) => sum + p.stock, 0);
+        const qtyB = itemsB.reduce((sum, p) => sum + p.stock, 0);
+        const qtyC = itemsC.reduce((sum, p) => sum + p.stock, 0);
+        const qtyD = itemsD.reduce((sum, p) => sum + p.stock, 0);
+
+        tag.textContent = '★ STANDARD ATELIER UNIFIÉ';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-indigo-50 text-indigo-800 border border-indigo-300';
+        title.textContent = "Deck d'Atelier Master (Glisser-Déposer Direct Table ➔ Bacs & Plateau d'Atelier)";
+        desc.innerHTML = `Glissez directement les pièces du tableau sur les <strong>BACS A à D</strong> du menu gauche, ou pressez <code class="font-mono bg-slate-100 px-1 rounded text-slate-800">⌘B</code> pour ouvrir l'établi mobile avec réassignation 1-clic et étiquettes QR 50×30mm continues.`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Tri d'atelier zéro-friction : drag-and-drop direct table ➔ bacs + établi coulissant <strong>⌘B</strong> avec tri cartes 21st.dev.</div>
+          <button onclick="openCasierOrganizer()" class="btn-tactile px-3 py-1 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition">Ouvrir Plateau d'Atelier [⌘B] ➔</button>`;
+
+        aside.innerHTML = `
+          <!-- Physical Languette (PIN-008) -->
+          <button onclick="toggleLanguetteFold()" id="languette-btn" class="absolute -right-7 top-4 bg-[#0F1117] border-y border-r border-slate-700/80 rounded-r-lg px-1.5 py-2 text-slate-400 hover:text-white shadow-xl hover:bg-slate-800 transition z-50 flex items-center justify-center cursor-pointer" title="Replier / Déplier le menu (⌘\\)">
+            <span class="text-xs font-mono font-bold">‹</span>
+          </button>
+
+          <div class="flex flex-col justify-between h-full overflow-hidden relative">
+            <div class="p-3 space-y-3.5 overflow-y-auto flex-1">
+              
+              <!-- 1. Top Workspace Switcher -->
+              <div class="relative">
+                <div onclick="toggleWsDropdown()" class="flex items-center justify-between p-2 rounded-xl hover:bg-white/5 border border-slate-800/90 hover:border-slate-700 cursor-pointer transition select-none group bg-[#13151D]">
+                  <div class="flex items-center gap-2.5 overflow-hidden">
+                    <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                      KM
+                    </div>
+                    <div class="flex flex-col truncate">
+                      <span class="text-xs font-bold text-white truncate">${state.workspace}</span>
+                      <span class="text-[10px] text-slate-400 font-mono">Hub Lille • 4 Casiers Physiques</span>
+                    </div>
+                  </div>
+                  <span class="text-slate-500 text-xs">▾</span>
+                </div>
+              </div>
+
+              <!-- 2. Section: Domaines d'Atelier -->
+              <div class="space-y-1">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5 flex justify-between items-center">
+                  <span>DOMAINES D'ATELIER</span>
+                  <span class="text-slate-600 font-normal">5 vues</span>
+                </div>
+                
+                <button onclick="switchDomainView('b2c')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'b2c' ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-300 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>📦</span> <span>Catalogue B2C (Stock)</span></span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 font-bold">${state.products.length}</span>
+                </button>
+
+                <button onclick="switchDomainView('materials')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'materials' ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>🧱</span> <span>Matières Premières BOM</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">${state.rawMaterials.length}</span>
+                </button>
+
+                <button onclick="switchDomainView('consignments')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'consignments' ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>🤝</span> <span>Dépôts-Vente B2B</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">${state.consignments.length}</span>
+                </button>
+
+                <button onclick="switchDomainView('festivals')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-left ${state.activeDomainView === 'festivals' ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+                  <span class="flex items-center gap-2"><span>🎪</span> <span>Valises Festivals &amp; Trunk</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">${state.festivals.length}</span>
+                </button>
+
+                <!-- Quick Filters Strip from Hybride A -->
+                <div class="pt-1 border-t border-slate-800/60 flex items-center gap-1 font-mono text-[10px]">
+                  <button onclick="setAllFilter()" class="flex-1 py-1 px-2 rounded hover:bg-white/5 text-slate-400 hover:text-white text-left truncate cursor-pointer">
+                    ★ Toutes pièces
+                  </button>
+                  <button onclick="setCategoryFilter('septum')" class="py-1 px-2 rounded hover:bg-white/5 text-amber-400 hover:text-amber-300 cursor-pointer">
+                    🚨 Ruptures (${state.products.filter(p=>p.stock===0).length})
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3. Casiers Physiques & Organiseur QR (ACTIVE DROP TARGETS) -->
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/70">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5 flex justify-between items-center">
+                  <span>CASIERS PHYSIQUES (HUB LILLE)</span>
+                  <span class="text-indigo-400 font-normal">Déposer ici ⇣</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-1.5 font-mono text-xs">
+                  <!-- Casier A -->
+                  <div id="sidebar-bin-LIL-A"
+                       ondragover="allowDrop(event)"
+                       ondragenter="handleSidebarBinDragEnter(event, 'LIL-A')"
+                       ondragleave="handleSidebarBinDragLeave(event, 'LIL-A')"
+                       ondrop="handleSidebarBinDrop(event, 'LIL-A')"
+                       onclick="setCasierFilter('LIL-A')"
+                       class="sidebar-bin-target p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-indigo-500/50 text-left transition-all duration-150 space-y-1 cursor-pointer select-none">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span>BAC A</span>
+                      </span>
+                      <span class="text-emerald-400 font-bold">${itemsA.length} SKUs</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-full rounded-full transition-all" style="width: ${Math.min(100, itemsA.length * 35)}%"></div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-slate-500">
+                      <span>Septums</span>
+                      <span class="text-slate-400 font-bold">${qtyA} pcs</span>
+                    </div>
+                  </div>
+
+                  <!-- Casier B -->
+                  <div id="sidebar-bin-LIL-B"
+                       ondragover="allowDrop(event)"
+                       ondragenter="handleSidebarBinDragEnter(event, 'LIL-B')"
+                       ondragleave="handleSidebarBinDragLeave(event, 'LIL-B')"
+                       ondrop="handleSidebarBinDrop(event, 'LIL-B')"
+                       onclick="setCasierFilter('LIL-B')"
+                       class="sidebar-bin-target p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-indigo-500/50 text-left transition-all duration-150 space-y-1 cursor-pointer select-none">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                        <span>BAC B</span>
+                      </span>
+                      <span class="text-amber-400 font-bold">${itemsB.length} SKUs</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-amber-500 h-full rounded-full transition-all" style="width: ${Math.min(100, itemsB.length * 50)}%"></div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-slate-500">
+                      <span>Maroquinerie</span>
+                      <span class="text-slate-400 font-bold">${qtyB} pcs</span>
+                    </div>
+                  </div>
+
+                  <!-- Casier C -->
+                  <div id="sidebar-bin-LIL-C"
+                       ondragover="allowDrop(event)"
+                       ondragenter="handleSidebarBinDragEnter(event, 'LIL-C')"
+                       ondragleave="handleSidebarBinDragLeave(event, 'LIL-C')"
+                       ondrop="handleSidebarBinDrop(event, 'LIL-C')"
+                       onclick="setCasierFilter('LIL-C')"
+                       class="sidebar-bin-target p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-indigo-500/50 text-left transition-all duration-150 space-y-1 cursor-pointer select-none">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+                        <span>BAC C</span>
+                      </span>
+                      <span class="${itemsC.length > 0 ? 'text-rose-400' : 'text-slate-500'} font-bold">${itemsC.length} SKUs</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-rose-500 h-full rounded-full transition-all" style="width: ${Math.min(100, itemsC.length * 50)}%"></div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-slate-500">
+                      <span>Titane</span>
+                      <span class="text-slate-400 font-bold">${qtyC} pcs</span>
+                    </div>
+                  </div>
+
+                  <!-- Casier D -->
+                  <div id="sidebar-bin-LIL-D"
+                       ondragover="allowDrop(event)"
+                       ondragenter="handleSidebarBinDragEnter(event, 'LIL-D')"
+                       ondragleave="handleSidebarBinDragLeave(event, 'LIL-D')"
+                       ondrop="handleSidebarBinDrop(event, 'LIL-D')"
+                       onclick="setCasierFilter('LIL-D')"
+                       class="sidebar-bin-target p-2 rounded-xl border border-slate-800 bg-[#131620] hover:border-indigo-500/50 text-left transition-all duration-150 space-y-1 cursor-pointer select-none">
+                    <div class="flex justify-between items-center text-[10px]">
+                      <span class="font-bold text-white flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                        <span>BAC D</span>
+                      </span>
+                      <span class="${itemsD.length > 0 ? 'text-indigo-400' : 'text-slate-500'} font-bold">${itemsD.length} SKUs</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                      <div class="bg-slate-500 h-full rounded-full transition-all" style="width: ${Math.min(100, itemsD.length * 50)}%"></div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-slate-500">
+                      <span>Réserves</span>
+                      <span class="text-slate-400 font-bold">${qtyD} pcs</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Launch Plateau d'Atelier & QR 50x30 -->
+                <button onclick="openCasierOrganizer()" class="w-full py-1.5 px-2.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 hover:text-white flex items-center justify-between text-xs font-mono transition cursor-pointer shadow-xs">
+                  <span class="flex items-center gap-2"><span>🗄️</span> <span>Plateau d'Atelier &amp; QR</span></span>
+                  <span class="text-[10px] text-amber-400 font-bold px-1.5 py-0.2 rounded bg-amber-500/10 border border-amber-500/20">⌘B</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- DOCKED BOTTOM DRAWER (FILTRES & FACETTES) -->
+            <div class="border-t border-slate-800 bg-[#0C0E15] p-2.5 transition-all duration-300">
+              <div class="flex items-center justify-between cursor-pointer" onclick="toggleDockedFacets()">
+                <div class="flex items-center gap-1.5 font-mono text-xs text-slate-300 font-bold">
+                  <span>⚙️</span> <span>Filtres &amp; Facettes</span>
+                  <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">2 actifs</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="event.stopPropagation(); clearAllFacetFilters();" class="text-[10px] font-mono text-emerald-400 hover:underline cursor-pointer">Clear all</button>
+                  <span id="docked-facets-chevron" class="text-xs text-slate-500 font-mono">${state.dockedFacetsOpen ? '▾' : '▴'}</span>
+                </div>
+              </div>
+
+              <!-- Sliding Body with Full Facet Options -->
+              <div id="docked-facets-body" class="${state.dockedFacetsOpen ? '' : 'hidden'} pt-2.5 space-y-2 max-h-56 overflow-y-auto">
+                <!-- Active Chips Row -->
+                <div class="flex flex-wrap gap-1 font-mono text-[10px]">
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    Argent 925 <span class="cursor-pointer font-bold" onclick="toggleFacetMetal('ARGENT')">✕</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    Septum <span class="cursor-pointer font-bold" onclick="toggleFacetType('septum')">✕</span>
+                  </span>
+                </div>
+
+                <!-- Métal & Matière -->
+                <div class="p-2 border border-slate-800/80 rounded-xl bg-[#141724] space-y-1 font-mono text-xs">
+                  <div class="text-[10px] text-slate-400 uppercase font-bold flex justify-between">
+                    <span>Métal &amp; Matière</span>
+                    <span class="text-slate-500">3 choix</span>
+                  </div>
+                  <label class="flex items-center justify-between text-slate-300 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5"><input type="checkbox" onchange="toggleFacetMetal('ARGENT')" checked class="rounded border-slate-700 text-indigo-500"> <span>Argent 925</span></span>
+                    <span class="text-slate-500 text-[10px]">3</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-300 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5"><input type="checkbox" onchange="toggleFacetMetal('OR')" checked class="rounded border-slate-700 text-indigo-500"> <span>Or 18K</span></span>
+                    <span class="text-slate-500 text-[10px]">1</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-300 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5"><input type="checkbox" onchange="toggleFacetMetal('CUIR')" checked class="rounded border-slate-700 text-indigo-500"> <span>Cuir Pleine Fleur</span></span>
+                    <span class="text-slate-500 text-[10px]">1</span>
+                  </label>
+                </div>
+
+                <!-- Type de Pièce -->
+                <div class="p-2 border border-slate-800/80 rounded-xl bg-[#141724] space-y-1 font-mono text-xs">
+                  <div class="text-[10px] text-slate-400 uppercase font-bold flex justify-between">
+                    <span>Type de Pièce</span>
+                    <span class="text-slate-500">3 choix</span>
+                  </div>
+                  <label class="flex items-center justify-between text-slate-300 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5"><input type="checkbox" onchange="toggleFacetType('septum')" checked class="rounded border-slate-700 text-indigo-500"> <span>Septums</span></span>
+                    <span class="text-slate-500 text-[10px]">2</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-300 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5"><input type="checkbox" onchange="toggleFacetType('rings')" checked class="rounded border-slate-700 text-indigo-500"> <span>Bagues Signets</span></span>
+                    <span class="text-slate-500 text-[10px]">2</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-300 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5"><input type="checkbox" onchange="toggleFacetType('leather')" checked class="rounded border-slate-700 text-indigo-500"> <span>Maroquinerie</span></span>
+                    <span class="text-slate-500 text-[10px]">1</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        `;
+
+      } else if (n === 1) {
+        // PROTOTYPE 1: Pure 21st.dev Isomorph (dashboard-sidebar.tsx)
+        tag.textContent = 'PROTOTYPE 1 • 21ST.DEV PURE';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200';
+        title.textContent = 'Pure Isomorphe 21st.dev (WorkspaceSwitcher & Arborescence)';
+        desc.innerHTML = `Composant fidèlement adapté de <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">dashboard-sidebar.tsx</code>. Sélecteur de Workspace/Hub en haut avec dropdown, navigation hiérarchique avec lignes guides fines, badges de comptage et profil en bas.`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Navigation professionnelle ultra-éprouvée, raccourcis clavier au survol, bascule d'atelier immédiate.</div>
+          <button onclick="toggleWsDropdown()" class="btn-tactile px-3 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">Tester Switcher Atelier ▾</button>`;
+
+        aside.innerHTML = `
+          <div class="p-3.5 flex flex-col justify-between h-full">
+            <div class="space-y-4">
+              
+              <!-- 1. Workspace Switcher Dropdown (21st.dev style) -->
+              <div class="relative">
+                <div onclick="toggleWsDropdown()" class="flex items-center justify-between p-2 rounded-xl hover:bg-white/5 border border-slate-800/80 hover:border-slate-700 cursor-pointer transition select-none group bg-[#13151D]">
+                  <div class="flex items-center gap-2.5 overflow-hidden">
+                    <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                      KM
+                    </div>
+                    <div class="flex flex-col truncate">
+                      <span class="text-xs font-bold text-white truncate">${state.workspace}</span>
+                      <span class="text-[10px] text-slate-400 font-mono">Atelier Principal • Hub</span>
+                    </div>
+                  </div>
+                  <span class="text-slate-500 text-xs">▾</span>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div id="ws-dropdown-menu" class="hidden absolute top-full left-0 w-full mt-1.5 bg-[#141722] border border-slate-700/80 rounded-xl shadow-2xl p-1 z-50 font-mono text-xs space-y-0.5 animate-toast">
+                  <div class="px-2 py-1 text-[9px] text-slate-500 uppercase font-bold tracking-wider">Ateliers &amp; Hubs</div>
+                  <button onclick="setWorkspace('Kaya Movement (Hub Lille)')" class="w-full text-left px-2.5 py-1.5 rounded-lg text-white hover:bg-blue-600/20 hover:text-blue-400 flex items-center justify-between">
+                    <span>Lille Central Hub</span>
+                    <span class="text-[10px] text-emerald-400">Actif</span>
+                  </button>
+                  <button onclick="setWorkspace('Atelier Bali (Production)')" class="w-full text-left px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-white/5 flex items-center justify-between">
+                    <span>Atelier Bali</span>
+                    <span class="text-[10px] text-slate-500">BOM</span>
+                  </button>
+                  <div class="h-px bg-slate-800 my-1"></div>
+                  <button onclick="showToast('Ouverture création de hub...', 'info')" class="w-full text-left px-2.5 py-1 text-slate-400 hover:text-white flex items-center gap-1.5">
+                    <span class="text-blue-400">+</span> <span>Créer un Hub / Atelier</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2. Hierarchical Navigation Groups (with vertical tree lines) -->
+              <div class="space-y-4">
+                
+                <!-- Group 1: CORE INVENTORY -->
+                <div class="space-y-1">
+                  <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-2">INVENTAIRE &amp; STOCKS</div>
+                  
+                  <!-- Item 1: Catalogue (Active) -->
+                  <div class="flex items-center justify-between px-2.5 py-2 rounded-lg bg-blue-600/15 border border-blue-500/30 text-white font-medium text-xs cursor-pointer group">
+                    <div class="flex items-center gap-2">
+                      <span>📦</span> <span>Catalogue Bijoux (B2C)</span>
+                    </div>
+                    <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 font-bold">5</span>
+                  </div>
+
+                  <!-- Sub-items tree -->
+                  <div class="relative pl-5 space-y-0.5 border-l border-slate-800 ml-3.5 my-1 text-xs">
+                    <button onclick="setCategoryFilter('septum')" class="w-full flex items-center justify-between py-1 text-slate-400 hover:text-white text-left transition">
+                      <span>Septums &amp; Clickers</span>
+                      <span class="text-[10px] font-mono text-slate-500">2</span>
+                    </button>
+                    <button onclick="setCategoryFilter('rings')" class="w-full flex items-center justify-between py-1 text-slate-400 hover:text-white text-left transition">
+                      <span>Bagues &amp; Anneaux</span>
+                      <span class="text-[10px] font-mono text-slate-500">2</span>
+                    </button>
+                    <button onclick="setCategoryFilter('leather')" class="w-full flex items-center justify-between py-1 text-slate-400 hover:text-white text-left transition">
+                      <span>Maroquinerie &amp; Holsters</span>
+                      <span class="text-[10px] font-mono text-slate-500">1</span>
+                    </button>
+                  </div>
+
+                  <!-- Item 2: Matières Premières & BOM -->
+                  <button onclick="showToast('Ouverture vue Matières Premières & BOM', 'info')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 text-xs text-left transition group">
+                    <div class="flex items-center gap-2">
+                      <span>🧱</span> <span>Matières &amp; BOM</span>
+                    </div>
+                    <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-slate-400">8</span>
+                  </button>
+
+                  <!-- Item 3: Dépôts-Vente B2B -->
+                  <button onclick="showToast('Ouverture Dépôts-Vente B2B', 'info')" class="w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 text-xs text-left transition group">
+                    <div class="flex items-center gap-2">
+                      <span>🤝</span> <span>Dépôts-Vente B2B</span>
+                    </div>
+                    <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-slate-400">3</span>
+                  </button>
+                </div>
+
+                <!-- Group 2: LOGISTICS & WORKFLOW -->
+                <div class="space-y-1">
+                  <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-2">LOGISTIQUE HUB</div>
+                  
+                  <button onclick="setCasierFilter('LIL-A')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 text-xs text-left transition">
+                    <div class="flex items-center gap-2">
+                      <span>🗄️</span> <span>Casiers Atelier (LIL)</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-blue-400">4 Bacs</span>
+                  </button>
+
+                  <button onclick="showToast('Ouverture file d\'étiquettes 50x30...', 'info')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 text-xs text-left transition">
+                    <div class="flex items-center gap-2">
+                      <span>🏷️</span> <span>Étiquettes QR (50×30)</span>
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-500">⌘T</span>
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Bottom User Profile Card with Settings Trigger -->
+            <div onclick="openControlCenterModal('profile')" class="p-2.5 rounded-xl border border-slate-800 bg-[#12141C] hover:border-slate-700 cursor-pointer transition flex items-center justify-between">
+              <div class="flex items-center gap-2 overflow-hidden">
+                <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xs text-slate-300">
+                  KM
+                </div>
+                <div class="flex flex-col truncate">
+                  <span class="text-xs font-semibold text-white truncate">Kaya Movement</span>
+                  <span class="text-[10px] text-emerald-400 font-mono">Tier 1 Pirate BYOK</span>
+                </div>
+              </div>
+              <span class="text-slate-500 text-xs hover:text-white" title="Paramètres (⌘,)">⚙️</span>
+            </div>
+
+          </div>
+        `;
+
+      } else if (n === 2) {
+        // PROTOTYPE 2: Finder & Glassmorphic Dossiers Metaphor
+        tag.textContent = 'PROTOTYPE 2 • FINDER DOSSIERS';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-purple-50 text-purple-700 border border-purple-200';
+        title.textContent = 'Métaphore macOS Finder & Dossiers Collections';
+        desc.innerHTML = `Structure façon explorateur de fichiers Mac (inspiré de <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">glass-folder-cards</code>) : les bijoux sont rangés dans des <strong>Dossiers Collections</strong> réels. Cliquer sur un dossier filtre immédiatement le stock.`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Métaphore physique ultra-naturelle pour un designer/artisan joaillier.</div>
+          <button onclick="createNewCollectionFolder()" class="btn-tactile px-3 py-1 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition">+ Nouveau Dossier Collection</button>`;
+
+        aside.innerHTML = `
+          <div class="p-3.5 flex flex-col justify-between h-full overflow-y-auto">
+            <div class="space-y-4">
+              
+              <!-- Atelier Title + Add Folder CTA -->
+              <div class="flex items-center justify-between px-1">
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>📁</span> <span>Dossiers d'Atelier</span>
+                </div>
+                <button onclick="createNewCollectionFolder()" class="text-slate-400 hover:text-white p-1 hover:bg-slate-800 rounded transition" title="Créer un nouveau dossier collection">
+                  +
+                </button>
+              </div>
+
+              <!-- Pinned Favorites -->
+              <div class="space-y-1">
+                <div class="text-[9px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5">ACCÈS RAPIDE</div>
+                <button onclick="setAllFilter()" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.activeFilter === 'all' && !state.activeCollection ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30' : 'text-slate-400 hover:text-white hover:bg-white/5'} transition text-left">
+                  <span class="flex items-center gap-2"><span>★</span> <span>Toutes les Pièces</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">5</span>
+                </button>
+                <button onclick="setCategoryFilter('septum')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-slate-400 hover:text-white hover:bg-white/5 transition text-left">
+                  <span class="flex items-center gap-2"><span>🚨</span> <span>Alertes Ruptures</span></span>
+                  <span class="text-[10px] font-mono text-amber-500 font-bold">0</span>
+                </button>
+              </div>
+
+              <!-- Collections as Folders with Interactive Expansion -->
+              <div class="space-y-1.5">
+                <div class="text-[9px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5">COLLECTIONS CRÉATIVES</div>
+
+                <!-- Folder 1: Darma -->
+                <div class="rounded-xl border border-slate-800/80 bg-[#12141D] overflow-hidden">
+                  <button onclick="toggleCollectionFolder('Darma')" class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold text-slate-200 hover:text-white hover:bg-white/5 transition text-left">
+                    <span class="flex items-center gap-2">
+                      <span class="text-amber-400">📁</span>
+                      <span>Darma Biomechanical</span>
+                    </span>
+                    <span class="text-[10px] font-mono text-slate-500">1 pièce</span>
+                  </button>
+                  <div id="folder-darma" class="px-3 pb-2 pt-1 text-[11px] space-y-1 border-t border-slate-800/40 bg-black/20">
+                    <div onclick="filterBySku('KM-SEP-001')" class="text-slate-400 hover:text-blue-400 cursor-pointer flex justify-between py-0.5">
+                      <span>• Clicker Hoop 16g</span> <span class="font-mono text-emerald-400">12 pcs</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Folder 2: Kero -->
+                <div class="rounded-xl border border-slate-800/80 bg-[#12141D] overflow-hidden">
+                  <button onclick="toggleCollectionFolder('Kero')" class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold text-slate-200 hover:text-white hover:bg-white/5 transition text-left">
+                    <span class="flex items-center gap-2">
+                      <span class="text-blue-400">📁</span>
+                      <span>Kero Leather &amp; Rings</span>
+                    </span>
+                    <span class="text-[10px] font-mono text-slate-500">2 pièces</span>
+                  </button>
+                  <div id="folder-kero" class="px-3 pb-2 pt-1 text-[11px] space-y-1 border-t border-slate-800/40 bg-black/20">
+                    <div onclick="filterBySku('KM-RNG-002')" class="text-slate-400 hover:text-blue-400 cursor-pointer flex justify-between py-0.5">
+                      <span>• Signet Ring Argent</span> <span class="font-mono text-amber-400">4 pcs</span>
+                    </div>
+                    <div onclick="filterBySku('KM-BAG-005')" class="text-slate-400 hover:text-blue-400 cursor-pointer flex justify-between py-0.5">
+                      <span>• Holster Bag Cuir</span> <span class="font-mono text-rose-400">2 pcs</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Folder 3: Ask & Embla Partner -->
+                <div class="rounded-xl border border-slate-800/80 bg-[#12141D] overflow-hidden">
+                  <button onclick="toggleCollectionFolder('Arcana')" class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold text-slate-200 hover:text-white hover:bg-white/5 transition text-left">
+                    <span class="flex items-center gap-2">
+                      <span class="text-purple-400">📁</span>
+                      <span>Ask &amp; Embla Capsule</span>
+                    </span>
+                    <span class="text-[10px] font-mono text-slate-500">2 pièces</span>
+                  </button>
+                  <div id="folder-arcana" class="hidden px-3 pb-2 pt-1 text-[11px] space-y-1 border-t border-slate-800/40 bg-black/20">
+                    <div onclick="filterBySku('AE-EAR-005')" class="text-slate-400 hover:text-blue-400 cursor-pointer flex justify-between py-0.5">
+                      <span>• Arcana Earrings Or</span> <span class="font-mono">6 pcs</span>
+                    </div>
+                    <div onclick="filterBySku('AE-LIP-002')" class="text-slate-400 hover:text-blue-400 cursor-pointer flex justify-between py-0.5">
+                      <span>• Iridium Labret Spike</span> <span class="font-mono text-rose-400">0 pcs</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Physical Casiers Racks -->
+              <div class="space-y-1 pt-2 border-t border-slate-800/60">
+                <div class="text-[9px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1.5">BACS PHYSIQUES HUB LILLE</div>
+                <div class="grid grid-cols-2 gap-1.5 font-mono text-xs">
+                  <button onclick="setCasierFilter('LIL-A')" class="p-2 rounded-lg bg-[#141722] hover:bg-blue-600/20 border border-slate-800 text-left transition">
+                    <div class="text-slate-400 text-[10px]">Tiroir A</div>
+                    <div class="font-bold text-white">3 SKUs</div>
+                  </button>
+                  <button onclick="setCasierFilter('LIL-B')" class="p-2 rounded-lg bg-[#141722] hover:bg-blue-600/20 border border-slate-800 text-left transition">
+                    <div class="text-slate-400 text-[10px]">Tiroir B</div>
+                    <div class="font-bold text-white">1 SKU</div>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Disk Footprint -->
+            <div class="p-2 text-[10px] font-mono text-slate-500 flex justify-between border-t border-slate-800/60 mt-3">
+              <span>Finder Storage</span>
+              <span class="text-purple-400">3 Dossiers</span>
+            </div>
+          </div>
+        `;
+
+      } else if (n === 3) {
+        // PROTOTYPE 3: Split Exploration ↔ Filter Menu (@flohoeller/filter-menu)
+        tag.textContent = 'PROTOTYPE 3 • SPLIT FACETTES (21ST.DEV)';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200';
+        title.textContent = 'Split 50/50 : Domaines d\'Atelier ↔ Menu Filtres à Facettes';
+        desc.innerHTML = `Intègre directement l'architecture du composant <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">@flohoeller/filter-menu</code> dans la moitié basse de la sidebar : accordéons de critères déroulants, compteurs en temps réel, puces actives et bouton "Clear all".`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Centralise tous les filtres à gauche, purifie totalement le haut de la table.</div>
+          <button onclick="clearAllFacetFilters()" class="btn-tactile px-3 py-1 bg-emerald-600 text-white rounded-lg font-bold hover:bg-emerald-700 transition">Effacer tous les filtres (Clear all)</button>`;
+
+        aside.innerHTML = `
+          <div class="flex flex-col h-full justify-between overflow-hidden">
+            
+            <!-- TOP HALF: DOMAIN EXPLORATION (45% height) -->
+            <div class="p-3.5 space-y-3 border-b border-slate-800 shrink-0">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1">DOMAINES D'ATELIER</div>
+              <div class="space-y-1">
+                <button onclick="setAllFilter()" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-emerald-600/15 border border-emerald-500/30 text-white font-medium text-xs text-left transition">
+                  <span class="flex items-center gap-2"><span>📦</span> <span>Catalogue B2C</span></span>
+                  <span class="text-[10px] font-mono text-emerald-300">5</span>
+                </button>
+                <button onclick="showToast('Vue Matières Premières BOM', 'info')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 text-xs text-left transition">
+                  <span class="flex items-center gap-2"><span>🧱</span> <span>Matières Premières</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">8</span>
+                </button>
+                <button onclick="showToast('Vue Dépôts B2B', 'info')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 text-xs text-left transition">
+                  <span class="flex items-center gap-2"><span>🤝</span> <span>Dépôts-Vente B2B</span></span>
+                  <span class="text-[10px] font-mono text-slate-500">3</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- BOTTOM HALF: @flohoeller/filter-menu IMPLEMENTATION (55% height) -->
+            <div class="p-3.5 flex-1 overflow-y-auto space-y-3 bg-[#0C0E14]">
+              
+              <!-- Filter Menu Header with Clear All -->
+              <div class="flex items-center justify-between">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+                  <span>⚙️</span> <span>FILTRES À FACETTES</span>
+                </div>
+                <button onclick="clearAllFacetFilters()" class="text-[10px] font-mono text-emerald-400 hover:underline cursor-pointer">
+                  Clear all
+                </button>
+              </div>
+
+              <!-- Active Filter Chips Row -->
+              <div id="active-facet-chips" class="flex flex-wrap gap-1">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                  Argent 925 <span class="cursor-pointer font-bold" onclick="toggleFacetMetal('ARGENT')">✕</span>
+                </span>
+              </div>
+
+              <!-- Accordion 1: Matières & Métaux -->
+              <div class="border border-slate-800/80 rounded-xl bg-[#12151F] overflow-hidden">
+                <div class="px-2.5 py-1.5 text-xs font-semibold text-slate-300 flex justify-between items-center cursor-pointer hover:text-white bg-slate-800/30">
+                  <span>Métal &amp; Matière</span>
+                  <span class="text-[10px] text-slate-500">▾</span>
+                </div>
+                <div class="p-2 space-y-1 text-xs font-mono">
+                  <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5">
+                      <input type="checkbox" onchange="toggleFacetMetal('ARGENT')" checked class="rounded border-slate-700 text-emerald-500">
+                      <span>Argent 925</span>
+                    </span>
+                    <span class="text-[10px] text-slate-500">3</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5">
+                      <input type="checkbox" onchange="toggleFacetMetal('OR')" checked class="rounded border-slate-700 text-emerald-500">
+                      <span>Or 18K</span>
+                    </span>
+                    <span class="text-[10px] text-slate-500">1</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5">
+                      <input type="checkbox" onchange="toggleFacetMetal('CUIR')" checked class="rounded border-slate-700 text-emerald-500">
+                      <span>Cuir Pleine Fleur</span>
+                    </span>
+                    <span class="text-[10px] text-slate-500">1</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Accordion 2: Type de Pièce -->
+              <div class="border border-slate-800/80 rounded-xl bg-[#12151F] overflow-hidden">
+                <div class="px-2.5 py-1.5 text-xs font-semibold text-slate-300 flex justify-between items-center cursor-pointer hover:text-white bg-slate-800/30">
+                  <span>Type de Pièce</span>
+                  <span class="text-[10px] text-slate-500">▾</span>
+                </div>
+                <div class="p-2 space-y-1 text-xs font-mono">
+                  <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5">
+                      <input type="checkbox" onchange="toggleFacetType('septum')" checked class="rounded border-slate-700 text-emerald-500">
+                      <span>Septum Clickers</span>
+                    </span>
+                    <span class="text-[10px] text-slate-500">2</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5">
+                      <input type="checkbox" onchange="toggleFacetType('rings')" checked class="rounded border-slate-700 text-emerald-500">
+                      <span>Bagues Signets</span>
+                    </span>
+                    <span class="text-[10px] text-slate-500">2</span>
+                  </label>
+                  <label class="flex items-center justify-between text-slate-400 hover:text-white cursor-pointer py-0.5">
+                    <span class="flex items-center gap-1.5">
+                      <input type="checkbox" onchange="toggleFacetType('leather')" checked class="rounded border-slate-700 text-emerald-500">
+                      <span>Maroquinerie</span>
+                    </span>
+                    <span class="text-[10px] text-slate-500">1</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+
+      } else if (n === 4) {
+        // PROTOTYPE 4: Languette Atelier & Bacs Physiques (PIN-008)
+        tag.textContent = 'PROTOTYPE 4 • LANGUETTE PIN-008 & BACS';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-700 border border-amber-200';
+        title.textContent = 'Languette Sombre Affleurante (PIN-008) & Bacs 2×2';
+        desc.innerHTML = `Résout le retour du fondateur (<code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">PIN-008</code>) : le bouton de repli est directement greffé sur le flanc droit du sidebar avec la <strong>même couleur de fond (#0F1117)</strong>. Il reste visible pour réouvrir le menu même replié à <code class="font-mono">w-0</code>. Intègre une mini-grille tactile des casiers physiques.`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Résout exactement le PIN-008 et donne une présence physique immédiate aux bacs de rangement.</div>
+          <button onclick="toggleLanguetteFold()" class="btn-tactile px-3 py-1 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 transition">Actionner la Languette PIN-008 ‹›</button>`;
+
+        aside.innerHTML = `
+          <!-- Physical Languette (PIN-008) sticking out on top right edge -->
+          <button onclick="toggleLanguetteFold()" id="languette-btn" class="absolute -right-7 top-4 bg-[#0F1117] border-y border-r border-slate-700/80 rounded-r-lg px-1.5 py-2 text-slate-400 hover:text-white shadow-xl hover:bg-slate-800 transition z-50 flex items-center justify-center cursor-pointer" title="Replier / Déplier le sous-menu (PIN-008)">
+            <span class="text-xs font-mono font-bold">‹</span>
+          </button>
+
+          <div class="p-3.5 flex flex-col justify-between h-full overflow-hidden">
+            <div class="space-y-4">
+              
+              <!-- Atelier Title + Lille Hub Badge -->
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-bold text-white tracking-tight">Kaya Movement</h3>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold">Atelier PIN-008</span>
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>Hub Central Lille (Bacs A à D)</span>
+                </div>
+              </div>
+
+              <!-- Hub Physical Switcher -->
+              <div class="grid grid-cols-2 gap-1 bg-[#141722] p-1 rounded-xl border border-slate-800 font-mono text-[11px]">
+                <button onclick="setHubMode('lille')" id="hub-btn-lille" class="py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold border border-amber-500/30">
+                  Lille Hub
+                </button>
+                <button onclick="setHubMode('bali')" id="hub-btn-bali" class="py-1 rounded-lg text-slate-400 hover:text-white">
+                  Bali Atelier
+                </button>
+              </div>
+
+              <!-- Physical Bins Matrix (Visual 2x2 Grid with Fill Gauges) -->
+              <div class="space-y-1.5">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1 flex justify-between">
+                  <span>CASIERS ATELIER (RACK)</span>
+                  <span class="text-amber-400 font-normal">Taux 72%</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                  <!-- Casier A -->
+                  <div onclick="setCasierFilter('LIL-A')" class="p-2.5 rounded-xl border border-slate-800 bg-[#141620] hover:border-amber-500/60 cursor-pointer transition space-y-1.5">
+                    <div class="flex justify-between items-center">
+                      <span class="font-bold text-white">BAC LIL-A</span>
+                      <span class="text-[10px] text-emerald-400">3 pcs</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-full rounded-full" style="width: 75%"></div>
+                    </div>
+                    <div class="text-[9px] text-slate-500 truncate">Septums &amp; Rings</div>
+                  </div>
+
+                  <!-- Casier B -->
+                  <div onclick="setCasierFilter('LIL-B')" class="p-2.5 rounded-xl border border-slate-800 bg-[#141620] hover:border-amber-500/60 cursor-pointer transition space-y-1.5">
+                    <div class="flex justify-between items-center">
+                      <span class="font-bold text-white">BAC LIL-B</span>
+                      <span class="text-[10px] text-amber-400">1 pc</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-amber-500 h-full rounded-full" style="width: 35%"></div>
+                    </div>
+                    <div class="text-[9px] text-slate-500 truncate">Maroquinerie</div>
+                  </div>
+
+                  <!-- Casier C -->
+                  <div onclick="setCasierFilter('LIL-C')" class="p-2.5 rounded-xl border border-slate-800 bg-[#141620] hover:border-amber-500/60 cursor-pointer transition space-y-1.5">
+                    <div class="flex justify-between items-center">
+                      <span class="font-bold text-white">BAC LIL-C</span>
+                      <span class="text-[10px] text-rose-400">0 pc</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-rose-500 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                    <div class="text-[9px] text-slate-500 truncate">Spikes Titane</div>
+                  </div>
+
+                  <!-- Casier D -->
+                  <div onclick="showToast('Casier D (Apprêts vides)', 'info')" class="p-2.5 rounded-xl border border-slate-800 bg-[#141620] hover:border-amber-500/60 cursor-pointer transition space-y-1.5 opacity-60">
+                    <div class="flex justify-between items-center">
+                      <span class="font-bold text-white">BAC LIL-D</span>
+                      <span class="text-[10px] text-slate-500">Vide</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-slate-600 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                    <div class="text-[9px] text-slate-500 truncate">Réserves</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Operations -->
+              <div class="space-y-1 pt-2 border-t border-slate-800/60">
+                <button onclick="setAllFilter()" class="w-full py-1.5 px-2.5 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 flex items-center justify-between text-left">
+                  <span>📦 Tous les Modèles</span>
+                  <span class="font-mono text-[10px] text-slate-500">5</span>
+                </button>
+                <button onclick="showToast('File impression thermique...', 'info')" class="w-full py-1.5 px-2.5 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 flex items-center justify-between text-left">
+                  <span>🏷️ Imprimer Bacs (50×30)</span>
+                  <span class="font-mono text-[10px] text-amber-400 font-bold">Print</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Footer SQLite Status -->
+            <div class="p-2.5 border-t border-slate-800/80 bg-[#0B0D12] text-[10px] font-mono text-slate-500 flex justify-between items-center">
+              <span>Rack Hub Lille</span>
+              <span class="text-emerald-400 font-semibold">Connecté</span>
+            </div>
+          </div>
+        `;
+
+      } else if (n === 5) {
+        // PROTOTYPE 5: High-Density Command Deck (Arc / Linear Pro)
+        tag.textContent = 'PROTOTYPE 5 • COMMAND DECK (ARC / LINEAR)';
+        tag.className = 'px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-rose-50 text-rose-700 border border-rose-200';
+        title.textContent = 'Command Deck Haute Densité & Flyout Popover';
+        desc.innerHTML = `Conçu pour la vitesse d'exécution : micro-champ de recherche <code class="font-mono">⌘K</code> directement intégré dans le menu, hauteur de ligne ultra-fine (28px), raccourcis numériques directs (<code class="font-mono">1</code>, <code class="font-mono">2</code>, <code class="font-mono">3</code>), et popover de contrôle complet sur l'avatar <code class="font-mono">KM</code>.`;
+        verdict.innerHTML = `<div>⚡ <strong>Point Fort :</strong> Surface maximale accordée au tableau, frappe clavier immédiate, zéro fioriture.</div>
+          <button onclick="openControlCenterModal('bridges')" class="btn-tactile px-3 py-1 bg-rose-600 text-white rounded-lg font-bold hover:bg-rose-700 transition">Ouvrir le Popover Ponts &amp; Settings ⚙️</button>`;
+
+        aside.innerHTML = `
+          <div class="p-2.5 flex flex-col justify-between h-full overflow-hidden font-mono text-xs">
+            <div class="space-y-3">
+              
+              <!-- Micro Search Bar (⌘K) -->
+              <div class="relative">
+                <input type="text" placeholder="Rechercher... ⌘K" class="w-full bg-[#12141C] border border-slate-800 rounded-lg px-2.5 py-1 text-[11px] text-white placeholder-slate-500 focus:outline-none focus:border-rose-500">
+              </div>
+
+              <!-- High Density Section 1 -->
+              <div class="space-y-0.5">
+                <div class="text-[9px] uppercase tracking-wider text-slate-600 font-bold px-1.5 mb-1">ATELIER</div>
+                <button onclick="setAllFilter()" class="w-full flex items-center justify-between px-2 py-1 rounded hover:bg-white/5 text-slate-300 hover:text-white transition text-left text-[11px]">
+                  <span class="flex items-center gap-1.5"><span class="text-rose-400">1</span> <span>Catalogue B2C</span></span>
+                  <span class="text-[10px] text-slate-500">5</span>
+                </button>
+                <button onclick="showToast('Vue Matières BOM', 'info')" class="w-full flex items-center justify-between px-2 py-1 rounded hover:bg-white/5 text-slate-300 hover:text-white transition text-left text-[11px]">
+                  <span class="flex items-center gap-1.5"><span class="text-slate-500">2</span> <span>Matières BOM</span></span>
+                  <span class="text-[10px] text-slate-500">8</span>
+                </button>
+                <button onclick="showToast('Vue Dépôts B2B', 'info')" class="w-full flex items-center justify-between px-2 py-1 rounded hover:bg-white/5 text-slate-300 hover:text-white transition text-left text-[11px]">
+                  <span class="flex items-center gap-1.5"><span class="text-slate-500">3</span> <span>Dépôts-Vente</span></span>
+                  <span class="text-[10px] text-slate-500">3</span>
+                </button>
+                <button onclick="showToast('Vue Valises Festivals', 'info')" class="w-full flex items-center justify-between px-2 py-1 rounded hover:bg-white/5 text-slate-300 hover:text-white transition text-left text-[11px]">
+                  <span class="flex items-center gap-1.5"><span class="text-slate-500">4</span> <span>Festivals Trunk</span></span>
+                  <span class="text-[10px] text-slate-500">2</span>
+                </button>
+              </div>
+
+              <!-- High Density Section 2 -->
+              <div class="space-y-0.5">
+                <div class="text-[9px] uppercase tracking-wider text-slate-600 font-bold px-1.5 mb-1">LOGISTIQUE</div>
+                <button onclick="setCasierFilter('LIL-A')" class="w-full flex items-center justify-between px-2 py-1 rounded hover:bg-white/5 text-slate-300 hover:text-white transition text-left text-[11px]">
+                  <span class="flex items-center gap-1.5"><span class="text-slate-500">5</span> <span>Rack Bacs LIL</span></span>
+                  <span class="text-[10px] text-blue-400 font-bold">4</span>
+                </button>
+                <button onclick="showToast('Print QR 50x30...', 'info')" class="w-full flex items-center justify-between px-2 py-1 rounded hover:bg-white/5 text-slate-300 hover:text-white transition text-left text-[11px]">
+                  <span class="flex items-center gap-1.5"><span class="text-slate-500">6</span> <span>Thermal Labels</span></span>
+                  <span class="text-[10px] text-slate-500">50×30</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Footer Flyout Bar -->
+            <div onclick="openControlCenterModal('profile')" class="p-2 rounded-lg bg-[#11131A] border border-slate-800 hover:border-rose-500/40 cursor-pointer transition flex items-center justify-between text-[11px]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="text-slate-300 font-bold">Kaya Lille</span>
+              </div>
+              <span class="text-slate-500">⌘,</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // INTERACTIVE ACTIONS & FILTERS
+    // -------------------------------------------------------------
+    function toggleKmPopover() {
+      playTactileClick();
+      const pop = document.getElementById('km-popover-menu');
+      if (pop) pop.classList.toggle('hidden');
+    }
+
+    function closeKmPopover() {
+      const pop = document.getElementById('km-popover-menu');
+      if (pop) pop.classList.add('hidden');
+    }
+
+    function toggleFacetAccordion() {
+      playTactileClick();
+      state.facetAccordionOpen = !state.facetAccordionOpen;
+      const body = document.getElementById('facet-accordion-body');
+      const chev = document.getElementById('facet-chevron');
+      if (body) body.classList.toggle('hidden', !state.facetAccordionOpen);
+      if (chev) chev.textContent = state.facetAccordionOpen ? '▾' : '▸';
+    }
+
+    function toggleDockedFacets() {
+      playTactileClick();
+      state.dockedFacetsOpen = !state.dockedFacetsOpen;
+      const body = document.getElementById('docked-facets-body');
+      const chev = document.getElementById('docked-facets-chevron');
+      if (body) body.classList.toggle('hidden', !state.dockedFacetsOpen);
+      if (chev) chev.textContent = state.dockedFacetsOpen ? '▾' : '▴';
+    }
+
+    function switchDomainView(view) {
+      playTactileClick();
+      state.activeDomainView = view;
+      if (view === 'b2c') {
+        state.activeFilter = 'all';
+        showToast('Domaine : Catalogue B2C (Pièces Finies en Stock)');
+      } else if (view === 'materials') {
+        showToast('Domaine : Matières Premières & BOM Atelier', 'info');
+      } else if (view === 'consignments') {
+        showToast('Domaine : Dépôts-Vente B2B (Revendeurs)', 'info');
+      } else if (view === 'festivals') {
+        showToast('Domaine : Valises Festivals & Trunk Show', 'info');
+      }
+      renderPrototype(state.activeProto);
+      renderTable();
+    }
+
+    // =============================================================
+    // PLATEAU D'ATELIER, CASIERS PHYSIQUES & DRAG & DROP ENGINE
+    // =============================================================
+    let draggedSku = null;
+    let traySearchQuery = '';
+    let activeTrayBinFilter = 'all';
+
+    function getCategoryIcon(cat) {
+      switch (cat) {
+        case 'septum': return '✨';
+        case 'rings': return '💍';
+        case 'leather': return '🪢';
+        default: return '💎';
+      }
+    }
+
+    function getShelfBadgeStyle(shelf) {
+      if (shelf.startsWith('LIL-A')) return 'bg-emerald-500/10 text-emerald-700 border-emerald-300';
+      if (shelf.startsWith('LIL-B')) return 'bg-amber-500/10 text-amber-700 border-amber-300';
+      if (shelf.startsWith('LIL-C')) return 'bg-rose-500/10 text-rose-700 border-rose-300';
+      return 'bg-slate-100 text-slate-700 border-slate-300';
+    }
+
+    function openCasierOrganizer() {
+      playTactileClick();
+      const backdrop = document.getElementById('casier-bottom-tray-backdrop');
+      if (backdrop) backdrop.classList.remove('hidden');
+      renderCasierOrganizer();
+    }
+
+    function closeCasierOrganizer() {
+      playTactileClick();
+      const backdrop = document.getElementById('casier-bottom-tray-backdrop');
+      if (backdrop) backdrop.classList.add('hidden');
+    }
+
+    // Direct Drag & Drop from Table to Left Sub-Sidebar
+    function handleTableDragStart(e, sku) {
+      draggedSku = sku;
+      e.dataTransfer.setData('text/plain', sku);
+      e.dataTransfer.effectAllowed = 'move';
+      
+      // Pulse & illuminate sidebar bins
+      document.querySelectorAll('.sidebar-bin-target').forEach(el => {
+        el.classList.add('border-indigo-400', 'bg-indigo-600/20', 'ring-2', 'ring-indigo-400/40');
+      });
+    }
+
+    function handleTableDragEnd(e) {
+      draggedSku = null;
+      document.querySelectorAll('.sidebar-bin-target').forEach(el => {
+        el.classList.remove('border-indigo-400', 'bg-indigo-600/20', 'ring-2', 'ring-indigo-400/40', 'border-emerald-400', 'bg-emerald-500/30', 'scale-[1.02]');
+      });
+    }
+
+    function handleSidebarBinDragEnter(e, binId) {
+      e.preventDefault();
+      const el = document.getElementById(`sidebar-bin-${binId}`);
+      if (el) {
+        el.classList.add('border-emerald-400', 'bg-emerald-500/30', 'scale-[1.02]');
+      }
+    }
+
+    function handleSidebarBinDragLeave(e, binId) {
+      e.preventDefault();
+      const el = document.getElementById(`sidebar-bin-${binId}`);
+      if (el) {
+        el.classList.remove('border-emerald-400', 'bg-emerald-500/30', 'scale-[1.02]');
+      }
+    }
+
+    function handleSidebarBinDrop(e, targetBin) {
+      e.preventDefault();
+      const sku = e.dataTransfer.getData('text/plain') || draggedSku;
+      handleTableDragEnd();
+
+      const prod = state.products.find(p => p.sku === sku);
+      if (prod) {
+        playTactileClick();
+        const oldShelf = prod.shelf;
+        prod.shelf = `${targetBin}01`;
+        showToast(`✓ SKU ${sku} réassigné : ${oldShelf} ➔ ${prod.shelf} !`, 'success');
+        previewThermalLabel(sku);
+        renderPrototype(state.activeProto);
+        renderTable();
+        flashRowDropped(sku);
+      }
+    }
+
+    function flashRowDropped(sku) {
+      const row = document.getElementById(`table-row-${sku}`);
+      if (row) {
+        row.classList.add('bg-emerald-100');
+        setTimeout(() => row.classList.remove('bg-emerald-100'), 1400);
+      }
+    }
+
+    // Drag inside Plateau d'Atelier Drawer
+    function handleDragStart(e, sku) {
+      draggedSku = sku;
+      e.dataTransfer.setData('text/plain', sku);
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    }
+
+    function handleDragEnter(e, binId) {
+      e.preventDefault();
+      const el = document.getElementById(`bin-target-${binId}`);
+      if (el) el.classList.add('border-indigo-400', 'bg-indigo-600/30', 'scale-[1.02]');
+    }
+
+    function handleDragLeave(e, binId) {
+      e.preventDefault();
+      const el = document.getElementById(`bin-target-${binId}`);
+      if (el) el.classList.remove('border-indigo-400', 'bg-indigo-600/30', 'scale-[1.02]');
+    }
+
+    function handleDrop(e, targetBin) {
+      e.preventDefault();
+      const sku = e.dataTransfer.getData('text/plain') || draggedSku;
+      const el = document.getElementById(`bin-target-${targetBin}`);
+      if (el) el.classList.remove('border-indigo-400', 'bg-indigo-600/30', 'scale-[1.02]');
+
+      const prod = state.products.find(p => p.sku === sku);
+      if (prod) {
+        playTactileClick();
+        const oldShelf = prod.shelf;
+        prod.shelf = `${targetBin}01`;
+        showToast(`✓ SKU ${sku} déplacé : ${oldShelf} ➔ ${prod.shelf}`, 'success');
+        previewThermalLabel(sku);
+        renderCasierOrganizer();
+        renderPrototype(state.activeProto);
+        renderTable();
+      }
+    }
+
+    // 1-Click rapid reassignment on card
+    function reassignPiece(sku, targetBin) {
+      playTactileClick();
+      const prod = state.products.find(p => p.sku === sku);
+      if (!prod) return;
+      const oldShelf = prod.shelf;
+      prod.shelf = `${targetBin}01`;
+      showToast(`✓ SKU ${sku} réassigné : ${oldShelf} ➔ ${prod.shelf}`, 'success');
+      previewThermalLabel(sku);
+      renderCasierOrganizer();
+      renderPrototype(state.activeProto);
+      renderTable();
+      flashRowDropped(sku);
+    }
+
+    function onTraySearch(val) {
+      traySearchQuery = val.toLowerCase().trim();
+      renderCasierOrganizer();
+    }
+
+    function filterTrayBin(binId) {
+      playTactileClick();
+      activeTrayBinFilter = binId;
+      const allBins = ['all', 'LIL-A', 'LIL-B', 'LIL-C', 'LIL-D'];
+      allBins.forEach(b => {
+        const btn = document.getElementById(`tray-bin-filter-${b}`);
+        if (btn) {
+          if (b === binId) {
+            btn.className = 'px-2.5 py-1 rounded-lg text-white bg-indigo-600 font-bold text-[11px] shadow-sm';
+          } else {
+            btn.className = 'px-2 py-1 rounded-lg text-slate-400 hover:text-white text-[11px]';
+          }
+        }
+      });
+      renderCasierOrganizer();
+    }
+
+    function previewThermalLabel(sku) {
+      const p = state.products.find(item => item.sku === sku);
+      if (!p) return;
+      const tTitle = document.getElementById('thermal-preview-title');
+      const tSku = document.getElementById('thermal-preview-sku');
+      const tShelf = document.getElementById('thermal-preview-shelf');
+      const tStock = document.getElementById('thermal-preview-stock');
+      const tMetal = document.getElementById('thermal-preview-metal');
+      if (tTitle) tTitle.textContent = p.title;
+      if (tSku) tSku.textContent = p.sku;
+      if (tShelf) tShelf.textContent = p.shelf;
+      if (tStock) tStock.textContent = `${p.stock} pcs en stock`;
+      if (tMetal) tMetal.textContent = `${p.metalLabel} • Piercing Atelier`;
+      showToast(`Aperçu étiquette 50×30 : ${p.sku} (${p.shelf})`);
+    }
+
+    function printSingleThermalLabel() {
+      playTactileClick();
+      const sku = document.getElementById('thermal-preview-sku')?.textContent || 'KM-SEP-001';
+      showToast(`Étiquette 50×30 envoyée pour ${sku} ✓`, 'success');
+    }
+
+    function printThermalBatch() {
+      playTactileClick();
+      showToast('Impression lancée : 4 étiquettes 50×30mm envoyées au rouleau thermique', 'success');
+      closeCasierOrganizer();
+    }
+
+    function renderCasierOrganizer() {
+      const grid = document.getElementById('organizer-bins-grid');
+      const list = document.getElementById('organizer-draggable-list');
+      const count = document.getElementById('organizer-items-count');
+      const hubFill = document.getElementById('hub-total-fill-indicator');
+      if (!grid || !list) return;
+
+      const bins = [
+        { id: 'LIL-A', label: 'BAC A', desc: 'Septums & Clickers', color: 'emerald' },
+        { id: 'LIL-B', label: 'BAC B', desc: 'Maroquinerie & Cuir', color: 'amber' },
+        { id: 'LIL-C', label: 'BAC C', desc: 'Titane & Spikes', color: 'rose' },
+        { id: 'LIL-D', label: 'BAC D', desc: 'Réserves Atelier', color: 'slate' }
+      ];
+
+      // 1. Column 1: Drop Targets Bins
+      grid.innerHTML = bins.map(b => {
+        const itemsInBin = state.products.filter(p => p.shelf.startsWith(b.id));
+        const totalQty = itemsInBin.reduce((acc, p) => acc + p.stock, 0);
+        const fillPercent = Math.min(100, itemsInBin.length * 40);
+        return `
+          <div id="bin-target-${b.id}"
+               ondragover="allowDrop(event)"
+               ondragenter="handleDragEnter(event, '${b.id}')"
+               ondragleave="handleDragLeave(event, '${b.id}')"
+               ondrop="handleDrop(event, '${b.id}')"
+               onclick="filterTrayBin('${b.id}')"
+               class="p-3 rounded-2xl border-2 border-dashed border-slate-700 bg-[#131622] hover:border-indigo-400/80 transition-all duration-150 flex flex-col justify-between min-h-[92px] group select-none cursor-pointer">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="font-bold text-white flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-${b.color}-400"></span>
+                <span>${b.label}</span>
+              </span>
+              <span class="text-[10px] text-${b.color}-400 font-bold">${itemsInBin.length} SKU (${totalQty} pcs)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden my-1.5">
+              <div class="bg-${b.color}-500 h-full rounded-full transition-all" style="width: ${fillPercent}%"></div>
+            </div>
+            <div class="text-[10px] text-slate-400 font-mono truncate flex justify-between items-center">
+              <span>${b.desc}</span>
+              <span class="text-indigo-400 font-bold opacity-0 group-hover:opacity-100 transition">Déposer ⇣</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (hubFill) hubFill.textContent = `4 Casiers • ${state.products.length} bijoux`;
+
+      // 2. Column 2: Filterable Draggable Card Deck
+      let filteredProducts = state.products.filter(p => {
+        if (traySearchQuery) {
+          const matchTitle = p.title.toLowerCase().includes(traySearchQuery);
+          const matchSku = p.sku.toLowerCase().includes(traySearchQuery);
+          const matchMetal = p.metalLabel.toLowerCase().includes(traySearchQuery);
+          if (!matchTitle && !matchSku && !matchMetal) return false;
+        }
+        if (activeTrayBinFilter !== 'all') {
+          return p.shelf.startsWith(activeTrayBinFilter);
+        }
+        return true;
+      });
+
+      if (count) count.textContent = `${filteredProducts.length} pièces`;
+
+      if (filteredProducts.length === 0) {
+        list.innerHTML = `
+          <div class="p-8 text-center text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded-2xl">
+            Aucun bijou ne correspond au filtre dans le plateau.
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = filteredProducts.map(p => `
+        <div draggable="true"
+             ondragstart="handleDragStart(event, '${p.sku}')"
+             onclick="previewThermalLabel('${p.sku}')"
+             class="p-3 rounded-2xl border border-slate-800 bg-[#121520] hover:border-indigo-500/60 hover:bg-[#161a29] cursor-grab active:cursor-grabbing transition flex flex-col justify-between font-mono text-xs select-none shadow-sm group">
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 overflow-hidden">
+              <span class="text-slate-500 group-hover:text-indigo-400 font-bold">⋮⋮</span>
+              <div class="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700/80 flex items-center justify-center text-sm shrink-0 shadow-inner">
+                ${getCategoryIcon(p.category)}
+              </div>
+              <div class="overflow-hidden">
+                <div class="font-bold text-white truncate text-xs">${p.title}</div>
+                <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
+                  <span class="text-blue-400 font-bold">${p.sku}</span>
+                  <span>•</span>
+                  <span class="text-slate-300">${p.metalLabel}</span>
+                  <span>•</span>
+                  <span class="font-bold text-slate-200">${p.price} €</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="px-2 py-0.5 rounded-lg text-[10px] font-bold ${getShelfBadgeStyle(p.shelf)} border">
+                ${p.shelf}
+              </span>
+              <span class="font-bold ${p.stock > 0 ? 'text-slate-200' : 'text-rose-400'} text-xs">${p.stock} pcs</span>
+            </div>
+          </div>
+
+          <!-- Quick 1-Click Reassignment Bar -->
+          <div class="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px]">
+            <span class="text-slate-500 uppercase font-semibold">Réassigner 1-clic :</span>
+            <div class="flex items-center gap-1 font-bold">
+              <button onclick="event.stopPropagation(); reassignPiece('${p.sku}', 'LIL-A')" class="px-2 py-0.5 rounded hover:bg-emerald-600 hover:text-white transition ${p.shelf.startsWith('LIL-A') ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-slate-800 text-slate-400'}">➔ Bac A</button>
+              <button onclick="event.stopPropagation(); reassignPiece('${p.sku}', 'LIL-B')" class="px-2 py-0.5 rounded hover:bg-amber-600 hover:text-white transition ${p.shelf.startsWith('LIL-B') ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-slate-800 text-slate-400'}">➔ Bac B</button>
+              <button onclick="event.stopPropagation(); reassignPiece('${p.sku}', 'LIL-C')" class="px-2 py-0.5 rounded hover:bg-rose-600 hover:text-white transition ${p.shelf.startsWith('LIL-C') ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40' : 'bg-slate-800 text-slate-400'}">➔ Bac C</button>
+              <button onclick="event.stopPropagation(); reassignPiece('${p.sku}', 'LIL-D')" class="px-2 py-0.5 rounded hover:bg-slate-600 hover:text-white transition ${p.shelf.startsWith('LIL-D') ? 'bg-slate-500/20 text-slate-300 border border-slate-500/40' : 'bg-slate-800 text-slate-400'}">➔ Bac D</button>
+            </div>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    function toggleCockpitCard(cardKey) {
+      playTactileClick();
+      if (cardKey === 'shoot') {
+        showToast('Cockpit : 0 pièce sans packshot (Catalogue 100% prêt)');
+      } else if (cardKey === 'stockout') {
+        state.activeDomainView = 'b2c';
+        state.activeFilter = 'stockout';
+        showToast('Cockpit : Filtrage des pièces en rupture');
+      } else if (cardKey === 'casiers') {
+        state.activeDomainView = 'b2c';
+        state.activeFilter = 'bin:LIL-A';
+        showToast('Cockpit : Bacs Hub Lille A (3 SKUs)');
+      } else if (cardKey === 'margins') {
+        showToast('Cockpit : Marge moyenne 76.0% (Rentabilité atelier optimale)');
+      }
+      renderTable();
+    }
+
+    function onCanvasSearch(val) {
+      state.searchQuery = val.toLowerCase().trim();
+      renderTable();
+    }
+
+    function setAllFilter() {
+      state.activeDomainView = 'b2c';
+      state.activeFilter = 'all';
+      state.activeCollection = null;
+      renderTable();
+      showToast('Filtre réinitialisé : Toutes les pièces B2C');
+    }
+
+    function setCategoryFilter(cat) {
+      state.activeDomainView = 'b2c';
+      state.activeFilter = cat;
+      state.activeCollection = null;
+      renderTable();
+      showToast(`Filtre catégorie : ${cat}`);
+    }
+
+    function setCasierFilter(binPrefix) {
+      state.activeDomainView = 'b2c';
+      state.activeFilter = `bin:${binPrefix}`;
+      state.activeCollection = null;
+      renderTable();
+      showToast(`Filtré par casier : ${binPrefix}`);
+    }
+
+    function filterBySku(sku) {
+      state.activeDomainView = 'b2c';
+      state.activeFilter = `sku:${sku}`;
+      renderTable();
+      showToast(`Sélection SKU : ${sku}`);
+    }
+
+    function toggleCollectionFolder(col) {
+      playTactileClick();
+      state.activeCollection = state.activeCollection === col ? null : col;
+      state.activeFilter = 'all';
+      const fEl = document.getElementById(`folder-${col.toLowerCase()}`);
+      if (fEl) fEl.classList.toggle('hidden');
+      renderTable();
+    }
+
+    function createNewCollectionFolder() {
+      const name = prompt('Nom du nouveau dossier collection créatif (ex: Sismique 2026) :');
+      if (name && name.trim()) {
+        showToast(`Dossier "${name.trim()}" créé dans l'atelier !`);
+      }
+    }
+
+    function toggleLanguetteFold() {
+      playTactileClick();
+      const aside = document.getElementById('test-sub-sidebar');
+      const btn = document.getElementById('languette-btn');
+      state.subSidebarCollapsed = !state.subSidebarCollapsed;
+
+      if (state.subSidebarCollapsed) {
+        aside.style.width = '0px';
+        aside.style.overflow = 'hidden';
+        if (btn) btn.innerHTML = '<span class="text-xs font-mono font-bold">›</span>';
+        showToast('Sous-menu replié (PIN-008)', 'info');
+      } else {
+        aside.style.width = '16rem'; // 256px
+        aside.style.overflow = 'visible';
+        if (btn) btn.innerHTML = '<span class="text-xs font-mono font-bold">‹</span>';
+        showToast('Sous-menu déployé (PIN-008)', 'info');
+      }
+    }
+
+    function setHubMode(hub) {
+      playTactileClick();
+      state.hub = hub;
+      const bLille = document.getElementById('hub-btn-lille');
+      const bBali = document.getElementById('hub-btn-bali');
+      if (hub === 'lille') {
+        if (bLille) bLille.className = 'py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold border border-amber-500/30';
+        if (bBali) bBali.className = 'py-1 rounded-lg text-slate-400 hover:text-white';
+        showToast('Hub Lille activé (Expéditions & Casiers)');
+      } else {
+        if (bLille) bLille.className = 'py-1 rounded-lg text-slate-400 hover:text-white';
+        if (bBali) bBali.className = 'py-1 rounded-lg bg-amber-600/20 text-amber-300 font-bold border border-amber-500/30';
+        showToast('Atelier Bali activé (Fabrication & BOM)');
+      }
+    }
+
+    function toggleWsDropdown() {
+      playTactileClick();
+      const m = document.getElementById('ws-dropdown-menu');
+      if (m) m.classList.toggle('hidden');
+    }
+
+    function setWorkspace(ws) {
+      state.workspace = ws;
+      toggleWsDropdown();
+      showToast(`Atelier actif : ${ws}`);
+      renderPrototype(state.activeProto);
+    }
+
+    function toggleFacetMetal(metal) {
+      playTactileClick();
+      if (state.facetFilters.metals.has(metal)) {
+        state.facetFilters.metals.delete(metal);
+      } else {
+        state.facetFilters.metals.add(metal);
+      }
+      renderTable();
+    }
+
+    function toggleFacetType(t) {
+      playTactileClick();
+      if (state.facetFilters.types.has(t)) {
+        state.facetFilters.types.delete(t);
+      } else {
+        state.facetFilters.types.add(t);
+      }
+      renderTable();
+    }
+
+    function clearAllFacetFilters() {
+      state.facetFilters.metals = new Set(['ARGENT', 'OR', 'CUIR']);
+      state.facetFilters.types = new Set(['septum', 'rings', 'leather']);
+      renderPrototype(state.activeProto);
+      renderTable();
+      showToast('Tous les filtres à facettes ont été réinitialisés');
+    }
+
+    function testActionOnActiveProto() {
+      if (state.activeProto === 6) toggleFacetAccordion();
+      else if (state.activeProto === 7) toggleDockedFacets();
+      else if (state.activeProto === 1) toggleWsDropdown();
+      else if (state.activeProto === 2) createNewCollectionFolder();
+      else if (state.activeProto === 3) clearAllFacetFilters();
+      else if (state.activeProto === 4) toggleLanguetteFold();
+      else if (state.activeProto === 5) openControlCenterModal('bridges');
+    }
+
+    // -------------------------------------------------------------
+    // RENDER REACTIVE INVENTORY TABLE
+    // -------------------------------------------------------------
+    function renderTable() {
+      const tbody = document.getElementById('table-body');
+      const filterInd = document.getElementById('filter-state-indicator');
+      const countInd = document.getElementById('items-count-indicator');
+      if (!tbody) return;
+
+      // 1. Raw Materials Domain View
+      if (state.activeDomainView === 'materials') {
+        if (filterInd) filterInd.innerHTML = `Domaine : <strong>Matières Premières BOM</strong>`;
+        if (countInd) countInd.textContent = `${state.rawMaterials.length} Matières d'Atelier`;
+        tbody.innerHTML = state.rawMaterials.map(m => `
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-2.5 px-3 font-mono font-bold text-amber-600">${m.sku}</td>
+            <td class="py-2.5 px-3">
+              <div class="font-bold text-slate-900">${m.title}</div>
+              <div class="text-[10px] text-slate-400 font-mono">Composant Fonte &amp; Montage Atelier</div>
+            </td>
+            <td class="py-2.5 px-3 font-mono text-[11px] text-slate-600">${m.metalLabel}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="font-mono text-[10px] bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 font-bold">${m.shelf}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-mono font-bold text-slate-800">${m.stock}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">${m.price} €</td>
+          </tr>
+        `).join('');
+        return;
+      }
+
+      // 2. Consignments Domain View
+      if (state.activeDomainView === 'consignments') {
+        if (filterInd) filterInd.innerHTML = `Domaine : <strong>Dépôts-Vente B2B</strong>`;
+        if (countInd) countInd.textContent = `${state.consignments.length} Partenaires Dépôt`;
+        tbody.innerHTML = state.consignments.map(c => `
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-2.5 px-3 font-mono font-bold text-purple-600">${c.sku}</td>
+            <td class="py-2.5 px-3">
+              <div class="font-bold text-slate-900">${c.title}</div>
+              <div class="text-[10px] text-slate-400 font-mono">Boutique &amp; Revendeur Consigné</div>
+            </td>
+            <td class="py-2.5 px-3 font-mono text-[11px] text-slate-600">${c.metalLabel}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="font-mono text-[10px] bg-purple-50 text-purple-800 px-1.5 py-0.5 rounded border border-purple-200 font-bold">${c.shelf}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-mono font-bold text-slate-800">${c.stock}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">${c.price} €</td>
+          </tr>
+        `).join('');
+        return;
+      }
+
+      // 3. Festivals Domain View
+      if (state.activeDomainView === 'festivals') {
+        if (filterInd) filterInd.innerHTML = `Domaine : <strong>Valises Festivals Trunk</strong>`;
+        if (countInd) countInd.textContent = `${state.festivals.length} Malle(s) Déployée(s)`;
+        tbody.innerHTML = state.festivals.map(f => `
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-2.5 px-3 font-mono font-bold text-rose-600">${f.sku}</td>
+            <td class="py-2.5 px-3">
+              <div class="font-bold text-slate-900">${f.title}</div>
+              <div class="text-[10px] text-slate-400 font-mono">Stock Trunk Sorti Hors Magasin</div>
+            </td>
+            <td class="py-2.5 px-3 font-mono text-[11px] text-slate-600">${f.metalLabel}</td>
+            <td class="py-2.5 px-3 text-center">
+              <span class="font-mono text-[10px] bg-rose-50 text-rose-800 px-1.5 py-0.5 rounded border border-rose-200 font-bold">${f.shelf}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-mono font-bold text-slate-800">${f.stock}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">${f.price} €</td>
+          </tr>
+        `).join('');
+        return;
+      }
+
+      // 4. Default: B2C Jewelry Catalog View with Reactive Filters
+      let filtered = state.products.filter(p => {
+        // Search query filter
+        if (state.searchQuery) {
+          const matchTitle = p.title.toLowerCase().includes(state.searchQuery);
+          const matchSku = p.sku.toLowerCase().includes(state.searchQuery);
+          const matchCol = p.collection.toLowerCase().includes(state.searchQuery);
+          if (!matchTitle && !matchSku && !matchCol) return false;
+        }
+
+        // Prototypes 3, 6, 7 Facets
+        if (state.activeProto === 3 || state.activeProto === 6 || state.activeProto === 7) {
+          if (!state.facetFilters.metals.has(p.metal)) return false;
+          if (!state.facetFilters.types.has(p.category)) return false;
+        }
+
+        // Prototype 2 Collections
+        if (state.activeCollection && p.collection !== state.activeCollection) {
+          return false;
+        }
+
+        // Generic filters
+        if (state.activeFilter === 'all') return true;
+        if (state.activeFilter === 'stockout') return p.stock === 0;
+        if (state.activeFilter.startsWith('bin:')) {
+          const bin = state.activeFilter.replace('bin:', '');
+          return p.shelf.startsWith(bin);
+        }
+        if (state.activeFilter.startsWith('sku:')) {
+          const sku = state.activeFilter.replace('sku:', '');
+          return p.sku === sku;
+        }
+        return p.category === state.activeFilter;
+      });
+
+      if (filterInd) filterInd.innerHTML = `Filtre actif : <strong>${state.activeCollection ? state.activeCollection : state.activeFilter}</strong>`;
+      if (countInd) countInd.textContent = `${filtered.length} Pièce(s) affichée(s)`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-8 text-center text-slate-400 font-mono text-xs">
+              Aucune pièce ne correspond au filtre actif.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => `
+        <tr draggable="true"
+            ondragstart="handleTableDragStart(event, '${p.sku}')"
+            ondragend="handleTableDragEnd(event)"
+            id="table-row-${p.sku}"
+            class="hover:bg-indigo-50/50 transition-colors cursor-grab active:cursor-grabbing select-none group">
+          <td class="py-2.5 px-3 font-mono font-bold text-blue-600 flex items-center gap-2">
+            <span class="text-slate-400 group-hover:text-indigo-600 font-bold text-xs" title="Glisser vers un casier">⋮⋮</span>
+            <span>${p.sku}</span>
+          </td>
+          <td class="py-2.5 px-3">
+            <div class="font-bold text-slate-900">${p.title}</div>
+            <div class="text-[10px] text-slate-400 font-mono">Collection ${p.collection}</div>
+          </td>
+          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-600">${p.metalLabel}</td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="font-mono text-[10px] ${getShelfBadgeStyle(p.shelf)} px-2 py-0.5 rounded-md border font-bold" id="shelf-badge-${p.sku}">${p.shelf}</span>
+          </td>
+          <td class="py-2.5 px-3 text-center font-mono font-bold ${p.stock > 0 ? 'text-slate-800' : 'text-rose-600'}">
+            ${p.stock > 0 ? p.stock : 'RUPTURE'}
+          </td>
+          <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">${p.price} €</td>
+        </tr>
+      `).join('');
+    }
+
+    // -------------------------------------------------------------
+    // MODAL CONTROL CENTER (@felipemenezes098/settings-2)
+    // -------------------------------------------------------------
+    function openControlCenterModal(tab = 'profile') {
+      playTactileClick();
+      const modal = document.getElementById('control-center-modal');
+      if (modal) modal.classList.remove('hidden');
+      switchControlTab(tab);
+    }
+
+    function closeControlCenterModal() {
+      playTactileClick();
+      const modal = document.getElementById('control-center-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchControlTab(tabKey) {
+      playTactileClick();
+      const tabs = ['profile', 'license', 'bridges', 'hardware', 'storage'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`ctab-${t}`);
+        if (btn) {
+          if (t === tabKey) {
+            btn.className = 'w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-white bg-[#1A1F2C] border border-blue-500/30 font-semibold';
+          } else {
+            btn.className = 'w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition text-slate-400 hover:text-white hover:bg-slate-800/50';
+          }
+        }
+      });
+
+      const content = document.getElementById('control-tab-content');
+      if (!content) return;
+
+      if (tabKey === 'profile') {
+        content.innerHTML = `
+          <div class="space-y-5">
+            <div class="border-b border-slate-800 pb-3">
+              <h2 class="text-base font-bold text-white">Profil &amp; Configuration Atelier</h2>
+              <p class="text-xs text-slate-400">Identité du créateur, préfixes de SKU et gestion des hubs géographiques.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+              <div class="space-y-1">
+                <label class="text-slate-400">Nom de l'Artisan / Atelier</label>
+                <input type="text" value="Serious Studio • Kaya Movement" class="w-full bg-[#141722] border border-slate-700 rounded-lg p-2 text-white">
+              </div>
+              <div class="space-y-1">
+                <label class="text-slate-400">Hub Principal Actif</label>
+                <select class="w-full bg-[#141722] border border-slate-700 rounded-lg p-2 text-white">
+                  <option selected>Lille Central (Hub Logistique &amp; Stock)</option>
+                  <option>Bali (Atelier Création &amp; Fonte)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs text-slate-400 font-mono">Marques Associées &amp; Préfixes SKU</label>
+              <div class="p-3 rounded-xl bg-[#12151F] border border-slate-800 space-y-2 font-mono text-xs">
+                <div class="flex justify-between items-center text-slate-300">
+                  <span>💍 Kaya Movement</span> <span class="text-blue-400 font-bold">KM-</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-300">
+                  <span>🌑 Sismique Custom</span> <span class="text-blue-400 font-bold">SIS-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'license') {
+        content.innerHTML = `
+          <div class="space-y-5">
+            <div class="border-b border-slate-800 pb-3">
+              <h2 class="text-base font-bold text-white">Licence &amp; Plan Logiciel</h2>
+              <p class="text-xs text-slate-400">Modèle de commercialisation Stupid Suite et activation des modules.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-900/40 to-indigo-900/30 border border-blue-500/40 flex items-center justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/20 text-blue-300 border border-blue-400/40 font-bold">ACTIVE LICENSE</span>
+                <h3 class="text-sm font-bold text-white mt-1">Tier 1 : Pirate BYOK Lifetime</h3>
+                <p class="text-xs text-slate-400">100% Hors-Ligne, Zéro Tiers, Stockage SQLite Local.</p>
+              </div>
+              <span class="text-2xl font-mono text-emerald-400 font-bold">✓ VALIDÉ</span>
+            </div>
+
+            <div class="space-y-2 font-mono text-xs">
+              <label class="text-slate-400">Clé d'Activation de la Suite</label>
+              <input type="text" readonly value="STUPID-PIRATE-LIFETIME-ATELIER-2026" class="w-full bg-[#141722] border border-slate-700 rounded-lg p-2 text-slate-400 text-xs">
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'bridges') {
+        content.innerHTML = `
+          <div class="space-y-5">
+            <div class="border-b border-slate-800 pb-3">
+              <h2 class="text-base font-bold text-white">Ponts API &amp; Intégrations Locales</h2>
+              <p class="text-xs text-slate-400">Connexion aux serveurs locaux, modèles d'IA et canaux e-commerce.</p>
+            </div>
+
+            <div class="space-y-3 font-mono text-xs">
+              <!-- Flow Bridge -->
+              <div class="p-3 rounded-xl bg-[#141722] border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="text-white font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span>Google Flow Bridge (Port :8100)</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Pont local de génération IA 2x2 et slicing</div>
+                </div>
+                <button onclick="showToast('Test Flow :8100 OK (12ms)', 'success')" class="btn-tactile px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg">
+                  Tester Ping
+                </button>
+              </div>
+
+              <!-- Shopify GraphQL -->
+              <div class="p-3 rounded-xl bg-[#141722] border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="text-white font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                    <span>Shopify Admin GraphQL</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Synchronisation temps réel du catalogue</div>
+                </div>
+                <span class="text-emerald-400 font-bold">Connecté</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'hardware') {
+        content.innerHTML = `
+          <div class="space-y-5">
+            <div class="border-b border-slate-800 pb-3">
+              <h2 class="text-base font-bold text-white">Matériel Atelier &amp; Impression Thermique</h2>
+              <p class="text-xs text-slate-400">Calibrage de l'étiqueteuse continue QR 50x30mm.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 font-mono text-xs">
+              <div class="space-y-1">
+                <label class="text-slate-400">Format d'Étiquette</label>
+                <input type="text" readonly value="50mm × 30mm (Rouleau Continu)" class="w-full bg-[#141722] border border-slate-700 rounded-lg p-2 text-white">
+              </div>
+              <div class="space-y-1">
+                <label class="text-slate-400">Marge Pilote d'Impression</label>
+                <input type="text" value="0mm (Bord Perdu Strict)" class="w-full bg-[#141722] border border-slate-700 rounded-lg p-2 text-white">
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <button onclick="showToast('Impression test envoyée vers l\'étiqueteuse...', 'success')" class="btn-tactile px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-mono text-xs flex items-center gap-2">
+                <span>🏷️</span> <span>Imprimer une étiquette de test thermique</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'storage') {
+        content.innerHTML = `
+          <div class="space-y-5">
+            <div class="border-b border-slate-800 pb-3">
+              <h2 class="text-base font-bold text-white">Base SQLite Locale &amp; Sauvegardes</h2>
+              <p class="text-xs text-slate-400">Santé de la base serious_core.db et snapshots d'atelier.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-[#131620] border border-slate-800 font-mono text-xs space-y-1.5">
+              <div class="flex justify-between text-slate-300">
+                <span>Fichier Physique :</span> <span class="text-white">core/serious_core.db</span>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>Modèles Enregistrés :</span> <span class="text-blue-400 font-bold">5 SKUs B2C</span>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>Tables Actives :</span> <span class="text-emerald-400 font-bold">11 Tables SQLite</span>
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button onclick="showToast('Snapshot SQLite exporté dans core/backups/ !', 'success')" class="btn-tactile px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs rounded-xl font-bold flex items-center gap-1.5">
+                <span>💾</span> <span>Exporter Backup (.db + JSON)</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function saveControlSettings() {
+      closeControlCenterModal();
+      showToast('Paramètres de l\'Atelier enregistrés avec succès ✓');
+    }
+
+    // Keyboard Shortcuts & Popover Dismissal
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === ',') {
+        e.preventDefault();
+        openControlCenterModal('profile');
+      } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        const backdrop = document.getElementById('casier-bottom-tray-backdrop');
+        if (backdrop && !backdrop.classList.contains('hidden')) {
+          closeCasierOrganizer();
+        } else {
+          openCasierOrganizer();
+        }
+      } else if ((e.metaKey || e.ctrlKey) && e.key === '\\') {
+        e.preventDefault();
+        toggleLanguetteFold();
+      } else if (e.key === 'Escape') {
+        closeControlCenterModal();
+        closeKmPopover();
+        closeCasierOrganizer();
+      } else if (e.key >= '1' && e.key <= '7' && !(e.metaKey || e.ctrlKey) && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        switchPrototype(parseInt(e.key, 10));
+      }
+    });
+
+    // Click outside dismissal for KM Popover
+    document.addEventListener('click', (e) => {
+      const pop = document.getElementById('km-popover-menu');
+      const btn = document.getElementById('km-avatar-btn');
+      if (pop && !pop.classList.contains('hidden')) {
+        if (!pop.contains(e.target) && !btn.contains(e.target)) {
+          pop.classList.add('hidden');
+        }
+      }
+    });
+
+    // Boot (Default to Hybride B+ : Standard Atelier Final)
+    window.addEventListener('DOMContentLoaded', () => {
+      switchPrototype(7);
+      if (window.location.hash === '#tray' || window.location.hash === '#open') {
+        setTimeout(openCasierOrganizer, 100);
+      }
+    });
+  </script>
+</body>
+</html>

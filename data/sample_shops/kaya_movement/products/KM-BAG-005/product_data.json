@@ -1,0 +1,65 @@
+{
+  "sku": "KM-BAG-005",
+  "brand_id": "kaya_movement",
+  "brand_name": "Kaya Movement",
+  "title": "KERO Unisex Lightweight Leather Holster Bag",
+  "category": "Leather Bags / Holster Bags",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Vegetable-Tanned Full-Grain Cowhide (1.8mm)",
+    "Matte Black Industrial Zinc Buckles",
+    "YKK Excella Matte Black Metal Zippers",
+    "RFID-Blocking Internal Microfiber Lining"
+  ],
+  "specs": {
+    "design": "Dual Modular Body Holster Harness System",
+    "pocket_dimensions": "18cm height x 12cm width x 3.5cm depth (x2 independent pouches)",
+    "strap_adjustment": "Chest & Back Modular Webbing 85cm - 135cm Range",
+    "security": "Hidden Internal Passport & Card Stash Sleeve with RFID Shielding",
+    "finish": "Hand-Waxed Matte Charcoal Black Pull-Up Leather",
+    "weight": "420g total harness"
+  },
+  "variants": [
+    {
+      "variant_sku": "KM-BAG-005-BLK",
+      "name": "Charcoal Black - One Size Modular",
+      "specs": {
+        "color": "Charcoal Black",
+        "size": "One Size (Adjustable)"
+      },
+      "stock": 15,
+      "shelf_bin": "LIL-D03-1",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "LIL-D03",
+  "stock_by_location": {
+    "lille_hub": 7,
+    "bali_workshop": 8
+  },
+  "production_cost": 75.0,
+  "retail_price": 290.0,
+  "wholesale_price": 145.0,
+  "margin_percentage": 74.1,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury accessories 3x3 contact sheet featuring the KERO Unisex Lightweight Leather Holster Bag. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Avant-garde dual holster bag in waxed charcoal black vegetable-tanned leather, featuring crossover harness straps, matte black industrial hardware, and streamlined rectangular pouches. Mode: SINGLE_ITEM (Complete Holster System). Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the KERO holster suspended symmetrically in space, displaying both bilateral pouches and chest connector. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing pocket volume, zipper arch, and heavy leather strap thickness. Cell 3 (Side Profile): Lateral view showcasing how the slim pouch profile hugs the torso line without bulk. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF background demonstrating the geometric X-back harness strap arrangement. Cell 5 (Optical Macro): Extreme optical macro close-up of the YKK Excella metal zipper teeth and waxed pull-up leather texture. Cell 6 (Mechanical Detail): Technical focus on the matte black zinc harness adjustment buckle and riveted swivel hardware. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model wearing the KERO holster over a tailored minimalist dark blazer. Cell 8 (Intimate Micro-Crop): Close-up crop at the ribcage showing the leather pouch resting cleanly against the body, with hand reaching toward the zipper pull. Cell 9 (Dynamic Lifestyle): Back view editorial styling shot showing the clean crossed harness strapping across the shoulders. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/13102019-SS19_61.jpg",
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/13102019-SS19_64.jpg"
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "version": "1.6.0",
+  "channel": "production",
+  "codename": "Sprint 3: Collapsible Sub-Sidebar, Inline Titles & Dual-Rail Shell Unification",
+  "app": "Stupid Stock",
+  "suite": "Stupid Suite by Serious Studio",
+  "updated_at": "2026-10-27T02:50:00+07:00",
+  "brand_focus": {
+    "id": "kaya_movement",
+    "name": "Kaya Movement",
+    "location": "Bali • Lille Casier Hub",
+    "type": "Single Boutique Atelier Focus"
+  },
+  "design_reference": {
+    "vault_entry_id": "entry-1792936422493",
+    "title": "Gateway Pulse Dual-Rail x Stripe Unified Telemetry Header",
+    "subgenre": "dual-rail dark navigation x clean white canvas with editorial metadata chips",
+    "layout": "Dual-rail navigation (64px mini-rail apps icons on extreme left + 224px application options panel + floating rounded-3xl white canvas on #F8FAFC on right)",
+    "accent": "Electric Blue #3B82F6",
+    "header_style": "Concept C: Stripe Dashboard Unified Header with inline model count, hub, and margin chips + unified right action bar",
+    "hero_bar": "4-Card Actionable Atelier Cockpit Strip with 1-click bottleneck filtering (Shoot, Stockout, Casier, Pricing)",
+    "table": "High-density logs table with table-fixed column budgeting, interactive sorting, and variant accordion with direct SQLite steppers"
+  },
+  "history": [
+    {
+      "version": "1.6.0",
+      "date": "2026-10-27",
+      "channel": "production",
+      "title": "Sprint 3: Collapsible Sub-Sidebar, Inline Titles, Product Hierarchy & Dual-Rail Shell",
+      "changes": [
+        "Collapsible Sub-Sidebar (PIN-007): Implemented smooth 21st.dev inspired sub-sidebar collapse (w-56 to w-0) with rigid inner container preventing text squishing, header PanelLeftClose/Open toggle, keyboard shortcut (⌘\\ or [), and localStorage persistence.",
+        "Inline Title Editing & Transactional Rollback (PIN-005): Enabled instant double-click title editing directly on product rows with auto-focus, Enter/blur persistence to SQLite via POST /api/products/<sku>/update, emerald visual pulse, and Cmd+Z rollback.",
+        "Product Cell Visual Hierarchy (PIN-010): Reorganized table cell into strict 3-tier hierarchy: Line 1 = Editable Title, Line 2 = SKU Mono Badge & Variant Count Accordion Link, Line 3 = 12px Chromatic Color Swatches.",
+        "Modal Backdrop Dismiss (PIN-006): Enabled outside-click backdrop dismissal on all modals (New SKU, Casier Hub, Casier Visual Picker, and Version Changelog).",
+        "Gateway Pulse Dual-Rail Shell Unification (SHELL-01): Ported permanent 64px Mini-Rail across Stupid Shoot and Stupid Shop with active app indicator pills, eliminating obsolete top headers and unifying suite navigation.",
+        "Shoot Studio Robustness: Fixed undefined catalog reference (ReferenceError on ?sku=...) to catalogData and added multi-SKU batch URL query parsing."
+      ]
+    },
+    {
+      "version": "1.5.2",
+      "date": "2026-10-27",
+      "channel": "production",
+      "title": "Actionable Atelier Cockpit: 4-Bottleneck Pipeline (Deprecating Passive Macro-KPIs)",
+      "changes": [
+        "Actionable Cockpit: Deprecated legacy passive macro-KPIs in favor of an ultra-dense, 4-bottleneck operational strip (Shoot Studio, Ruptures Imminentes, File Étiquetage QR, Santé Catalogue).",
+        "1-Click Interactive Triage: Each cockpit card functions as an instant table filter with visual active states, auto-filter badges with ✕ dismiss, and live count badges.",
+        "Vertical Space Reclamation: Reduced top summary bar height by 50% (from ~130px to ~65px), reclaiming significant vertical room for the product inventory table.",
+        "Low-Priority Roadmap Registry: Noted thermal print driver edge cases (printer-specific margin calibration) as a low-priority backlog item."
+      ]
+    },
+    {
+      "version": "1.5.0",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Sprint 2: Multi-Axes Variations, Chromatic Swatches & 21st.dev Dynamic Bulk Toolbar",
+      "changes": [
+        "Multi-Axes Variations (PIN-004): Integrated multi-dimensional options (Color, Size, Spec/Gauge) with Shopify isomorphism across jewelry, leather accessories, and apparel.",
+        "Chromatic Swatches: Rendered calibrated 12px circular color dots under product titles in Table and Grid views with live tooltip stock inspection and 1-click filter/drawer focus.",
+        "Dynamic Bulk Floating Toolbar (0xUrvish / 21st.dev): Integrated animated bottom-center pill dock with multi-row selection counter, batch thermal QR printing (50x30 continuous roll), batch casier assignment, and Shoot bridge.",
+        "Reversible Batch Deletion (Cmd+Z Transactional Rollback): Backend snapshot architecture enabling safe, instant undo on accidental batch operations.",
+        "Drawer Multi-Axes Form: Dynamic field generation reflecting product option configuration with direct SQLite persistence."
+      ]
+    },
+    {
+      "version": "1.4.0",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Sprint 1: Offline Autonomy, 8-Pin Resolution, Visual Casier Picker & 540px Modal Drawer",
+      "changes": [
+        "Offline Autonomy: Bundled standalone Tailwind CSS engine in public/vendor/tailwindcss.min.js, eliminating all external CDN dependencies.",
+        "Favicon Asset Diet: Compressed 53.3 MB of raw PNGs into optimized Retina 128px assets under 150 KB total, drastically accelerating startup.",
+        "Sidebar & Mini-Rail Cleanup (PIN-002, PIN-007, PIN-009): Removed redundant search icon from 64px rail; removed duplicate Shoot Packshot and CSV Export buttons from left menu.",
+        "Physical Casier Logistics & Shelf Visual Picker (PIN-005, PIN-006, PIN-008): Created dedicated 'CASIERS & ÉTIQUETTES HUB' sidebar section; engineered 1-click visual Casier Picker popup to assign shelf coordinates without blind typing; linked direct thermal 50x30 QR printing.",
+        "Expanded Drawer with Centered Modal Toggle (PIN-003): Widen SKU Inspector drawer from 420px to 540px and introduced [⤢] toggle to switch between Slide-Over Drawer and Centered Modal mode.",
+        "Interactive Version Badge & Roadmap Telemetry: Replaced static 'v1.3' text with clickable live version pill opening an in-app Changelog & 5-Sprint Roadmap modal."
+      ]
+    },
+    {
+      "version": "1.3.11",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Real Transparent Favicons in Mini-Rail & Sidebar Menu",
+      "changes": [
+        "Replaced sample/emoji placeholders in the 64px mini-rail with official 7 transparent favicons.",
+        "Centered ultra-compact feedback pill with comment bubble and live pin counter at the bottom.",
+        "Locked Atelier Header A with inline model telemetry."
+      ]
+    },
+    {
+      "version": "1.3.6",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Editable Drawer SKU & Minimalist Atelier Header",
+      "changes": [
+        "Enabled direct SKU code modification inside the SKU Inspector Drawer with database cascade & folder migration.",
+        "Relocated repository directory path chip directly under the SKU badge in the drawer header with 1-click clipboard copy.",
+        "Removed redundant file browser button and manual path input, keeping exclusively the + Ajouter card in the thumbnail filmstrip."
+      ]
+    },
+    {
+      "version": "1.3.5",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Multi-Photo Gallery & Horizontal Filmstrip Slider",
+      "changes": [
+        "Added horizontal thumbnail filmstrip slider directly beneath the large hero preview in the SKU Drawer.",
+        "Interactive thumbnail selection with electric blue active halo ring and smooth instant image swap.",
+        "Ability to set any photo as the primary catalog packshot with one click (★ Définir principale).",
+        "Direct [+] Add Photo trigger card at the end of the filmstrip for frictionless upload workflow.",
+        "Displayed photo counter badges on both main product table thumbnails and grid view cards."
+      ]
+    },
+    {
+      "version": "1.3.4",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Click-to-Type Steppers & Centralized Asset Ingestion",
+      "changes": [
+        "Converted static stock spans into click-to-type number inputs on table rows, grid cards, and variant lists with auto-selection on focus.",
+        "Preserved tactile [-] and [+] stepper buttons with zero-latency optimistic updates and background SQLite persistence.",
+        "Integrated native Mac file picker ('📁 Parcourir les fichiers (depuis votre Mac)...') in SKU Inspector Drawer.",
+        "Engineered automatic asset centralization into data/sample_shops/<brand>/products/<sku>/images/ with auto-mkdir and primary photo linking.",
+        "Added explicit canonical repository path indicator in drawer header."
+      ]
+    },
+    {
+      "version": "1.3.3",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Interactive Variations Chevron & Streamlined Actions Column",
+      "changes": [
+        "Repositioned variation accordion trigger directly adjacent to product photo thumbnail as a sleek SVG chevron.",
+        "Chevron rotates smoothly from right (› closed) to down (⌄ active) upon expansion with tactile feedback.",
+        "Removed clunky text button from Actions column, leaving a clean [✏️ Fiche] [🏷️] pair.",
+        "Broadened variation scope across all atelier attributes (sizes, finishes, gauges, colors) instead of sizing only."
+      ]
+    },
+    {
+      "version": "1.3.2",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Concept C Finalization (Stripe Unified Telemetry Header)",
+      "changes": [
+        "Adopted Concept C as permanent production header based on founder sign-off.",
+        "Integrated dynamic telemetry chips into header (Model count, Hub Lille Central, Real-time margin %) with live SQLite synchronization.",
+        "Unified action bar: compact clearable search with (⌘K), list/grid toggle, export CSV, and primary + Nouveau SKU button.",
+        "Removed dev switcher pill for clean, uncluttered production interface."
+      ]
+    },
+    {
+      "version": "1.3.1",
+      "date": "2026-10-26",
+      "channel": "production",
+      "title": "Precision Layout Polish, Table-Fixed Budgeting, Full CRUD, Sonner Toasts & Thermal Print CSS",
+      "changes": [
+        "Layout & Responsiveness: Re-engineered layout with table-fixed geometry, explicit column budget, zero text-wrapping on badges, and fluid viewport behavior across laptop and tablet screens.",
+        "Sorting Engine: Clickable column headers (Title, Category, Casier, Stock, Public Price, Atelier Cost) with dynamic ▲/▼ indicators.",
+        "Full CRUD & Persistence: Complete product deletion with safety confirmation modal, variant creation/deletion inside drawer, photo binding, and two-way sync between variants.stock and inventory_levels.",
+        "CSV Atelier Export: Server-side UTF-8 BOM CSV generator formatted for French spreadsheets and physical stock taking.",
+        "Emil Kowalski Tactile Polish: Sonner-style floating toast notifications stack at bottom-right, Web Audio click synthesis, and keyboard shortcuts (⌘K / / for search, N for new SKU, Esc to close, E for CSV export).",
+        "Pure Thermal Print CSS: Added @media print rules so printing from the browser isolates strictly the 50x30mm thermal label, hiding all browser chrome and dark sidebars."
+      ]
+    },
+    {
+      "version": "1.2.1-beta.1",
+      "date": "2026-10-25",
+      "channel": "beta",
+      "title": "Gateway Pulse Dual-Rail Navigation (Apps Mini-Rail + App Tool Panel)",
+      "changes": [
+        "Implemented authentic 2-tier left navigation matching screenshot: 64px mini-rail with Serious 'S' logo badge, search, and the 6 suite apps icons (with active blue indicator pill), followed by 224px application options panel for Stupid Stock.",
+        "Application Menu Panel: App title with v1.2 badge, Kaya Movement active boutique, Core Atelier options (Overview, Low Stock alerts, To shoot, Casier bins) and Tools & Actions (QR labels, Shoot bridge, SQLite audit).",
+        "Floating White Canvas: Kept intact with rounded-3xl #FFFFFF on #F8FAFC, 2 hero summary cards, high-density table with alternating hover rows, variant accordion, and slide-over inspector drawer."
+      ]
+    },
+    {
+      "version": "1.2.0-beta.1",
+      "date": "2026-10-25",
+      "channel": "beta",
+      "title": "Gateway Pulse Pure Atelier — Single Boutique Focus (Kaya Movement)",
+      "changes": [
+        "Faithful implementation of Design Vault entry-1792936422493 (Gateway Pulse): Asymmetric split with 240px fixed dark sidebar (#0F1117) and floating rounded-3xl white canvas (#FFFFFF) on #F8FAFC background.",
+        "Single Boutique Focus: Streamlined exclusively for Kaya Movement Atelier (eliminating multi-brand tabs clutter).",
+        "Master Apps Sidebar: Left sidebar houses the 6 suite apps (01. Stock active, 02. Shoot, 03. Shop, 04. Content, 05. Dispatch, 06. Money).",
+        "Gateway Pulse Hero Bar: 2 summary metric cards (Total Stock Valuation with electric blue linear progress bar and Atelier Velocity with margin and critical stock alerts).",
+        "High-Density Table: Alternating hover rows (hover:bg-slate-50/80), real product photography thumbnails, casier bin coordinates (LIL-A04), inline stock steppers ([-] [+]) with instant SQLite persistence, and pill status badges (ring-1 ring-inset).",
+        "Expandable Variants: Real variant accordion (▼ Tailles) displaying size breakdowns.",
+        "Slide-over SKU Inspector: Slide-out drawer with direct field editing (title, casier bin, prices, stock) and instant thermal QR label generator (50x30mm)."
+      ]
+    }
+  ]
+}

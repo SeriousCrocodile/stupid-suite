@@ -1,0 +1,66 @@
+{
+  "sku": "KM-EAR-003",
+  "brand_id": "kaya_movement",
+  "brand_name": "Kaya Movement",
+  "title": "CIRCUIT Oversized Visionary Disc Hoop Earrings (16g - Gold)",
+  "category": "Hoop & Disc Earrings",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Architectural Cast Brass",
+    "18K Yellow Gold Micron Plating",
+    "Hypoallergenic Surgical Steel Ear Wire"
+  ],
+  "specs": {
+    "gauge": "16g (1.2mm)",
+    "outer_diameter": "55mm",
+    "thickness": "2.2mm",
+    "closure": "Surgical Steel Snap-Bar Clicker",
+    "motifs": "Laser-Etched Visionary Printed Circuit Board Traces & Fractal Mandala",
+    "finish": "Mirror-Polished 18K Yellow Gold Plate with Matte Acid-Etched Traces",
+    "weight_per_pair": "24g (12g each piece)"
+  },
+  "variants": [
+    {
+      "variant_sku": "KM-EAR-003-PAIR",
+      "name": "Standard Pair - 55mm / 16g",
+      "specs": {
+        "diameter": "55mm",
+        "gauge": "16g",
+        "pair": true
+      },
+      "stock": 22,
+      "shelf_bin": "LIL-B05-3",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "LIL-B05",
+  "stock_by_location": {
+    "lille_hub": 12,
+    "bali_workshop": 10
+  },
+  "production_cost": 26.0,
+  "retail_price": 120.0,
+  "wholesale_price": 60.0,
+  "margin_percentage": 78.3,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the CIRCUIT Oversized Visionary Disc Hoop Earrings (16g - Gold). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monumental 55mm disc hoop earrings in 18K gold plated brass, featuring laser-etched cybernetic printed circuit patterns and visionary geometric rings. Mode: MATCHED_PAIR (Symmetrical identical pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the symmetrical pair of CIRCUIT disc hoops standing upright, highlighting geometric disc diameter and shimmering circular reflections. Cell 2 (3/4 Perspective): Three-quarter angle revealing plate thickness, bevelled rim, and curved clasp bar. Cell 3 (Side Profile): Sharp 90-degree profile showing the slender 2.2mm profile and surgical steel pin latch. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the full labyrinthine mandala of circuit board traces. Cell 5 (Optical Macro): Extreme macro view capturing ultra-fine laser etching micro-details, contrasting matte recesses with high-polish gold surfaces. Cell 6 (Mechanical Detail): Extreme close-up of the surgical steel clicker hinge and secure lock notch. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with sleek pulled-back hair wearing the CIRCUIT hoops, showing scale against cheek and neck. Cell 8 (Intimate Micro-Crop): Close-up crop of the earlobe and neck area highlighting the disc framing the jawline under soft studio light. Cell 9 (Dynamic Lifestyle): 3/4 motion editorial portrait displaying specular highlights sweeping across the gold disc surface. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/sacred-geometry-earrings-extra-large-tribal-2.jpg",
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/DSC4859-Edit.jpg"
+  ]
+}

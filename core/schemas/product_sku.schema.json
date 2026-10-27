@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProductSKU",
+  "description": "Formal physical inventory SKU in Stupid Stock",
+  "type": "object",
+  "required": ["sku", "title", "brand", "production_cost", "retail_price"],
+  "properties": {
+    "sku": { "type": "string", "description": "Unique SKU code, e.g. 'KM-RNG-001'" },
+    "title": { "type": "string" },
+    "brand": { "type": "string" },
+    "tier": {
+      "type": "string",
+      "enum": ["B2C_FINISHED", "B2B_WHOLESALE", "RAW_MATERIAL"]
+    },
+    "materials": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "production_cost": { "type": "number", "minimum": 0 },
+    "retail_price": { "type": "number", "minimum": 0 },
+    "wholesale_price": { "type": ["number", "null"] },
+    "currency": { "type": "string", "default": "EUR" },
+    "stock_by_location": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 },
+      "description": "Inventory counts keyed by location ID, e.g. {'lille_hub': 12, 'bali_workshop': 45}"
+    },
+    "photos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Local paths to sliced 2K packshot renders"
+    },
+    "has_photos": { "type": "boolean", "default": false },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

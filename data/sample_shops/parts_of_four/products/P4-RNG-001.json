@@ -1,0 +1,88 @@
+{
+  "sku": "P4-RNG-001",
+  "brand_id": "parts_of_four",
+  "brand_name": "Parts of Four",
+  "title": "Sistema Ring Mega Pavé (12mm)",
+  "category": "Rings / Mega Pavé",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Acid-Dipped 925 Sterling Silver",
+    "Raw Industrial Diamond Pavé (~3.20 ct total weight)"
+  ],
+  "specs": {
+    "band_width": "12mm Brutalist Flat Architectural Band",
+    "profile": "Rectilinear Square Outer Silhouette with Ergonomic Comfort-Fit Interior",
+    "setting": "Monolithic Flush Mega Pavé Setting across Top Plane",
+    "treatment": "Signature P4 Dirty Acid Immersion Bath with Raw Matte Ground",
+    "weight": "28g"
+  },
+  "variants": [
+    {
+      "variant_sku": "P4-RNG-001-US8",
+      "name": "US 8 / EU 57 (12mm Band)",
+      "specs": {
+        "width": "12mm",
+        "us_size": 8,
+        "eu_size": 57
+      },
+      "stock": 3,
+      "shelf_bin": "PAR-S01-1",
+      "price_override": null
+    },
+    {
+      "variant_sku": "P4-RNG-001-US10",
+      "name": "US 10 / EU 62 (12mm Band)",
+      "specs": {
+        "width": "12mm",
+        "us_size": 10,
+        "eu_size": 62
+      },
+      "stock": 4,
+      "shelf_bin": "PAR-S01-2",
+      "price_override": null
+    },
+    {
+      "variant_sku": "P4-RNG-001-US12",
+      "name": "US 12 / EU 67 (12mm Band)",
+      "specs": {
+        "width": "12mm",
+        "us_size": 12,
+        "eu_size": 67
+      },
+      "stock": 2,
+      "shelf_bin": "PAR-S01-3",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "PAR-S01",
+  "stock_by_location": {
+    "paris_atelier": 4,
+    "bali_foundry": 3,
+    "lille_hub": 2
+  },
+  "production_cost": 410.0,
+  "retail_price": 1750.0,
+  "wholesale_price": 875.0,
+  "margin_percentage": 76.6,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_1.jpg",
+    "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury fine jewelry 3x3 contact sheet featuring the Sistema Ring Mega Pavé (12mm). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monolithic brutalist architectural ring in acid-treated 925 sterling silver with a 12mm wide top plane blanketed by an organic mega pavé of raw grey and black industrial diamond shards (3.20 ct). Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the massive Sistema Ring standing upright on a rough mineral slab, showing the brutalist rectilinear silhouette and dense field of raw diamonds. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing the 12mm flat top plane, raw hand-forged sidewalls, and sparkling diamond facet fields. Cell 3 (Side Profile): Sharp 90-degree lateral profile showing the heavy silver mass and distinctive square outer profile. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface looking into the smooth polished circular inner core contrasted with square exterior. Cell 5 (Optical Macro): Extreme optical macro close-up of the rough uncut diamond shards, raw metal prongs, and sulfuric acid patina on silver ground. Cell 6 (Mechanical Detail): Technical focus on the hand-stamped P4 hallmark and individual artisan serial engraving on inside band. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with contemplative expression, resting chin on hand adorned with the Sistema ring. Cell 8 (Intimate Micro-Crop): Close-up crop of the ring worn on the middle finger against rough dark wool fabric, highlighting monumental stone-and-metal scale. Cell 9 (Dynamic Lifestyle): 3/4 styling shot showing the diamond pavé scattering subtle organic glints under controlled directional studio light. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_1.jpg",
+    "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/e6234aabd1164c0388aa71eb2fe35b0d.thumbnail.0000000000.jpg",
+    "https://cdn.shopify.com/s/files/1/0947/8200/files/preview_images/c4d5ca72337042aca10f7918155e712c.thumbnail.0000000000.jpg"
+  ]
+}

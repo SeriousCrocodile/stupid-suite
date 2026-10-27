@@ -1,0 +1,63 @@
+{
+  "sku": "AE-NCK-004",
+  "brand_id": "ask_and_embla",
+  "brand_name": "Ask & Embla",
+  "title": "Vertebrae Necklace",
+  "category": "Statement Necklaces",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "316L Surgical Stainless Steel"
+  ],
+  "specs": {
+    "construction": "16 Anatomically Articulated Cervical Vertebrae Segments",
+    "choker_length": "42cm collar circumference",
+    "drop_length": "8cm articulating spinal drop tail",
+    "clasp": "Concealed Mechanical Bone-Interlock Clasp",
+    "finish": "Satin Gunmetal & Polished Articulation Knuckles",
+    "weight": "86g"
+  },
+  "variants": [
+    {
+      "variant_sku": "AE-NCK-004-STD",
+      "name": "Standard 42cm Collar + 8cm Spine Drop",
+      "specs": {
+        "collar_length": "42cm",
+        "drop_tail": "8cm"
+      },
+      "stock": 20,
+      "shelf_bin": "BER-N04-1",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "BER-N04",
+  "stock_by_location": {
+    "singapore_hq": 8,
+    "lille_hub": 8,
+    "berlin_depot": 4
+  },
+  "production_cost": 38.0,
+  "retail_price": 165.0,
+  "wholesale_price": 82.5,
+  "margin_percentage": 77.0,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Vertebrae Necklace. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Monumental anatomical statement necklace in 316L surgical stainless steel constructed from 16 individually cast, hinged cervical vertebrae links ending in a dramatic spine drop tail. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the Vertebrae necklace arranged in a curved cervical arc on stone surface, displaying organic spinal symmetry. Cell 2 (3/4 Perspective): Three-quarter view showing the protruding spinous process spurs and articulated joint interlocks. Cell 3 (Side Profile): Lateral view showing the spinal curve and flex of the individual bone segments. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the fluid serpentine layout of the complete 16-link chain. Cell 5 (Optical Macro): Extreme macro view capturing the precision hinge pins connecting two spinal segments, showing satin steel brushing. Cell 6 (Mechanical Detail): Technical macro focus on the concealed bone-interlock clasp mechanism seamlessly hidden inside the terminal vertebra. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model wearing the Vertebrae choker collar tightly framing the neck, dark avant-garde styling. Cell 8 (Intimate Micro-Crop): Close-up crop at the suprasternal notch and clavicle bones, showing the spinal drop resting directly along the center of the chest. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot displaying how the necklace flexes organically with neck movement. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/CH1312-S-1.jpg",
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/EP1313-S-1.jpg"
+  ]
+}

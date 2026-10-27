@@ -1,0 +1,64 @@
+{
+  "sku": "AE-LIP-002",
+  "brand_id": "ask_and_embla",
+  "brand_name": "Ask & Embla",
+  "title": "Iridium Lip Cuff",
+  "category": "Lip Cuffs / Face Jewelry",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Solid 925 Sterling Silver",
+    "High-Shine Rhodium Barrier Plating"
+  ],
+  "specs": {
+    "type": "Non-Piercing Ergonomic Lip Adornment",
+    "dimensions": "12mm height x 8mm inner arch width",
+    "thickness": "1.8mm comfort rounded edge",
+    "tension": "Calibrated Gentle Mechanical Compression Grip",
+    "finish": "Liquid Mirror Chrome Rhodium Finish",
+    "weight": "2.1g"
+  },
+  "variants": [
+    {
+      "variant_sku": "AE-LIP-002-SLV",
+      "name": "Universal Fit - 925 Sterling Silver Mirror",
+      "specs": {
+        "size": "Universal Fit",
+        "finish": "Mirror Rhodium"
+      },
+      "stock": 40,
+      "shelf_bin": "BER-L03-1",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "BER-L03",
+  "stock_by_location": {
+    "singapore_hq": 20,
+    "lille_hub": 15,
+    "berlin_depot": 5
+  },
+  "production_cost": 14.5,
+  "retail_price": 68.0,
+  "wholesale_price": 34.0,
+  "margin_percentage": 78.7,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Iridium Lip Cuff. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Minimalist sculptural non-piercing lip cuff in rhodium-plated 925 sterling silver, fluid ergonomic U-curve with comfort-beveled tips. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the single Iridium cuff resting upright on stone base, showcasing liquid metallic reflections and pure minimalist curve. Cell 2 (3/4 Perspective): Three-quarter angle emphasizing continuous tapered thickness and mirror shine. Cell 3 (Side Profile): Lateral 90-degree profile showing the precision tension gap designed for non-pierced lip wear. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the symmetric U-profile of the cuff. Cell 5 (Optical Macro): Extreme macro view capturing the microscopic rhodium mirror finish and comfort-rounded inner edges. Cell 6 (Mechanical Detail): Technical focus on the subtle hallmark stamp (925) and tension retention curve. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): High-fashion editorial beauty portrait of model wearing the silver Iridium cuff clipped securely to the center of the lower lip. Cell 8 (Intimate Micro-Crop): Ultra-tight macro crop on the lips and chin, displaying the gleaming silver hugging the natural vermilion border of the lower lip with soft skin texture. Cell 9 (Dynamic Lifestyle): 3/4 editorial angle showing subtle head tilt and dramatic light play on the chrome curve. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/3529-Edit.jpg",
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/AskandEmblaDeliriumLipCuff6.jpg"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "brand_id": "parts_of_four",
+  "brand_name": "Parts of Four",
+  "domain": "partsof4.com",
+  "founder": "Evan Sugerman",
+  "headquarters": "Paris / Bali",
+  "niche": "Avant-Garde Monumental Jewelry, Corporeal Sculptures & Raw Mineral Talismans",
+  "tagline": "Monumental Objects & Corporeal Sculptures.",
+  "universe_description": "Founded between Paris and Bali by sculptor and artist Evan Sugerman, Parts of Four treats jewelry as monumental sculptural talismans. Defying classic high-jewelry tropes, P4 works raw, tactile materials: hand-dipped acid-blackened sterling silver, solid cast yellow sun brass, petrified wood, sliced raw diamond slabs, and monolithic mega-pavé stone settings.",
+  "palette": {
+    "accent_primary": "#2B2B2B",
+    "accent_secondary": "#8A9A86",
+    "surface_cyclorama": "#EFEFEF",
+    "background_dark": "#181818"
+  },
+  "locations": [
+    "paris_atelier",
+    "bali_foundry",
+    "lille_hub"
+  ],
+  "currency": "EUR",
+  "product_skus": [
+    "P4-RNG-001",
+    "P4-BRC-002",
+    "P4-NCK-003",
+    "P4-WAT-004",
+    "P4-NCK-005"
+  ]
+}

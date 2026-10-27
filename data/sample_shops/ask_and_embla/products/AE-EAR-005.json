@@ -1,0 +1,65 @@
+{
+  "sku": "AE-EAR-005",
+  "brand_id": "ask_and_embla",
+  "brand_name": "Ask & Embla",
+  "title": "Arcana Earrings",
+  "category": "Earrings / Hangers",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Solid 925 Sterling Silver"
+  ],
+  "specs": {
+    "gauge": "18g (1.0mm) Standard Pierced Post",
+    "total_drop": "62mm",
+    "width": "22mm",
+    "closure": "Concealed Hinged Clicker Wire",
+    "motifs": "Guilloché Geometric Sigil & Talismanic Drop",
+    "finish": "Blackened Antique Patina with Diamond-Cut Edge Highlights",
+    "weight_per_pair": "16g (8g each piece)",
+    "pair_mode": "MATCHED_PAIR"
+  },
+  "variants": [
+    {
+      "variant_sku": "AE-EAR-005-PAIR",
+      "name": "Standard Pair (2 Pieces) - 925 Sterling Silver",
+      "specs": {
+        "gauge": "18g",
+        "pair": true
+      },
+      "stock": 28,
+      "shelf_bin": "BER-E01-1",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "BER-E01",
+  "stock_by_location": {
+    "singapore_hq": 14,
+    "lille_hub": 10,
+    "berlin_depot": 4
+  },
+  "production_cost": 24.0,
+  "retail_price": 110.0,
+  "wholesale_price": 55.0,
+  "margin_percentage": 78.2,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the Arcana Earrings. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural talismanic drop earrings in solid 925 sterling silver with intricate guilloché geometric occult sigils, blackened antique recesses, and bright diamond-cut bevels. Mode: MATCHED_PAIR (Symmetrical identical pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Frontal eye-level packshot of the matched pair of Arcana earrings hanging vertically side by side, displaying elongated 62mm drop symmetry. Cell 2 (3/4 Perspective): Three-quarter angle highlighting the multi-layered depth of the engraved silver plate. Cell 3 (Side Profile): Lateral 90-degree view showing the slender profile and curved clicker ear wire. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing both earrings arranged in parallel harmony. Cell 5 (Optical Macro): Extreme macro view capturing the microscopic engraved sacred geometry lines and contrast between blackened silver and polished facets. Cell 6 (Mechanical Detail): Technical macro focus on the concealed clicker hinge latch at the apex of the ear wire. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of a model with hair swept behind ears wearing the Arcana drops brushing the collarbone. Cell 8 (Intimate Micro-Crop): Close-up crop at the earlobe and neck, showing the silver talisman swinging gracefully beside the jawline. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing light reflections flashing across the diamond-cut silver edges. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/RN1110-S-1.jpg",
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/RN1091-G-1.jpg"
+  ]
+}

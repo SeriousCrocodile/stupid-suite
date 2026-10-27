@@ -1,0 +1,87 @@
+{
+  "sku": "KM-GLV-004",
+  "brand_id": "kaya_movement",
+  "brand_name": "Kaya Movement",
+  "title": "DZALA Genuine Leather Fingerless Biker Gloves",
+  "category": "Leather Accessories / Gloves",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Full-Grain Cowhide Leather (1.2mm)",
+    "Gunmetal Alloy Snap Rivets",
+    "Waxed Nylon Structural Thread",
+    "Contrast Crimson Edge Lacquer"
+  ],
+  "specs": {
+    "style": "Ergonomic Articulated Fingerless Tactical Biker Gloves",
+    "closure": "Dual Heavy Snap-Button Wrist Tabs with Elasticated Gusset",
+    "palmar_reinforcement": "Double-Stitched Padded Cowhide Abrasion Patch",
+    "details": "Perforated Knuckle Ventilation Holes & Hand-Burnished Crimson Contrast Edges",
+    "sizing": "Unisex S, M, L",
+    "pair_mode": "MATCHED_PAIR"
+  },
+  "variants": [
+    {
+      "variant_sku": "KM-GLV-004-S",
+      "name": "Size S (Hand Circumference 18-19cm)",
+      "specs": {
+        "size": "S",
+        "circumference_cm": "18-19"
+      },
+      "stock": 6,
+      "shelf_bin": "LIL-C01-1",
+      "price_override": null
+    },
+    {
+      "variant_sku": "KM-GLV-004-M",
+      "name": "Size M (Hand Circumference 20-21cm)",
+      "specs": {
+        "size": "M",
+        "circumference_cm": "20-21"
+      },
+      "stock": 10,
+      "shelf_bin": "LIL-C01-2",
+      "price_override": null
+    },
+    {
+      "variant_sku": "KM-GLV-004-L",
+      "name": "Size L (Hand Circumference 22-23cm)",
+      "specs": {
+        "size": "L",
+        "circumference_cm": "22-23"
+      },
+      "stock": 8,
+      "shelf_bin": "LIL-C01-3",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "LIL-C01",
+  "stock_by_location": {
+    "lille_hub": 14,
+    "bali_workshop": 10
+  },
+  "production_cost": 42.0,
+  "retail_price": 180.0,
+  "wholesale_price": 90.0,
+  "margin_percentage": 76.7,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury accessories 3x3 contact sheet featuring the DZALA Genuine Leather Fingerless Biker Gloves. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Tactile fingerless biker gloves in supple matte black full-grain cowhide leather with crimson edge burnishing, articulated knuckle padding, and gunmetal industrial snap buttons. Mode: MATCHED_PAIR (Left and right glove pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Symmetrical frontal packshot of the pair of DZALA gloves arranged side by side showing dorsal knuckle architecture and crimson accents. Cell 2 (3/4 Perspective): Three-quarter perspective showing thumb gusset, curved wrist strap, and ergonomic anatomical contours. Cell 3 (Side Profile): Lateral profile detailing the edge paint burnishing and wrist closure tabs. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay with gloves turned palms up, displaying the reinforced palm grip pad and heavy double stitching. Cell 5 (Optical Macro): Extreme macro close-up of natural cowhide leather grain, micro-perforations, and waxed red perimeter thread. Cell 6 (Mechanical Detail): Technical focus on the heavy gunmetal snap buttons and elasticated wrist gusset. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Avant-garde editorial portrait of model with hands clasped across chest wearing the DZALA gloves, sleek dark aesthetic. Cell 8 (Intimate Micro-Crop): Intimate close-up of hands gripping an architectural surface, highlighting leather flexing over knuckles and finger articulation. Cell 9 (Dynamic Lifestyle): Dynamic 3/4 styling shot showing the gloves paired with minimalist dark fashion wear. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/files/A7405782.jpg",
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/files/A7405785.jpg"
+  ]
+}

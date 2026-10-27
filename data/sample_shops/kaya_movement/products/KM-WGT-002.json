@@ -1,0 +1,62 @@
+{
+  "sku": "KM-WGT-002",
+  "brand_id": "kaya_movement",
+  "brand_name": "Kaya Movement",
+  "title": "EXRO Biomechanical Keyhole Ear Weights (2g - Gold Brass)",
+  "category": "Gauged Earrings / Weights & Hangers",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "Solid Cast Antique Gold Brass"
+  ],
+  "specs": {
+    "min_lobe_size": "2g (6mm)",
+    "dimensions": "42mm x 28mm x 8mm",
+    "weight_per_piece": "32g (64g total pair)",
+    "closure": "Sculpted Keyhole Insertion Hook",
+    "finish": "Hand-Polished Satin Gold Brass with Deep Recessed Oxidation",
+    "pair_mode": "MATCHED_PAIR"
+  },
+  "variants": [
+    {
+      "variant_sku": "KM-WGT-002-PAIR",
+      "name": "Standard Pair (2 Pieces) - 2g Minimum Lobe",
+      "specs": {
+        "min_lobe": "2g (6mm)",
+        "pair": true
+      },
+      "stock": 18,
+      "shelf_bin": "LIL-B02-1",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "LIL-B02",
+  "stock_by_location": {
+    "lille_hub": 8,
+    "bali_workshop": 10
+  },
+  "production_cost": 34.0,
+  "retail_price": 145.0,
+  "wholesale_price": 72.5,
+  "margin_percentage": 76.6,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the EXRO Biomechanical Keyhole Ear Weights (2g - Gold Brass). Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Heavy sculpted ear weights in solid antique gold brass, geometric keyhole silhouette, interlocking cybernetic ribs with dark oxidised relief recesses. Mode: MATCHED_PAIR (Symmetrical identical pair). Row 1 (Packshot Hero): Cell 1 (Front Hero): Perfectly centered frontal eye-level packshot of the matched pair of EXRO ear weights standing upright side-by-side on stone plinth, showing sacred geometry and brass weight balance. Cell 2 (3/4 Perspective): Three-quarter angle displaying the flared keyhole gap, dimensional bevels, and thick ergonomic saddle contour. Cell 3 (Side Profile): Lateral 90-degree view showing the 8mm thickness and smooth continuous curve of the hook. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay of the symmetrical pair arranged organically on the #EFEFEF surface. Cell 5 (Optical Macro): Extreme optical macro close-up on the deep sculpted biomechanical ridges and warm hand-rubbed brass patina. Cell 6 (Mechanical Detail): Technical focus on the smooth polished 6mm insertion saddle designed for comfortable stretched ear wear. Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with 10mm stretched earlobes wearing the EXRO brass weights, clean bone structure, neutral attire. Cell 8 (Intimate Micro-Crop): Intimate close-up framing the stretched earlobe, highlighting how the 32g brass weight sits and drapes gracefully under gravity against the jawline. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing warm light glints on the golden brass surfaces. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_1.jpg",
+    "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/KeyholeearhangerHrgiger6mm-4.jpg",
+    "https://cdn.shopify.com/s/files/1/0091/9997/6533/products/KeyholeearhangerHrgiger6mm-2.jpg"
+  ]
+}

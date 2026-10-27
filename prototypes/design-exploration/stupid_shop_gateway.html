@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stupid Shop — Omnichannel Commerce &amp; Semantic Shield (Serious Studio)</title>
+  <link rel="icon" type="image/png" href="/data/favicon/favicon_stupid_shop.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0e0f12; }
+    ::-webkit-scrollbar-thumb { background: #262732; border-radius: 0px; }
+    ::-webkit-scrollbar-thumb:hover { background: #c5a059; }
+    .btn-tactile { transition: all 0.05s ease; }
+    .btn-tactile:active { transform: translateY(1px); }
+    .shield-flagged { background-color: rgba(239, 68, 68, 0.2); border-bottom: 2px dashed #ef4444; color: #fca5a5; cursor: pointer; padding: 0 2px; }
+    .shield-safe { background-color: rgba(16, 185, 129, 0.2); border-bottom: 2px solid #10b981; color: #6ee7b7; padding: 0 2px; }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-row overflow-hidden font-sans select-none bg-[#0a0b0d] text-zinc-100">
+
+  <!-- ======================================================== -->
+  <!-- 1. EXTREME LEFT MINI-RAIL (APPS ICONS ONLY, 64px wide)     -->
+  <!-- ======================================================== -->
+  <nav class="w-16 bg-[#0B0C10] border-r border-slate-800/80 flex flex-col items-center py-4 justify-between shrink-0 z-40 select-none">
+    
+    <!-- Top Brand Logo & App Icons -->
+    <div class="flex flex-col items-center space-y-5 w-full">
+      
+      <!-- Serious Studio Favicon Logo -->
+      <a href="/index.html" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700/60 p-1.5 flex items-center justify-center shadow-lg cursor-pointer btn-tactile hover:scale-105 hover:border-slate-500 transition" title="Serious Studio Operating System">
+        <img src="/data/favicon/favicon_serious-studio.png" alt="Serious Studio" class="w-full h-full object-contain">
+      </a>
+
+      <div class="w-8 h-px bg-slate-800/80"></div>
+
+      <!-- The 6 Suite Apps Column -->
+      <div class="flex flex-col items-center space-y-2.5 w-full">
+        
+        <!-- App 1: 01. Stupid Stock -->
+        <div class="relative flex items-center justify-center w-full group">
+          <a href="/index.html" class="w-10 h-10 rounded-xl p-1.5 hover:bg-slate-800/80 flex items-center justify-center transition btn-tactile opacity-75 hover:opacity-100" title="01. Stupid Stock (Atelier &amp; Casiers)">
+            <img src="/data/favicon/favicon_stupid_stock.png" alt="Stupid Stock" class="w-full h-full object-contain">
+          </a>
+        </div>
+
+        <!-- App 2: 02. Stupid Shoot -->
+        <div class="relative flex items-center justify-center w-full group">
+          <a href="/stupid_shoot_studio.html" class="w-10 h-10 rounded-xl p-1.5 hover:bg-slate-800/80 flex items-center justify-center transition btn-tactile opacity-75 hover:opacity-100" title="02. Stupid Shoot (Packshot 2x2)">
+            <img src="/data/favicon/favicon_stupid_sheet.png" alt="Stupid Shoot" class="w-full h-full object-contain">
+          </a>
+        </div>
+
+        <!-- App 3: 03. Stupid Shop (ACTIVE with Emerald Indicator) -->
+        <div class="relative flex items-center justify-center w-full group">
+          <!-- Active Left Emerald Indicator Pill -->
+          <div class="absolute left-0 w-1 h-5 bg-[#10B981] rounded-r-full shadow-[0_0_8px_#10B981]"></div>
+          
+          <a href="/stupid_shop_gateway.html" class="w-10 h-10 rounded-xl bg-[#142820] border border-emerald-500/40 p-1.5 flex items-center justify-center shadow-sm" title="03. Stupid Shop (Actif)">
+            <img src="/data/favicon/favicon_stupid_shop.png" alt="Stupid Shop" class="w-full h-full object-contain drop-shadow">
+          </a>
+        </div>
+
+        <!-- App 4: 04. Stupid Content -->
+        <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center cursor-not-allowed opacity-40 hover:opacity-60 transition" title="04. Stupid Content (Bientôt)">
+          <img src="/data/favicon/favicon_stupid_content.png" alt="Stupid Content" class="w-full h-full object-contain">
+        </div>
+
+        <!-- App 5: 05. Stupid Dispatch -->
+        <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center cursor-not-allowed opacity-40 hover:opacity-60 transition" title="05. Stupid Dispatch (Bientôt)">
+          <img src="/data/favicon/favicon_stupid_dispatch.png" alt="Stupid Dispatch" class="w-full h-full object-contain">
+        </div>
+
+        <!-- App 6: 06. Stupid Money -->
+        <div class="w-10 h-10 rounded-xl p-1.5 flex items-center justify-center cursor-not-allowed opacity-40 hover:opacity-60 transition" title="06. Stupid Money (Bientôt)">
+          <img src="/data/favicon/favicon_stupid_money.png" alt="Stupid Money" class="w-full h-full object-contain">
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Rail: System Status & User Settings -->
+    <div class="flex flex-col items-center space-y-3 w-full">
+      <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10B981]" title="SQLite &amp; Bridge Connectés"></div>
+      <div class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 flex items-center justify-center cursor-pointer" title="Kaya Movement Atelier Lille">
+        KM
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- ======================================================== -->
+  <!-- 2. SHOP WORKSPACE CANVAS                                 -->
+  <!-- ======================================================== -->
+  <div class="flex-1 min-w-0 flex flex-col h-full overflow-hidden">
+
+  <!-- ======================================================== -->
+  <!-- 2A. STUPID SHOP SUB-HEADER (CHANNELS & SEMANTIC SHIELD)  -->
+  <!-- ======================================================== -->
+  <div class="h-11 border-b border-[#24252e] bg-[#101116] px-4 flex items-center justify-between shrink-0 font-mono text-xs z-30 select-none">
+    
+    <!-- Left: Channel Mode Switcher + Product Context -->
+    <div class="flex items-center gap-4">
+      <!-- Channel Switcher -->
+      <div class="bg-[#121317] p-0.5 border border-[#2b2c37] flex text-[11px]">
+        <button onclick="switchChannelView('shopify')" id="btn-chan-shopify" class="px-2.5 py-1 bg-[#252733] border border-[#3e4052] text-white font-bold transition flex items-center gap-1.5">
+          <span>🟢</span>
+          <span>Shopify Storefront</span>
+        </button>
+        <button onclick="switchChannelView('etsy')" id="btn-chan-etsy" class="px-2.5 py-1 text-zinc-400 hover:text-white transition flex items-center gap-1.5">
+          <span>🟠</span>
+          <span>Etsy Marketplace</span>
+        </button>
+        <button onclick="switchChannelView('split')" id="btn-chan-split" class="px-2.5 py-1 text-zinc-400 hover:text-white transition flex items-center gap-1.5">
+          <span>⚖️</span>
+          <span>Comparateur Double Flux</span>
+        </button>
+      </div>
+
+      <!-- Active Target SKU Context Badge -->
+      <div class="hidden md:flex items-center gap-2 text-zinc-400 text-xs">
+        <span class="text-zinc-600">|</span>
+        <span class="text-zinc-500 text-[11px]">Fiche Active :</span>
+        <span id="sub-active-sku" class="font-bold text-[#c5a059] font-mono">KM-SEP-001</span>
+        <span class="text-zinc-600">•</span>
+        <span id="sub-active-title" class="text-zinc-300 truncate max-w-[260px]">Darma Biomechanical Clicker Hoop Septum</span>
+      </div>
+    </div>
+
+    <!-- Right: Semantic Shield Live Gauge & Publish Action -->
+    <div class="flex items-center gap-3">
+      <!-- Semantic Shield Security Pill -->
+      <div id="shieldStatusPill" class="flex items-center gap-2 px-2.5 py-1 bg-emerald-950/40 border border-emerald-800 text-[11px] text-emerald-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Semantic Shield :</span>
+        <strong id="shieldRiskLevel" class="font-bold">0 Risque Détecté (100% Sûr)</strong>
+      </div>
+
+      <!-- Push To Channels Button -->
+      <button onclick="publishToChannels()" id="btnPublishChannels" class="btn-tactile px-4 py-1 bg-[#c5a059] hover:bg-[#d8b36c] text-black font-bold font-mono text-xs flex items-center gap-1.5 shadow-[2px_2px_0px_#ffffff]">
+        <span>⚡</span>
+        <span>Publier vers Shopify &amp; Etsy</span>
+      </button>
+
+      <!-- Toggle Right Inspector Panel -->
+      <button onclick="toggleShopInspector()" id="btnToggleShopInspector" class="btn-tactile px-3 py-1 bg-[#252733] border border-[#c5a059] text-white font-mono text-xs flex items-center gap-1.5" title="Afficher/Masquer l'inspecteur commercial">
+        <span>⚙️</span>
+        <span>Inspecteur</span>
+        <span id="shopInspectorBadge" class="text-[10px] px-1 bg-[#333544] text-[#c5a059]">Ouvert ✓</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. MAIN WORKSPACE CONTAINER                              -->
+  <!-- ======================================================== -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR: BRAND PARTITION & CATALOG LIST             -->
+    <!-- ======================================================== -->
+    <aside class="w-72 md:w-80 border-r border-[#24252e] bg-[#121317] flex flex-col justify-between shrink-0 overflow-y-auto font-mono text-xs select-none">
+      
+      <div class="p-3 space-y-4">
+        
+        <!-- 1. BRAND SELECTOR -->
+        <div>
+          <div class="text-[10px] uppercase tracking-wider text-zinc-500 font-bold px-1 mb-2">Marque Studio Active</div>
+          <div class="space-y-1">
+            <button onclick="filterShopBrand('ALL')" id="brand-shop-ALL" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition">
+              <span>❖ Toutes les Marques</span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#1e1f28] text-zinc-400">15 fiches</span>
+            </button>
+            <button onclick="filterShopBrand('KM')" id="brand-shop-KM" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 bg-[#1e1f26] border-l-2 border-[#c5a059] text-white font-semibold text-left">
+              <span class="flex items-center gap-2">
+                <span class="text-[#c5a059]">💍</span>
+                <span>Kaya Movement</span>
+              </span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#2a2b36] text-[#c5a059]">5 fiches</span>
+            </button>
+            <button onclick="filterShopBrand('AE')" id="brand-shop-AE" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition">
+              <span class="flex items-center gap-2">
+                <span class="text-zinc-300">🌑</span>
+                <span>Ask &amp; Embla</span>
+              </span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#1e1f28] text-zinc-400">5 fiches</span>
+            </button>
+            <button onclick="filterShopBrand('P4')" id="brand-shop-P4" class="btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition">
+              <span class="flex items-center gap-2">
+                <span class="text-[#8A9A86]">🗿</span>
+                <span>Parts of Four</span>
+              </span>
+              <span class="text-[10px] px-1.5 py-0.2 bg-[#1e1f28] text-zinc-400">5 fiches</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. CATALOG PRODUCT SELECTOR WITH PUBLISHING STATUS -->
+        <div class="pt-3 border-t border-[#22232c]">
+          <div class="flex items-center justify-between px-1 mb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">Fiches Produits</span>
+              <span class="text-[10px] px-1 bg-[#1b1c25] text-[#c5a059] font-mono" id="shop-prod-counter">15 pièces</span>
+            </div>
+            <span class="text-[9px] text-zinc-500">Sync Prête</span>
+          </div>
+
+          <div class="space-y-1.5 max-h-[calc(100vh-320px)] overflow-y-auto pr-1" id="shopProductListContainer">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sidebar: Quick Channel Sync Summary -->
+      <div class="p-3 border-t border-[#24252e] bg-[#0e0f12] text-zinc-400 space-y-2 text-[11px]">
+        <div class="flex justify-between items-center">
+          <span class="text-zinc-500">Shopify Listings :</span>
+          <span class="text-emerald-400 font-bold" id="shopifySyncCount">15/15 Prêts</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-zinc-500">Etsy 13-Tags Validés :</span>
+          <span class="text-amber-400 font-bold" id="etsySyncCount">15/15 Valides</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- CENTRAL WORKSPACE: LISTING EDITOR & LIVE STOREFRONT      -->
+    <!-- ======================================================== -->
+    <main id="mainShopArea" class="flex-1 flex flex-col overflow-hidden bg-[#0a0b0d]">
+
+      <!-- WORKSPACE VIEWS: 1. SHOPIFY VIEW / 2. ETSY VIEW / 3. SPLIT VIEW -->
+      <div class="flex-1 flex overflow-hidden">
+        
+        <!-- LEFT SUB-PANE: LISTING COPYWRITING & SEMANTIC SHIELD (W-1/2) -->
+        <div class="w-full lg:w-1/2 border-r border-[#24252e] flex flex-col overflow-y-auto p-4 md:p-6 space-y-5 bg-[#0e0f12]">
+          
+          <!-- Top Title Bar & Voice Preset Selector -->
+          <div class="flex items-center justify-between border-b border-[#24252e] pb-3">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-[#c5a059] tracking-wider">Rédaction Commerciale &amp; Storytelling</span>
+              <h2 class="text-sm font-bold text-white mt-0.5" id="editorProductHeading">Darma Biomechanical Clicker Hoop Septum</h2>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] text-zinc-500 font-mono">Voix :</span>
+              <select id="voicePresetSelector" onchange="applyVoicePreset()" class="p-1 bg-black border border-zinc-700 text-[#c5a059] font-mono text-[11px] focus:outline-none">
+                <option value="cerebral">Cerebral Biomechanical (Kaya)</option>
+                <option value="dark_romantic">Dark Romantic &amp; Sacred (Ask &amp; Embla)</option>
+                <option value="brutalist">Monolithic Brutalism (Parts of Four)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Title Input -->
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase font-bold text-zinc-400">Titre Public Storefront (Optimisé SEO) :</label>
+            <input type="text" id="listingTitleInput" oninput="runSemanticShieldScan()" class="w-full p-2.5 bg-black border border-[#2e303d] text-white text-xs font-mono focus:border-[#c5a059] focus:outline-none">
+          </div>
+
+          <!-- ANTI-CENSORSHIP SEMANTIC SHIELD INSPECTOR BOX -->
+          <div class="p-3.5 bg-[#14151b] border-2 border-emerald-800/80 space-y-2.5" id="shieldContainerBox">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-sm">🛡️</span>
+                <span class="text-xs font-bold text-white uppercase font-mono">Anti-Censorship Semantic Shield</span>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-800 font-mono" id="shieldRiskBadge">
+                Niveau de Risque : 0 (Sûr)
+              </span>
+            </div>
+            <p class="text-[11px] text-zinc-400 leading-tight">
+              Analyse en direct des termes déclencheurs de shadowbans (Stripe, Etsy Bots, Meta Ads, Google Merchant). Les mots à risque sont surlignés avec remplacement éditorial luxe en 1 clic.
+            </p>
+
+            <!-- Detected Terms List -->
+            <div id="shieldDetectedTerms" class="space-y-1.5 pt-1">
+              <div class="text-[11px] text-emerald-400 font-mono flex items-center gap-1.5">
+                <span>✓</span> Aucun mot censurable détecté dans le titre ou la description.
+              </div>
+            </div>
+          </div>
+
+          <!-- Long Description & Storytelling -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <label class="text-[10px] uppercase font-bold text-zinc-400">Description Commerciale &amp; Storytelling :</label>
+              <button onclick="regenerateDescriptionAI()" class="text-[10px] text-[#c5a059] hover:underline flex items-center gap-1">
+                <span>✨</span> Régénérer via IA de Marque
+              </button>
+            </div>
+            <textarea id="listingDescriptionInput" rows="6" oninput="runSemanticShieldScan()" class="w-full p-2.5 bg-black border border-[#2e303d] text-zinc-200 text-xs font-mono leading-relaxed focus:border-[#c5a059] focus:outline-none"></textarea>
+          </div>
+
+          <!-- Sliced Packshots Gallery (Inherited from Stupid Shoot) -->
+          <div class="space-y-2 pt-2 border-t border-[#24252e]">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase font-bold text-zinc-400">Packshots Carrés Attachés (Stupid Shoot) :</span>
+              <a href="stupid_shoot_studio.html" class="text-[10px] text-[#c5a059] hover:underline">Re-shooter ➔</a>
+            </div>
+            <div class="grid grid-cols-4 gap-2" id="attachedPackshotsGrid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Etsy 13-Tags Checklist Matrix -->
+          <div class="p-3 bg-[#121317] border border-[#262732] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase font-bold text-amber-400">Etsy Tags Matrix (13 Mots-Clés Requis) :</span>
+              <span class="text-[10px] text-zinc-400 font-mono" id="etsyTagsCounter">13 / 13 Renseignés ✓</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5" id="etsyTagsPills">
+              <!-- Rendered via JS -->
+            </div>
+            <div class="flex gap-2 pt-1">
+              <input type="text" id="newEtsyTagInput" placeholder="Ajouter un tag Etsy..." class="flex-1 p-1 bg-black border border-zinc-700 text-white text-[11px] font-mono">
+              <button onclick="addEtsyTag()" class="px-2.5 py-1 bg-[#252733] border border-zinc-600 text-white text-[11px] font-mono">+ Ajouter</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT SUB-PANE: LIVE STOREFRONT SIMULATION (W-1/2) -->
+        <div class="hidden lg:flex lg:w-1/2 flex-col overflow-y-auto p-4 md:p-6 bg-[#0a0b0d]">
+          
+          <!-- Storefront Header Tabs (Shopify Look vs Etsy Look) -->
+          <div class="flex items-center justify-between border-b border-[#24252e] pb-3 mb-4 font-mono text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-bold text-white uppercase" id="previewStoreTitle">Aperçu Rendu Storefront</span>
+            </div>
+            <div class="flex items-center gap-1 bg-[#121317] p-0.5 border border-[#2b2c37]">
+              <button onclick="setStorePreviewMode('shopify')" id="btn-prev-shopify" class="px-2.5 py-0.5 bg-[#252733] text-white font-bold text-[10px]">Shopify Dawn Theme</button>
+              <button onclick="setStorePreviewMode('etsy')" id="btn-prev-etsy" class="px-2.5 py-0.5 text-zinc-400 hover:text-white text-[10px]">Etsy Listing View</button>
+            </div>
+          </div>
+
+          <!-- PREVIEW CONTAINER A: SHOPIFY STOREFRONT LOOK -->
+          <div id="previewShopifyContainer" class="p-6 bg-[#121318] border border-[#2b2c37] shadow-2xl space-y-5 font-sans">
+            <div class="grid grid-cols-2 gap-5">
+              <!-- Big Hero Image -->
+              <div class="aspect-square bg-black border border-zinc-800 flex items-center justify-center overflow-hidden">
+                <img id="shopifyPreviewHero" src="" alt="Hero Packshot" class="w-full h-full object-cover">
+              </div>
+              <!-- Right Buy Box -->
+              <div class="space-y-3 font-mono">
+                <span class="text-[10px] text-zinc-400 tracking-widest uppercase" id="shopifyPreviewBrand">KAYA MOVEMENT</span>
+                <h1 class="text-base font-bold text-white leading-tight font-sans" id="shopifyPreviewTitle">Darma Biomechanical Clicker Hoop Septum</h1>
+                <div class="text-lg font-bold text-white font-mono" id="shopifyPreviewPrice">€85.00 EUR</div>
+                
+                <!-- Variant Selector Mock -->
+                <div class="space-y-1.5 pt-2 border-t border-zinc-800 text-xs">
+                  <label class="text-[10px] text-zinc-400 uppercase font-mono">Taille / Diamètre :</label>
+                  <div class="flex gap-1.5" id="shopifySizeOptions">
+                    <button class="px-2.5 py-1 bg-[#252733] border border-[#c5a059] text-[#c5a059] font-bold">8 mm</button>
+                    <button class="px-2.5 py-1 bg-black border border-zinc-700 text-zinc-400">10 mm</button>
+                  </div>
+                </div>
+
+                <div class="pt-3">
+                  <button class="w-full py-2.5 bg-white text-black font-bold uppercase text-xs tracking-wider">
+                    Ajouter au Panier • €85.00
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Description Text -->
+            <div class="pt-4 border-t border-zinc-800 text-xs text-zinc-300 leading-relaxed font-sans space-y-2">
+              <h3 class="text-xs font-bold text-white uppercase font-mono tracking-wider">Détails de Conception &amp; Fabrication :</h3>
+              <p id="shopifyPreviewDesc" class="text-zinc-400 font-mono text-[11px] leading-relaxed"></p>
+            </div>
+          </div>
+
+          <!-- PREVIEW CONTAINER B: ETSY MARKETPLACE LOOK (HIDDEN BY DEFAULT) -->
+          <div id="previewEtsyContainer" class="p-6 bg-[#16171d] border border-[#d97706]/40 shadow-2xl space-y-4 font-sans hidden">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-zinc-800 pb-2">
+              <span class="text-orange-400 font-bold">Etsy.com / fr / listing</span>
+              <span class="text-zinc-500">Boutique Créateur Authentifié ✓</span>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="aspect-square bg-black border border-zinc-800 overflow-hidden">
+                <img id="etsyPreviewHero" src="" alt="Etsy Packshot" class="w-full h-full object-cover">
+              </div>
+              <div class="space-y-2 text-xs">
+                <h2 class="font-bold text-white leading-snug" id="etsyPreviewTitle">Darma Biomechanical Clicker...</h2>
+                <div class="text-base font-bold text-orange-400 font-mono" id="etsyPreviewPrice">85,00 €</div>
+                <div class="text-[10px] text-emerald-400">✓ Livraison gratuite depuis Lille, France</div>
+                <div class="text-[10px] text-zinc-400 pt-1">Fait main par un atelier indépendant</div>
+                <button class="w-full py-2 bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs uppercase tracking-wider mt-2">
+                  Acheter cet article
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT DOCKED INSPECTOR: COMMISSIONS & PUBLISH MATRIX     -->
+    <!-- ======================================================== -->
+    <aside id="shopInspectorPanel" class="w-80 md:w-96 border-l border-[#24252e] bg-[#131418] flex flex-col justify-between shrink-0 overflow-hidden font-mono text-xs select-none">
+      
+      <!-- Top Inspector Header -->
+      <div class="p-3 border-b border-[#24252e] bg-[#16171d] shrink-0 font-mono">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#c5a059] animate-pulse"></span>
+            <span class="text-xs font-bold text-white tracking-wider uppercase">Inspecteur Commercial</span>
+          </div>
+          <button onclick="toggleShopInspector()" class="btn-tactile text-zinc-400 hover:text-white text-xs px-1 py-0.5">[Masquer ✕]</button>
+        </div>
+        <p class="text-[10px] text-zinc-400">
+          Marges nettes après commissions plateformes et matrice des options.
+        </p>
+      </div>
+
+      <!-- Inspector Body (Scrollable) -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+        
+        <!-- 1. DUAL CHANNEL NET REVENUE CALCULATOR -->
+        <div class="p-3 bg-[#181920] border border-[#262732] space-y-2.5">
+          <div class="flex justify-between items-center border-b border-[#262732] pb-1.5">
+            <span class="font-bold text-[#c5a059] uppercase text-[10px]">Calculateur de Marges Multi-Canaux</span>
+            <span class="text-[9px] px-1 bg-black text-zinc-400">Live Fees</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-[11px]">
+            <div>
+              <label class="text-[9px] text-zinc-500 uppercase">Coût Atelier :</label>
+              <input type="number" id="feeCostBuy" value="18.50" oninput="recalcChannelFees()" class="w-full mt-0.5 p-1 bg-black border border-zinc-700 text-white">
+            </div>
+            <div>
+              <label class="text-[9px] text-zinc-500 uppercase">Prix Public (€) :</label>
+              <input type="number" id="feeRetailPrice" value="85.00" oninput="recalcChannelFees()" class="w-full mt-0.5 p-1 bg-black border border-zinc-700 text-white font-bold text-emerald-400">
+            </div>
+          </div>
+
+          <!-- Channel Net Comparisons -->
+          <div class="space-y-2 pt-2 border-t border-[#262732] text-[11px]">
+            <div class="p-2 bg-[#121317] border border-emerald-900/60 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-emerald-400">Shopify (Direct)</div>
+                <div class="text-[9px] text-zinc-500">Frais : 2.9% + €0.30</div>
+              </div>
+              <div class="text-right">
+                <div class="font-bold text-white font-mono" id="shopifyNetVal">€63.74 net</div>
+                <div class="text-[9px] text-emerald-400 font-mono" id="shopifyMarginVal">75.0% marge</div>
+              </div>
+            </div>
+
+            <div class="p-2 bg-[#121317] border border-amber-900/60 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-amber-400">Etsy Marketplace</div>
+                <div class="text-[9px] text-zinc-500">Frais : 6.5% + Tx + €0.20</div>
+              </div>
+              <div class="text-right">
+                <div class="font-bold text-white font-mono" id="etsyNetVal">€59.80 net</div>
+                <div class="text-[9px] text-amber-400 font-mono" id="etsyMarginVal">70.4% marge</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. SHOPIFY GRAPHQL EXPORT PAYLOAD PREVIEW -->
+        <div class="p-3 bg-[#181920] border border-[#262732] space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-white uppercase text-[10px]">Payload GraphQL Généré</span>
+            <span class="text-[9px] text-emerald-400">Prêt à Envoyer</span>
+          </div>
+          <pre class="p-2 bg-black border border-zinc-800 text-[10px] text-zinc-300 overflow-x-auto font-mono max-h-36 leading-tight" id="graphqlPayloadBox"></pre>
+        </div>
+
+        <!-- 3. CHANNEL STATUS CHECKLIST -->
+        <div class="p-3 bg-[#181920] border border-[#262732] space-y-2">
+          <div class="font-bold text-white uppercase text-[10px]">Critères de Validation Publication</div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5 text-emerald-400">
+              <span>✓</span> Titre &amp; Slug SEO validés
+            </div>
+            <div class="flex items-center gap-1.5 text-emerald-400">
+              <span>✓</span> Semantic Shield vérifié (0 censure)
+            </div>
+            <div class="flex items-center gap-1.5 text-emerald-400">
+              <span>✓</span> Packshots HD attachés (4 cadrages)
+            </div>
+            <div class="flex items-center gap-1.5 text-emerald-400">
+              <span>✓</span> 13 tags Etsy attribués
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Inspector Actions -->
+      <div class="p-3 border-t border-[#24252e] bg-[#16171d] space-y-2">
+        <button onclick="publishToChannels()" class="btn-tactile w-full py-2.5 bg-[#c5a059] hover:bg-[#d8b36c] text-black font-bold text-xs flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#ffffff]">
+          <span>⚡</span>
+          <span>Publier les Modifications sur les Stores</span>
+        </button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT LOGIC & SEMANTIC SHIELD ENGINE                -->
+  <!-- ======================================================== -->
+  <script>
+    // Audio synthesis for tactile clicks
+    function playTactileClick() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.04);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.04);
+      } catch(e) {}
+    }
+
+    // Toggle app dropdown
+    function toggleAppDropdown() {
+      playTactileClick();
+      document.getElementById('app-dropdown').classList.toggle('hidden');
+    }
+
+    // Semantic Shield Censorship Lexicon & Luxury Replacements
+    const CENSORSHIP_DICTIONARY = [
+      {
+        trigger: "septum",
+        safe: "nasal adornment",
+        reason: "Déclenché par les filtres publicitaires Meta/Google sur les piercings faciaux."
+      },
+      {
+        trigger: "fangs",
+        safe: "sculptural incisors",
+        reason: "Surveillé par les algorithmes de violence / armes / anatomie agressive."
+      },
+      {
+        trigger: "teeth",
+        safe: "contoured segments",
+        reason: "Mots-clés organiques parfois bloqués sur les flux Google Merchant."
+      },
+      {
+        trigger: "unholy",
+        safe: "sacred obscure",
+        reason: "Filtré par les politiques de contenus religieux ou blasphématoires."
+      },
+      {
+        trigger: "grail",
+        safe: "chalice relic",
+        reason: "Filtres sémantiques sensibles de certaines passerelles bancaires."
+      },
+      {
+        trigger: "vertebrae",
+        safe: "articulated cervical links",
+        reason: "Certains canaux classent les 'ossements' comme parties biologiques interdites."
+      },
+      {
+        trigger: "skull",
+        safe: "cranial sculpture",
+        reason: "Restrictions d'exportation douanière / os sur Etsy et Shopify Markets."
+      },
+      {
+        trigger: "knife",
+        safe: "honed blade silhouette",
+        reason: "Interdiction stricte des armes blanches sur Google Merchant Center."
+      },
+      {
+        trigger: "bondage",
+        safe: "harness hardware",
+        reason: "Blocage immédiat Stripe et Etsy pour contenu adulte."
+      }
+    ];
+
+    // Master Catalog Data (15 products with high-res photos)
+    const catalogData = [
+      {
+        sku: "KM-SEP-001",
+        brand_id: "kaya_movement",
+        brand_name: "Kaya Movement",
+        title: "Darma Biomechanical Clicker Hoop Septum (16g - Silver)",
+        category: "Septum Rings / Clickers",
+        cost_buy: 18.50,
+        retail_price: 85.00,
+        materials: ["Argent 925", "Laiton argenté"],
+        description: "The Darma clicker represents the pinnacle of biomechanical jewelry. Designed by Bruno Laignel, this articulating nasal adornment features hand-finished sterling silver fractals inspired by cyberpunk anatomical structures.",
+        local_images: [
+          "data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_1.jpg",
+          "data/sample_shops/kaya_movement/products/KM-SEP-001/images/photo_2.jpg"
+        ],
+        tags: ["biomechanical", "cyberpunk", "clicker", "silver 925", "futuristic", "statement", "sculptural", "artisan", "goth luxe", "bali crafted", "alien design", "edgy", "unisex jewelry"]
+      },
+      {
+        sku: "KM-WGT-002",
+        brand_id: "kaya_movement",
+        brand_name: "Kaya Movement",
+        title: "EXRO Biomechanical Keyhole Ear Weights (2g - Gold Brass)",
+        category: "Gauged Earrings / Weights & Hangers",
+        cost_buy: 34.00,
+        retail_price: 145.00,
+        materials: ["Laiton doré antique"],
+        description: "Hand-cast gold brass keyhole ear weights engineered with precision ergonomics for stretched lobes. Each piece balances substantial weight with intricate biomechanical engravings.",
+        local_images: [
+          "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_1.jpg",
+          "data/sample_shops/kaya_movement/products/KM-WGT-002/images/photo_2.jpg"
+        ],
+        tags: ["ear weights", "brass jewelry", "stretched ears", "gauges 2g", "heavy hangers", "tribal punk", "cyberpunk", "statement earrings", "sculpted metal", "gold brass", "steampunk", "bali", "artisan cast"]
+      },
+      {
+        sku: "KM-EAR-003",
+        brand_id: "kaya_movement",
+        brand_name: "Kaya Movement",
+        title: "CIRCUIT Oversized Visionary Disc Hoop Earrings (16g - Gold)",
+        category: "Hoop & Disc Earrings",
+        cost_buy: 28.00,
+        retail_price: 120.00,
+        materials: ["Laiton doré poli"],
+        description: "Large statement disc hoops laser-etched with sacred motherboard geometries. Polished gold brass with secure clasp mechanism.",
+        local_images: [
+          "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_1.jpg",
+          "data/sample_shops/kaya_movement/products/KM-EAR-003/images/photo_2.jpg"
+        ],
+        tags: ["disc earrings", "sacred geometry", "circuit board", "gold hoops", "oversized earrings", "visionary", "cyber jewelry", "techno", "festival jewelry", "brass discs", "avant garde", "statement", "statement hoops"]
+      },
+      {
+        sku: "KM-GLV-004",
+        brand_id: "kaya_movement",
+        brand_name: "Kaya Movement",
+        title: "DZALA Genuine Leather Fingerless Biker Gloves",
+        category: "Leather Accessories / Gloves",
+        cost_buy: 42.00,
+        retail_price: 165.00,
+        materials: ["Cuir véritable noir", "Rivets métalliques"],
+        description: "Full-grain supple cowhide biker gloves featuring anatomical knuckle rivets, breathable perforations, and signature blood-red edge piping.",
+        local_images: [
+          "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_1.jpg",
+          "data/sample_shops/kaya_movement/products/KM-GLV-004/images/photo_2.jpg"
+        ],
+        tags: ["leather gloves", "fingerless gloves", "biker gear", "post apocalyptic", "mad max", "wasteland", "leathercraft", "rivets", "punk accessories", "motorcycle", "red piping", "cosplay", "cyberpunk"]
+      },
+      {
+        sku: "KM-BAG-005",
+        brand_id: "kaya_movement",
+        brand_name: "Kaya Movement",
+        title: "KERO Unisex Lightweight Leather Holster Bag",
+        category: "Leather Accessories / Holsters",
+        cost_buy: 58.00,
+        retail_price: 240.00,
+        materials: ["Cuir pleine fleur", "Bouclerie industrielle"],
+        description: "Ergonomic dual-shoulder holster harness bag crafted from weather-treated black leather. Concealed pockets with industrial YKK hardware.",
+        local_images: [
+          "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_1.jpg",
+          "data/sample_shops/kaya_movement/products/KM-BAG-005/images/photo_2.jpg"
+        ],
+        tags: ["holster bag", "shoulder bag", "festival bag", "harness leather", "utilitarian", "tactical gear", "darkwear", "techwear", "concealed pocket", "leather harness", "industrial", "wasteland", "travel bag"]
+      },
+      {
+        sku: "AE-NCK-001",
+        brand_id: "ask_and_embla",
+        brand_name: "Ask & Embla",
+        title: "UNHOLY GRAIL Necklace (Solid 925 Sterling Silver)",
+        category: "Necklaces / Pendants",
+        cost_buy: 38.00,
+        retail_price: 180.00,
+        materials: ["Acier chirurgical 316L", "Argent 925"],
+        description: "A dark gothic relic forged as a talisman against the blight. Articulated spur spikes cascade along an adjustable modular link chain.",
+        local_images: [
+          "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_1.jpg",
+          "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_2.jpg"
+        ],
+        tags: ["gothic necklace", "925 silver", "sigil cross", "dark romantic", "grunge jewelry", "occult talisman", "spikes", "edgy chain", "alternative fashion", "witchy aesthetic", "sacred relic", "statement pendant", "alt jewelry"]
+      },
+      {
+        sku: "AE-LIP-002",
+        brand_id: "ask_and_embla",
+        brand_name: "Ask & Embla",
+        title: "Iridium Lip Cuff (Fangs Silhouette - Solid 925 Silver)",
+        category: "Lip Cuffs / Face Jewelry",
+        cost_buy: 19.00,
+        retail_price: 95.00,
+        materials: ["Argent 925", "Finition Miroir Rhodium"],
+        description: "Non-piercing facial jewelry featuring twin fangs contoured seamlessly to the lip. High-polish rhodium plating for mirror shine.",
+        local_images: [
+          "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_1.jpg",
+          "data/sample_shops/ask_and_embla/products/AE-LIP-002/images/photo_2.jpg"
+        ],
+        tags: ["lip cuff", "face jewelry", "fake lip ring", "fangs", "vampire aesthetic", "rhodium silver", "no piercing", "dark fashion", "editorial jewelry", "gothic lip", "alt accessory", "statement jewelry", "cyber goth"]
+      },
+      {
+        sku: "AE-RNG-003",
+        brand_id: "ask_and_embla",
+        brand_name: "Ask & Embla",
+        title: "Sorcerer Serpent Ring (Stainless Steel 316L)",
+        category: "Rings / Statement Rings",
+        cost_buy: 14.00,
+        retail_price: 65.00,
+        materials: ["Acier inoxydable 316L"],
+        description: "Coiled serpent ring with sculpted scales and black obsidian accent eyes. Hypoallergenic medical grade surgical steel.",
+        local_images: [
+          "data/sample_shops/ask_and_embla/products/AE-RNG-003/images/photo_1.jpg",
+          "data/sample_shops/ask_and_embla/products/AE-RNG-003/images/photo_2.jpg"
+        ],
+        tags: ["snake ring", "serpent jewelry", "ouroboros", "stainless steel", "gothic ring", "witchcraft", "dark aesthetic", "animal ring", "scales", "black stone", "alt ring", "statement ring", "talisman"]
+      },
+      {
+        sku: "AE-NCK-004",
+        brand_id: "ask_and_embla",
+        brand_name: "Ask & Embla",
+        title: "Vertebrae Anatomical Necklace (Surgical Steel 316L)",
+        category: "Necklaces / Pendants",
+        cost_buy: 32.00,
+        retail_price: 150.00,
+        materials: ["Acier inoxydable 316L"],
+        description: "Sixteen articulated cervical vertebrae links creating a fluid tactile spinal cord choker. High Polish mirror steel with heavy box clasp.",
+        local_images: [
+          "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_1.jpg",
+          "data/sample_shops/ask_and_embla/products/AE-NCK-004/images/photo_2.jpg"
+        ],
+        tags: ["vertebrae necklace", "spine choker", "anatomical jewelry", "medical goth", "bone jewelry", "surgical steel", "articulated", "dark romance", "heavy chain", "statement choker", "alt fashion", "creepy cute", "macabre"]
+      },
+      {
+        sku: "AE-EAR-005",
+        brand_id: "ask_and_embla",
+        brand_name: "Ask & Embla",
+        title: "Arcana Talismanic Earrings (Sterling Silver 925)",
+        category: "Hoop & Disc Earrings",
+        cost_buy: 26.00,
+        retail_price: 115.00,
+        materials: ["Argent Sterling 925"],
+        description: "Talismanic tarot-inspired drop earrings with fine geometric guilloché engraving. Balanced drop weight for standard earlobes.",
+        local_images: [
+          "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_1.jpg",
+          "data/sample_shops/ask_and_embla/products/AE-EAR-005/images/photo_2.jpg"
+        ],
+        tags: ["tarot earrings", "arcana", "occult jewelry", "sterling silver", "sigil earrings", "drop earrings", "witch jewelry", "mystical", "dark romance", "sacred geometry", "statement drops", "boho goth", "engraved"]
+      },
+      {
+        sku: "P4-RNG-001",
+        brand_id: "parts_of_four",
+        brand_name: "Parts of Four",
+        title: "Sistema Ring Mega Pavé (12mm - Acid Patina & Raw Diamonds)",
+        category: "Rings / Mega Pavé",
+        cost_buy: 190.00,
+        retail_price: 880.00,
+        materials: ["Argent massif patiné", "Diamants bruts"],
+        description: "Monolithic 12mm wide band carved by Evan Sugerman. Acid-dipped dark patina silver fully paved with hundreds of unrefined grey raw diamonds.",
+        local_images: [
+          "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_1.jpg",
+          "data/sample_shops/parts_of_four/products/P4-RNG-001/images/photo_2.jpg"
+        ],
+        tags: ["parts of four", "rick owens style", "brutalist jewelry", "raw diamond", "mega pave", "acid patina", "heavy silver", "sculptural ring", "evan sugerman", "luxury brutalism", "dark luxury", "monolithic", "art jewelry"]
+      },
+      {
+        sku: "P4-BRC-002",
+        brand_id: "parts_of_four",
+        brand_name: "Parts of Four",
+        title: "Crescent Plane Bracelet Hybrid Deco Bars (30mm)",
+        category: "Bracelets / Cuffs",
+        cost_buy: 240.00,
+        retail_price: 1100.00,
+        materials: ["Argent 925 vieilli", "Laiton massif"],
+        description: "Curved monumental cuff spanning 30mm across the wrist. Fastened with heavy industrial deco rivets and patinated mineral alloy.",
+        local_images: [
+          "data/sample_shops/parts_of_four/products/P4-BRC-002/images/photo_1.jpg",
+          "data/sample_shops/parts_of_four/products/P4-BRC-002/images/photo_2.jpg"
+        ],
+        tags: ["cuff bracelet", "brutalist cuff", "parts of four", "heavy silver", "deco bars", "artisan cuff", "paris bali", "sculpture", "wide bracelet", "industrial jewelry", "raw metal", "dark luxury", "collector piece"]
+      },
+      {
+        sku: "P4-NCK-003",
+        brand_id: "parts_of_four",
+        brand_name: "Parts of Four",
+        title: "Disk Necklace 25mm (Black Hex Diamond Slab)",
+        category: "Necklaces / Disks & Torcs",
+        cost_buy: 160.00,
+        retail_price: 750.00,
+        materials: ["Disque d'argent brut", "Diamant noir hexagonal"],
+        description: "Hand-hammered brutalist silver disk centered with a sliced raw black diamond matrix slab. Suspended on a blackened heavy curb chain.",
+        local_images: [
+          "data/sample_shops/parts_of_four/products/P4-NCK-003/images/photo_1.jpg",
+          "data/sample_shops/parts_of_four/products/P4-NCK-003/images/photo_2.jpg"
+        ],
+        tags: ["disk necklace", "black diamond", "hex slab", "brutalist pendant", "raw mineral", "acid wash", "talisman", "parts of four", "heavy chain", "evan sugerman", "sculptural pendant", "dark luxury", "collector item"]
+      },
+      {
+        sku: "P4-WAT-004",
+        brand_id: "parts_of_four",
+        brand_name: "Parts of Four",
+        title: "Apple Watch Bracelet Model 1 (Wedge Strap, Mega Pavé)",
+        category: "Bracelets / Cuffs",
+        cost_buy: 280.00,
+        retail_price: 1450.00,
+        materials: ["Cuir mat noir", "Maillons argent", "Diamants bleus bruts"],
+        description: "Custom horological strap converting Apple Watch into an avant-garde armor band. Matte Horween leather with wedge silver hardware and blue diamond pavé.",
+        local_images: [
+          "data/sample_shops/parts_of_four/products/P4-WAT-004/images/photo_1.jpg",
+          "data/sample_shops/parts_of_four/products/P4-WAT-004/images/photo_2.jpg"
+        ],
+        tags: ["apple watch band", "luxury watch strap", "mega pave", "parts of four", "leather strap", "raw diamond", "tech luxury", "wedge strap", "brutalist watch", "handcrafted", "rick owens", "couture accessory", "darkwear"]
+      },
+      {
+        sku: "P4-NCK-005",
+        brand_id: "parts_of_four",
+        brand_name: "Parts of Four",
+        title: "Monster Necklace YS (Yellow Sun Cast Brass Choker)",
+        category: "Necklaces / Disks & Torcs",
+        cost_buy: 195.00,
+        retail_price: 920.00,
+        materials: ["Laiton coulé brut (Yellow Sun)"],
+        description: "Monolithic cast molten brass choker with raw foundry crust. Invisible tongue clasp integrated within the sculptured organic curve.",
+        local_images: [
+          "data/sample_shops/parts_of_four/products/P4-NCK-005/images/photo_1.jpg",
+          "data/sample_shops/parts_of_four/products/P4-NCK-005/images/photo_2.jpg"
+        ],
+        tags: ["brass choker", "monster necklace", "yellow sun brass", "raw cast", "heavy torc", "sculptural choker", "foundry finish", "parts of four", "runway jewelry", "statement torc", "avant garde", "monolithic", "artwear"]
+      }
+    ];
+
+    // State Variables
+    let activeBrand = 'KM';
+    let activeProduct = catalogData[0];
+    let storePreviewMode = 'shopify';
+
+    // 1. Brand Filter
+    function filterShopBrand(b) {
+      playTactileClick();
+      activeBrand = b;
+      ['ALL', 'KM', 'AE', 'P4'].forEach(bk => {
+        const btn = document.getElementById('brand-shop-' + bk);
+        if (btn) {
+          btn.className = (bk === b)
+            ? 'btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 bg-[#1e1f26] border-l-2 border-[#c5a059] text-white font-semibold text-left'
+            : 'btn-tactile w-full flex items-center justify-between px-2.5 py-1.5 text-zinc-400 hover:text-white hover:bg-[#181920] text-left transition';
+        }
+      });
+
+      renderShopProductList();
+      const first = (activeBrand === 'ALL') ? catalogData[0] : catalogData.find(p => p.sku.startsWith(activeBrand));
+      if (first) selectShopProduct(first);
+    }
+
+    // 2. Render Product List in Sidebar
+    function renderShopProductList() {
+      const container = document.getElementById('shopProductListContainer');
+      container.innerHTML = '';
+
+      const filtered = (activeBrand === 'ALL')
+        ? catalogData
+        : catalogData.filter(p => p.sku.startsWith(activeBrand));
+
+      document.getElementById('shop-prod-counter').innerText = filtered.length + ' pièces';
+
+      filtered.forEach(p => {
+        const isSelected = p.sku === activeProduct.sku;
+        const itemDiv = document.createElement('div');
+        itemDiv.className = isSelected
+          ? 'btn-tactile p-2 bg-[#1c1d27] border-l-2 border-[#c5a059] cursor-pointer space-y-1'
+          : 'btn-tactile p-2 bg-[#16171d] hover:bg-[#1a1b24] border border-transparent hover:border-zinc-700 cursor-pointer space-y-1 transition';
+
+        itemDiv.onclick = () => selectShopProduct(p);
+
+        const thumbSrc = '../../' + p.local_images[0];
+        itemDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <img src="${thumbSrc}" alt="${p.sku}" class="w-8 h-8 object-cover rounded border border-zinc-700/80 shrink-0 bg-black">
+            <div class="min-w-0 flex-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold font-mono text-xs ${isSelected ? 'text-[#c5a059]' : 'text-zinc-200'}">${p.sku}</span>
+                <span class="text-[9px] px-1 bg-emerald-950 text-emerald-300 border border-emerald-800 font-mono">Prêt Sync</span>
+              </div>
+              <div class="text-[11px] text-zinc-300 truncate font-sans">${p.title}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(itemDiv);
+      });
+    }
+
+    // 3. Select Product
+    function selectShopProduct(p) {
+      playTactileClick();
+      activeProduct = p;
+      renderShopProductList();
+
+      document.getElementById('sub-active-sku').innerText = p.sku;
+      document.getElementById('sub-active-title').innerText = p.title;
+      document.getElementById('editorProductHeading').innerText = p.title;
+      document.getElementById('listingTitleInput').value = p.title;
+      document.getElementById('listingDescriptionInput').value = p.description;
+
+      // Fees inputs
+      document.getElementById('feeCostBuy').value = p.cost_buy.toFixed(2);
+      document.getElementById('feeRetailPrice').value = p.retail_price.toFixed(2);
+      recalcChannelFees();
+
+      // Render Attached Packshots Gallery
+      renderAttachedPackshots(p);
+
+      // Render Etsy Tags
+      renderEtsyTags(p);
+
+      // Run Semantic Shield
+      runSemanticShieldScan();
+
+      // Update Live Storefront Mockups
+      updateStorefrontPreviews();
+
+      // Update GraphQL Payload preview
+      updateGraphqlPayload(p);
+    }
+
+    // 4. Render Attached Packshots
+    function renderAttachedPackshots(p) {
+      const grid = document.getElementById('attachedPackshotsGrid');
+      grid.innerHTML = '';
+      const p1 = '../../' + p.local_images[0];
+      const p2 = '../../' + (p.local_images[1] || p.local_images[0]);
+
+      const shots = [
+        { label: "1. Face Upright", src: p1 },
+        { label: "2. Profil 45°", src: p2 },
+        { label: "3. Macro Détail", src: p1 },
+        { label: "4. Édito Porté", src: p2 }
+      ];
+
+      shots.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'bg-black border border-zinc-800 p-1 space-y-1 text-center';
+        div.innerHTML = `
+          <div class="aspect-square bg-zinc-900 overflow-hidden">
+            <img src="${s.src}" class="w-full h-full object-cover">
+          </div>
+          <div class="text-[9px] text-zinc-400 font-mono truncate">${s.label}</div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    // 5. Render Etsy Tags
+    function renderEtsyTags(p) {
+      const pillsContainer = document.getElementById('etsyTagsPills');
+      pillsContainer.innerHTML = '';
+      const tags = p.tags || [];
+
+      document.getElementById('etsyTagsCounter').innerText = `${tags.length} / 13 Renseignés ${tags.length === 13 ? '✓' : ''}`;
+
+      tags.forEach((tag, idx) => {
+        const span = document.createElement('span');
+        span.className = 'px-2 py-0.5 bg-black border border-zinc-700 text-zinc-300 text-[10px] font-mono flex items-center gap-1';
+        span.innerHTML = `
+          <span>#${tag}</span>
+          <button onclick="removeEtsyTag(${idx})" class="text-zinc-500 hover:text-red-400 font-bold">✕</button>
+        `;
+        pillsContainer.appendChild(span);
+      });
+    }
+
+    function addEtsyTag() {
+      playTactileClick();
+      const input = document.getElementById('newEtsyTagInput');
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      if (!activeProduct.tags) activeProduct.tags = [];
+      if (activeProduct.tags.length >= 13) {
+        alert('Etsy limite strictement le nombre de tags à 13 par fiche listing.');
+        return;
+      }
+      activeProduct.tags.push(val);
+      input.value = '';
+      renderEtsyTags(activeProduct);
+    }
+
+    function removeEtsyTag(idx) {
+      playTactileClick();
+      activeProduct.tags.splice(idx, 1);
+      renderEtsyTags(activeProduct);
+    }
+
+    // 6. Anti-Censorship Semantic Shield Scan
+    function runSemanticShieldScan() {
+      const title = document.getElementById('listingTitleInput').value.toLowerCase();
+      const desc = document.getElementById('listingDescriptionInput').value.toLowerCase();
+      const textToScan = title + ' ' + desc;
+
+      const detected = [];
+      CENSORSHIP_DICTIONARY.forEach(rule => {
+        if (textToScan.includes(rule.trigger)) {
+          detected.push(rule);
+        }
+      });
+
+      const container = document.getElementById('shieldDetectedTerms');
+      const box = document.getElementById('shieldContainerBox');
+      const riskBadge = document.getElementById('shieldRiskBadge');
+      const topPill = document.getElementById('shieldRiskLevel');
+
+      if (detected.length === 0) {
+        box.className = 'p-3.5 bg-[#14151b] border-2 border-emerald-800/80 space-y-2.5 transition';
+        riskBadge.className = 'text-[10px] px-2 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-800 font-mono';
+        riskBadge.innerText = 'Niveau de Risque : 0 (Sûr)';
+        topPill.innerText = '0 Risque Détecté (100% Sûr)';
+        container.innerHTML = `
+          <div class="text-[11px] text-emerald-400 font-mono flex items-center gap-1.5">
+            <span>✓</span> Aucun mot censurable détecté. Conforme Stripe &amp; Google Merchant.
+          </div>
+        `;
+      } else {
+        box.className = 'p-3.5 bg-[#1a1417] border-2 border-amber-500 space-y-2.5 transition';
+        riskBadge.className = 'text-[10px] px-2 py-0.5 bg-amber-950 text-amber-300 border border-amber-600 font-mono animate-pulse';
+        riskBadge.innerText = `Niveau de Risque : ${detected.length} Mots Sensibles`;
+        topPill.innerText = `⚠ ${detected.length} Mots à Risque Détectés`;
+
+        container.innerHTML = detected.map(d => `
+          <div class="p-2 bg-black border border-amber-800/60 flex items-center justify-between text-[11px] font-mono">
+            <div>
+              <span class="text-red-400 font-bold uppercase underline">⚠ "${d.trigger}"</span>
+              <span class="text-zinc-400"> ➔ Suggestion Luxe : </span>
+              <span class="text-emerald-400 font-bold">"${d.safe}"</span>
+              <div class="text-[9px] text-zinc-500">${d.reason}</div>
+            </div>
+            <button onclick="replaceShieldTrigger('${d.trigger}', '${d.safe}')" class="btn-tactile px-2 py-1 bg-[#c5a059] text-black font-bold text-[10px] whitespace-nowrap shadow-[1px_1px_0px_#ffffff]">
+              Appliquer "${d.safe}" ➔
+            </button>
+          </div>
+        `).join('');
+      }
+
+      // Keep storefront live preview synchronized
+      updateStorefrontPreviews();
+    }
+
+    // 7. Auto-Replace Shield Trigger
+    function replaceShieldTrigger(trigger, safe) {
+      playTactileClick();
+      const titleInput = document.getElementById('listingTitleInput');
+      const descInput = document.getElementById('listingDescriptionInput');
+
+      const regex = new RegExp(trigger, 'gi');
+      titleInput.value = titleInput.value.replace(regex, safe);
+      descInput.value = descInput.value.replace(regex, safe);
+
+      activeProduct.title = titleInput.value;
+      activeProduct.description = descInput.value;
+
+      runSemanticShieldScan();
+    }
+
+    // 8. Brand Voice AI Generator Presets
+    function applyVoicePreset() {
+      playTactileClick();
+      const preset = document.getElementById('voicePresetSelector').value;
+      const desc = document.getElementById('listingDescriptionInput');
+
+      if (preset === 'cerebral') {
+        desc.value = `Sculpted through cerebral exploration and artisanal precision in Bali. The ${activeProduct.sku} synthesizes biomechanical fractals with 925 sterling silver casting. Engineered with organic articulating geometry for ergonomic wear without compromising futuristic tactile presence.`;
+      } else if (preset === 'dark_romantic') {
+        desc.value = `An amulet against the creeping blight. Forged from medical-grade surgical alloy and darkened silver, this sacred ornament evokes forgotten ancient mythologies and sovereign self-adornment. Each contour rests as delicate armour for the soul.`;
+      } else if (preset === 'brutalist') {
+        desc.value = `A monolithic sculpture designed by Evan Sugerman. Monumental raw mineral volume carved from hand-poured foundry alloy and acid-patinated silver. Zero decorative embellishment; the tactile weight and honest metallic texture form the entire sculptural statement.`;
+      }
+
+      activeProduct.description = desc.value;
+      runSemanticShieldScan();
+    }
+
+    function regenerateDescriptionAI() {
+      applyVoicePreset();
+      alert('✓ Storytelling régénéré en accord avec la charte vocale de la marque !');
+    }
+
+    // 9. Recalculate Channel Fees & Gross Margin
+    function recalcChannelFees() {
+      const buy = parseFloat(document.getElementById('feeCostBuy').value) || 0;
+      const retail = parseFloat(document.getElementById('feeRetailPrice').value) || 0;
+
+      // Shopify fees: 2.9% + 0.30 EUR
+      const shopifyFee = (retail * 0.029) + 0.30;
+      const shopifyNet = retail - shopifyFee - buy;
+      const shopifyMargin = retail > 0 ? ((shopifyNet / retail) * 100) : 0;
+
+      // Etsy fees: 6.5% transaction + 4% payment processing + 0.30 + 0.20 listing
+      const etsyFee = (retail * 0.105) + 0.50;
+      const etsyNet = retail - etsyFee - buy;
+      const etsyMargin = retail > 0 ? ((etsyNet / retail) * 100) : 0;
+
+      document.getElementById('shopifyNetVal').innerText = `€${shopifyNet.toFixed(2)} net`;
+      document.getElementById('shopifyMarginVal').innerText = `${shopifyMargin.toFixed(1)}% marge`;
+
+      document.getElementById('etsyNetVal').innerText = `€${etsyNet.toFixed(2)} net`;
+      document.getElementById('etsyMarginVal').innerText = `${etsyMargin.toFixed(1)}% marge`;
+
+      // Update retail prices in preview
+      document.getElementById('shopifyPreviewPrice').innerText = `€${retail.toFixed(2)} EUR`;
+      document.getElementById('etsyPreviewPrice').innerText = `${retail.toFixed(2).replace('.', ',')} €`;
+    }
+
+    // 10. Update Storefront Previews
+    function updateStorefrontPreviews() {
+      const title = document.getElementById('listingTitleInput').value;
+      const desc = document.getElementById('listingDescriptionInput').value;
+      const heroSrc = '../../' + activeProduct.local_images[0];
+
+      document.getElementById('shopifyPreviewBrand').innerText = activeProduct.brand_name.toUpperCase();
+      document.getElementById('shopifyPreviewTitle').innerText = title;
+      document.getElementById('shopifyPreviewDesc').innerText = desc;
+      document.getElementById('shopifyPreviewHero').src = heroSrc;
+
+      document.getElementById('etsyPreviewTitle').innerText = title;
+      document.getElementById('etsyPreviewHero').src = heroSrc;
+    }
+
+    // 11. Store Preview Switcher (Shopify Look vs Etsy Look)
+    function setStorePreviewMode(mode) {
+      playTactileClick();
+      storePreviewMode = mode;
+      const shopifyBox = document.getElementById('previewShopifyContainer');
+      const etsyBox = document.getElementById('previewEtsyContainer');
+      const btnShopify = document.getElementById('btn-prev-shopify');
+      const btnEtsy = document.getElementById('btn-prev-etsy');
+
+      if (mode === 'shopify') {
+        shopifyBox.classList.remove('hidden');
+        etsyBox.classList.add('hidden');
+        btnShopify.className = 'px-2.5 py-0.5 bg-[#252733] text-white font-bold text-[10px]';
+        btnEtsy.className = 'px-2.5 py-0.5 text-zinc-400 hover:text-white text-[10px]';
+      } else {
+        shopifyBox.classList.add('hidden');
+        etsyBox.classList.remove('hidden');
+        btnShopify.className = 'px-2.5 py-0.5 text-zinc-400 hover:text-white text-[10px]';
+        btnEtsy.className = 'px-2.5 py-0.5 bg-[#d97706] text-black font-bold text-[10px]';
+      }
+    }
+
+    function switchChannelView(mode) {
+      playTactileClick();
+      if (mode === 'shopify') setStorePreviewMode('shopify');
+      else if (mode === 'etsy') setStorePreviewMode('etsy');
+      else {
+        // split mode: show both
+        document.getElementById('previewShopifyContainer').classList.remove('hidden');
+        document.getElementById('previewEtsyContainer').classList.remove('hidden');
+      }
+    }
+
+    // 12. Update GraphQL Payload Box
+    function updateGraphqlPayload(p) {
+      const payload = {
+        mutation: "productCreate",
+        input: {
+          title: p.title,
+          vendor: p.brand_name,
+          productType: p.category,
+          status: "ACTIVE",
+          tags: p.tags,
+          variants: [
+            { sku: p.sku + "-STD", price: p.retail_price.toFixed(2), inventoryQuantities: [ { availableQuantity: 15, locationId: "gid://shopify/Location/LilleHub" } ] }
+          ],
+          images: p.local_images.map(img => ({ src: "https://serious-studio.local/" + img }))
+        }
+      };
+      document.getElementById('graphqlPayloadBox').innerText = JSON.stringify(payload, null, 2);
+    }
+
+    // 13. Publish Action Simulator
+    function publishToChannels() {
+      playTactileClick();
+      const btn = document.getElementById('btnPublishChannels');
+      const origText = btn.innerHTML;
+      btn.innerHTML = '<span>⏳</span><span>Publication GraphQL en cours...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = '<span>✓</span><span>Publié avec Succès !</span>';
+        setTimeout(() => {
+          btn.innerHTML = origText;
+          btn.disabled = false;
+          alert(`✓ Produit ${activeProduct.sku} synchronisé en direct sur Shopify Storefront et Etsy Marketplace !`);
+        }, 1200);
+      }, 1000);
+    }
+
+    // 14. Toggle Right Inspector
+    let shopInspectorOpen = true;
+    function toggleShopInspector() {
+      playTactileClick();
+      shopInspectorOpen = !shopInspectorOpen;
+      const panel = document.getElementById('shopInspectorPanel');
+      const badge = document.getElementById('shopInspectorBadge');
+      if (shopInspectorOpen) {
+        panel.classList.remove('hidden');
+        badge.innerText = 'Ouvert ✓';
+      } else {
+        panel.classList.add('hidden');
+        badge.innerText = 'Masqué';
+      }
+    }
+
+    // Initial Setup
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check URL params for SKU
+      const urlParams = new URLSearchParams(window.location.search);
+      const skuParam = urlParams.get('sku');
+      if (skuParam) {
+        const found = catalogData.find(p => p.sku === skuParam);
+        if (found) {
+          activeProduct = found;
+          if (found.sku.startsWith('KM')) activeBrand = 'KM';
+          else if (found.sku.startsWith('AE')) activeBrand = 'AE';
+          else if (found.sku.startsWith('P4')) activeBrand = 'P4';
+        }
+      }
+
+      filterShopBrand(activeBrand);
+    });
+  </script>
+</body>
+</html>

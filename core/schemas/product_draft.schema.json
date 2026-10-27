@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProductDraft",
+  "description": "Upstream creative concept in Stupid Shoot before formal cataloging in Stupid Stock",
+  "type": "object",
+  "required": ["id", "title", "brand", "created_at"],
+  "properties": {
+    "id": { "type": "string", "description": "Unique UUID or slug" },
+    "title": { "type": "string", "description": "Working project or concept title" },
+    "brand": { "type": "string", "description": "Brand identifier (e.g. 'Kaya Movement', 'Sismique')" },
+    "category": { "type": "string", "description": "Tentative category (e.g. 'Rings', 'Harness', 'Earrings')" },
+    "aesthetic_tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Keywords for prompt generation (e.g. 'dark brutalist', '925 silver', 'raw hammered')"
+    },
+    "reference_images": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Local paths to sketches, inspiration, or workshop phone photos"
+    },
+    "notes": { "type": "string" },
+    "promoted_to_sku": { "type": ["string", "null"], "description": "Associated SKU once minted into Stupid Stock" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

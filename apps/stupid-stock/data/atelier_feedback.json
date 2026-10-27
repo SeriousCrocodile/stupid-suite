@@ -1,0 +1,249 @@
+[
+  {
+    "id": "PIN-003",
+    "created_at": "2026-10-26 02:31:52",
+    "comment": "augmenter le width du pop-up side right\nme laisser loption de le faire en pop-up modal pour voir si c'est plus interressant",
+    "category": "ui",
+    "status": "RESOLVED",
+    "context": {
+      "tag": "DIV",
+      "target_id": "",
+      "selector": "div.flex-1",
+      "text_preview": "GALERIE PACKSHOT\n2\n⚡ Ouvrir Stupid Shoot\n★\nPacksho",
+      "sku": "KM-BAG-005",
+      "clientX": 1332,
+      "clientY": 862,
+      "docX": 1332,
+      "docY": 862,
+      "elementRect": {
+        "x": 1325,
+        "y": 131,
+        "width": 419,
+        "height": 757
+      }
+    },
+    "resolved_at": "2026-10-26 15:37:16"
+  },
+  {
+    "id": "PIN-004",
+    "created_at": "2026-10-26 02:33:50",
+    "comment": "de maniere generale on devrait pouvoir gerer plusieur type de variation la premiere reconu nativement par shopify is color ca permet davoir des petites vignette de couleur en dessous des produit pour les variations. ensuite size mais aussi peut etre matterial ou inner size, etc, pas uniquement size. on devrai pouvoir ajouter les variations quon veut et que ce soit organiser de facon propre et elegente",
+    "category": "idea",
+    "status": "RESOLVED",
+    "resolved_at": "2026-10-26 21:30:00",
+    "context": {
+      "tag": "DIV",
+      "target_id": "",
+      "selector": "div.space-y-2.5",
+      "text_preview": "DÉCLINAISONS & TAILLES PHYSIQUES\n1 taille(s)\nCharc",
+      "sku": "KM-BAG-005",
+      "clientX": 1477,
+      "clientY": 680,
+      "docX": 1477,
+      "docY": 680,
+      "elementRect": {
+        "x": 1345,
+        "y": 651,
+        "width": 374,
+        "height": 217
+      }
+    }
+  },
+  {
+    "id": "PIN-005",
+    "created_at": "2026-10-26 02:34:52",
+    "comment": "je voudrai que le drop physique soit plus obvious et peut etre avec l'aide du casier hub, genre pop up modal qui ouvre notre hub avec notre system et on na qua cliquer",
+    "category": "idea",
+    "status": "RESOLVED",
+    "context": {
+      "tag": "INPUT",
+      "target_id": "new-var-bin",
+      "selector": "#new-var-bin",
+      "text_preview": "",
+      "sku": "KM-BAG-005",
+      "clientX": 1618,
+      "clientY": 807,
+      "docX": 1618,
+      "docY": 807,
+      "elementRect": {
+        "x": 1536,
+        "y": 787,
+        "width": 170,
+        "height": 30
+      }
+    },
+    "resolved_at": "2026-10-26 15:37:16"
+  },
+  {
+    "id": "PIN-010",
+    "created_at": "2026-10-26 22:06:18",
+    "comment": "reorganiser, faire :\ntitre\nsku\ncolor swatches",
+    "category": "ui",
+    "status": "RESOLVED",
+    "context": {
+      "tag": "TD",
+      "target_id": "",
+      "selector": "td.py-3",
+      "text_preview": "KERO Unisex Lightweight Leather Holster Bag\nKM-BAG",
+      "sku": "",
+      "clientX": 537,
+      "clientY": 418,
+      "docX": 537,
+      "docY": 418,
+      "elementRect": {
+        "x": 461.6000061035156,
+        "y": 386,
+        "width": 256,
+        "height": 80.4000015258789
+      }
+    },
+    "resolved_at": "2026-10-27 02:50:00"
+  },
+  {
+    "id": "PIN-005",
+    "created_at": "2026-10-27 01:17:25",
+    "comment": "titre editable directement ici comme presque tout sure le tableau. tout annulable avec pomme+z bien sur",
+    "category": "ui",
+    "status": "RESOLVED",
+    "context": {
+      "tag": "DIV",
+      "target_id": "",
+      "selector": "div.font-bold",
+      "text_preview": "KERO Unisex Lightweight Leather Holster Bag",
+      "sku": "KM-BAG-005",
+      "clientX": 655,
+      "clientY": 401,
+      "docX": 655,
+      "docY": 401,
+      "elementRect": {
+        "x": 473.6000061035156,
+        "y": 398.3999938964844,
+        "width": 232,
+        "height": 16
+      }
+    },
+    "resolved_at": "2026-10-27 02:50:00"
+  },
+  {
+    "id": "PIN-006",
+    "created_at": "2026-10-27 01:22:35",
+    "comment": "je veus pouvoir fermer la pop-up aussi en clickant en dehors de la pop-ip (comme le modal pop-up produit)",
+    "category": "ui",
+    "status": "RESOLVED",
+    "context": {
+      "tag": "BUTTON",
+      "target_id": "nav-item-casiers",
+      "selector": "#nav-item-casiers",
+      "text_preview": "🗄️\nCasiers & Étagères Hub\nLIL (4)",
+      "sku": "KM-BAG-005",
+      "clientX": 267,
+      "clientY": 306,
+      "docX": 267,
+      "docY": 306,
+      "elementRect": {
+        "x": 81.7012710571289,
+        "y": 279.3271179199219,
+        "width": 187.79747009277344,
+        "height": 47.14580154418945
+      }
+    },
+    "resolved_at": "2026-10-27 02:50:00"
+  },
+  {
+    "id": "PIN-007",
+    "created_at": "2026-10-27 01:28:03",
+    "comment": "that would be cool to have a minimize version of this so we can have the table a bit more full screen. we will have to brainstorm to find the best ui/ux way to do it.",
+    "category": "ui",
+    "status": "RESOLVED",
+    "context": {
+      "tag": "ASIDE",
+      "target_id": "",
+      "selector": "aside.w-56",
+      "text_preview": "Stupid Stock\nv1.5.0\nKaya Movement Atelier\nCORE ATE",
+      "sku": "KM-BAG-005",
+      "clientX": 283,
+      "clientY": 442,
+      "docX": 283,
+      "docY": 442,
+      "elementRect": {
+        "x": 64,
+        "y": 0,
+        "width": 224,
+        "height": 839.2000122070312
+      }
+    },
+    "resolved_at": "2026-10-27 02:50:00"
+  },
+  {
+    "id": "PIN-008",
+    "created_at": "2026-10-27 03:06:02",
+    "comment": "ca serai bien de le placer directement coller au side bar en haut, comme une etiquette qui ressort, avec la meme couleur de backgroun que le side bar du coup",
+    "category": "ui",
+    "status": "OPEN",
+    "context": {
+      "tag": "BUTTON",
+      "target_id": "",
+      "selector": "button.btn-tactile",
+      "text_preview": "",
+      "sku": "",
+      "clientX": 345,
+      "clientY": 76,
+      "docX": 345,
+      "docY": 76,
+      "elementRect": {
+        "x": 341.1125183105469,
+        "y": 65.36254119873047,
+        "width": 28.97492790222168,
+        "height": 28.97492790222168
+      }
+    }
+  },
+  {
+    "id": "PIN-009",
+    "created_at": "2026-10-27 17:09:36",
+    "comment": "retravailler UI, trop gros",
+    "category": "ui",
+    "status": "OPEN",
+    "context": {
+      "tag": "SPAN",
+      "target_id": "docked-facets-count",
+      "selector": "#docked-facets-count",
+      "text_preview": "0 actif",
+      "sku": "",
+      "clientX": 237,
+      "clientY": 598,
+      "docX": 237,
+      "docY": 598,
+      "elementRect": {
+        "x": 204.5124969482422,
+        "y": 571.6000366210938,
+        "width": 48.118751525878906,
+        "height": 33.60000228881836
+      }
+    }
+  },
+  {
+    "id": "PIN-010",
+    "created_at": "2026-10-27 17:15:35",
+    "comment": "ratrecir, c trop grossier",
+    "category": "ui",
+    "status": "OPEN",
+    "context": {
+      "tag": "DIV",
+      "target_id": "",
+      "selector": "div.border-t",
+      "text_preview": "⚙️\nFiltres & Facettes\n0 actif\nEffacer\n▴",
+      "sku": "",
+      "clientX": 124,
+      "clientY": 793,
+      "docX": 124,
+      "docY": 793,
+      "elementRect": {
+        "x": 64,
+        "y": 784.7999877929688,
+        "width": 256,
+        "height": 54.400001525878906
+      }
+    }
+  }
+]

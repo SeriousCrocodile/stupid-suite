@@ -1,0 +1,29 @@
+{
+  "brand_id": "ask_and_embla",
+  "brand_name": "Ask & Embla",
+  "domain": "askandembla.net",
+  "founder": "Ask & Embla Collective",
+  "headquarters": "Singapore / Berlin",
+  "niche": "Alternative Body Jewelry, Stretched Lobe Adornments & Dark Occult Haute Joaillerie",
+  "tagline": "Adornments for the Soul.",
+  "universe_description": "Ask & Embla celebrates self-expression, identity fluidity, and ritualistic body styling. Drawing inspiration from primordial mythologies, gothic architecture, and esoteric mysticism, the house crafts precision adornments in 316L surgical stainless steel, 925 sterling silver, and biocompatible metals for stretched lobes, facial piercings, and dark avant-garde ensembles.",
+  "palette": {
+    "accent_primary": "#1D1D1F",
+    "accent_secondary": "#C0C0C0",
+    "surface_cyclorama": "#EFEFEF",
+    "background_dark": "#0F0F10"
+  },
+  "locations": [
+    "singapore_hq",
+    "lille_hub",
+    "berlin_depot"
+  ],
+  "currency": "EUR",
+  "product_skus": [
+    "AE-NCK-001",
+    "AE-LIP-002",
+    "AE-RNG-003",
+    "AE-NCK-004",
+    "AE-EAR-005"
+  ]
+}

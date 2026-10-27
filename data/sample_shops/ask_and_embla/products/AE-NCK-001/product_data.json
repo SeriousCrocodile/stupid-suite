@@ -1,0 +1,64 @@
+{
+  "sku": "AE-NCK-001",
+  "brand_id": "ask_and_embla",
+  "brand_name": "Ask & Embla",
+  "title": "UNHOLY GRAIL Necklace",
+  "category": "Necklaces / Pendants",
+  "tier": "B2C_FINISHED",
+  "materials": [
+    "316L Surgical Stainless Steel",
+    "Acid-Resistant Black Enamel Inlay"
+  ],
+  "specs": {
+    "pendant_dimensions": "48mm height x 26mm width x 5mm depth",
+    "chain_type": "Heavy Modified Wheat Chain (4mm link diameter)",
+    "chain_length": "55cm with 5cm micro-adjuster extension",
+    "clasp": "Custom Sculpted Gothic Lobster Clasp",
+    "finish": "Mirror-Polished Chrome with Deep Recessed Antique Blackening",
+    "weight": "48g"
+  },
+  "variants": [
+    {
+      "variant_sku": "AE-NCK-001-55CM",
+      "name": "55cm + 5cm Extender - Surgical Steel",
+      "specs": {
+        "chain_length": "55cm-60cm",
+        "finish": "Mirror Chrome / Black"
+      },
+      "stock": 35,
+      "shelf_bin": "BER-N01-2",
+      "price_override": null
+    }
+  ],
+  "shelf_coordinate": "BER-N01",
+  "stock_by_location": {
+    "singapore_hq": 15,
+    "lille_hub": 12,
+    "berlin_depot": 8
+  },
+  "production_cost": 22.0,
+  "retail_price": 98.0,
+  "wholesale_price": 49.0,
+  "margin_percentage": 77.6,
+  "currency": "EUR",
+  "photos": [
+    "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_2.jpg"
+  ],
+  "has_photos": true,
+  "shoot_prompt": "A high-fashion commercial luxury jewelry 3x3 contact sheet featuring the UNHOLY GRAIL Necklace. Canvas layout: Exactly 9 vertical 3:4 portrait vignette frames arranged in a 3x3 grid, edge-to-edge full bleed, separated by crisp 1.5px solid white #FFFFFF borders. Studio Environment: Standardized neutral cyclorama backdrop in matte grey #EFEFEF, clean minimal stone surface with subtle soft contact shadows. Coherent 5500K softbox illumination, Hasselblad H6D-100c medium format clarity, f/8 depth of field. Product Specifics: Sculptural gothic talisman necklace in 316L surgical stainless steel featuring an inverted sacred chalice with relief thorns and black enamel shadows, suspended from a heavy wheat chain. Mode: SINGLE_ITEM. Row 1 (Packshot Hero): Cell 1 (Front Hero): Perfectly centered frontal eye-level packshot of the UNHOLY GRAIL pendant suspended upright with wheat chain draped symmetrically on matte stone. Cell 2 (3/4 Perspective): Three-quarter angle highlighting the relief goblet stem, sculpted thorn filigree, and depth of the hollow bowl. Cell 3 (Side Profile): Lateral 90-degree profile showing the 5mm solid pendant thickness and substantial bail loop. Row 2 (Technical Details): Cell 4 (Overhead Flat Lay): Direct top-down flat lay on #EFEFEF surface showing the wheat chain coiled in a fluid halo around the central talisman. Cell 5 (Optical Macro): Extreme macro view capturing the liquid mirror chrome polish contrasted with blackened antique filigree crevices. Cell 6 (Mechanical Detail): Technical macro focus on the custom gothic lobster claw clasp and engraved steel hallmark (316L). Row 3 (Editorial On-Model Context): Cell 7 (Editorial Portrait): Frontal high-fashion editorial portrait of an avant-garde model with dark styling, wearing the UNHOLY GRAIL necklace resting along the collarbone. Cell 8 (Intimate Micro-Crop): Close-up crop centered on the sternum and throat, showing the cold steel pendant resting directly against human skin. Cell 9 (Dynamic Lifestyle): 3/4 editorial styling shot capturing crisp specular light glints across the steel chalice curves. Strict Invariant: ABSOLUTELY NO TEXT, NO LABELS, NO NUMBERS, NO WATERMARKS, NO GRAPHICS. Pure raw commercial photography only.",
+  "created_at": "2026-10-25T12:00:00Z",
+  "updated_at": "2026-10-25T12:00:00Z",
+  "images": [
+    "images/photo_1.jpg",
+    "images/photo_2.jpg"
+  ],
+  "local_images": [
+    "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_1.jpg",
+    "data/sample_shops/ask_and_embla/products/AE-NCK-001/images/photo_2.jpg"
+  ],
+  "remote_images": [
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/NL0977_-_S_-_1.jpg",
+    "https://cdn.shopify.com/s/files/1/0200/8686/files/BL0913_-_S_-_1.jpg"
+  ]
+}
