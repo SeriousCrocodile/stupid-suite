@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stupid Suite — Serious Studio OS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="data/favicon/favicon_serious-studio.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black">
+
+  <!-- Header -->
+  <header class="border-b border-neutral-800 bg-neutral-900/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="data/favicon/favicon_serious-studio.png" alt="Serious Studio" class="w-8 h-8 rounded-lg border border-neutral-700">
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+            Stupid Suite <span class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">v1.7 Live Hub</span>
+          </h1>
+          <p class="text-xs text-neutral-400">Autonomous Atelier OS by Serious Studio</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs mono">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Worldwide Live
+        </span>
+        <a href="https://github.com/SeriousCrocodile/stupid-suite" target="_blank" class="px-3 py-1.5 rounded-md bg-neutral-800 hover:bg-neutral-700 text-neutral-300 transition">GitHub Repo &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-10 flex-1 w-full space-y-10">
+
+    <!-- Hero Banner -->
+    <div class="border border-neutral-800 rounded-2xl p-6 bg-gradient-to-br from-neutral-900 to-neutral-950 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-1">Welcome to the Atelier Workspace</h2>
+        <p class="text-sm text-neutral-400 max-w-xl">
+          Complete creative & inventory management system. Built for independent jewelry ateliers and avant-garde fashion houses.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 text-xs mono text-neutral-400">
+        <span>Connected to Claude Code Fleet</span>
+      </div>
+    </div>
+
+    <!-- Active Apps Section -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+        <h3 class="text-xs uppercase tracking-wider text-neutral-400 font-mono font-semibold">1. Production & Atelier Apps</h3>
+        <span class="text-xs text-neutral-500 font-mono">Live Interactive</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <!-- Stupid Stock App -->
+        <a href="apps/stupid-stock/public/index.html" class="group block border border-neutral-800 hover:border-amber-500/50 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl p-5 transition duration-200">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-lg">
+              📦
+            </div>
+            <span class="text-[10px] mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-300">v1.7 Full App</span>
+          </div>
+          <h4 class="font-bold text-white group-hover:text-amber-400 transition mb-1">Stupid Stock</h4>
+          <p class="text-xs text-neutral-400 mb-4 line-clamp-2">
+            Inventory management, physical workshop shelf coordinates, dynamic margin calculator & sample catalogs.
+          </p>
+          <div class="text-xs text-amber-400 mono flex items-center gap-1 group-hover:translate-x-0.5 transition">
+            Open App &rarr;
+          </div>
+        </a>
+
+        <!-- Stupid Shoot Studio -->
+        <a href="prototypes/design-exploration/stupid_shoot_studio.html" class="group block border border-neutral-800 hover:border-cyan-500/50 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl p-5 transition duration-200">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-lg">
+              📸
+            </div>
+            <span class="text-[10px] mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-300">Vision Engine</span>
+          </div>
+          <h4 class="font-bold text-white group-hover:text-cyan-400 transition mb-1">Stupid Shoot</h4>
+          <p class="text-xs text-neutral-400 mb-4 line-clamp-2">
+            AI Contact Sheet Studio hooked to Google Flow Bridge. 3x3 luxury jewelry multi-angle generation.
+          </p>
+          <div class="text-xs text-cyan-400 mono flex items-center gap-1 group-hover:translate-x-0.5 transition">
+            Open Studio &rarr;
+          </div>
+        </a>
+
+        <!-- Stupid Shop Gateway -->
+        <a href="prototypes/design-exploration/stupid_shop_gateway.html" class="group block border border-neutral-800 hover:border-emerald-500/50 bg-neutral-900/50 hover:bg-neutral-900 rounded-xl p-5 transition duration-200">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg">
+              🌐
+            </div>
+            <span class="text-[10px] mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-300">Omnichannel</span>
+          </div>
+          <h4 class="font-bold text-white group-hover:text-emerald-400 transition mb-1">Stupid Shop</h4>
+          <p class="text-xs text-neutral-400 mb-4 line-clamp-2">
+            Shopify & Etsy synchronizer with Anti-Censorship Semantic Shield and thermal label printing.
+          </p>
+          <div class="text-xs text-emerald-400 mono flex items-center gap-1 group-hover:translate-x-0.5 transition">
+            Open Gateway &rarr;
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Design Explorations & Architecture -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+        <h3 class="text-xs uppercase tracking-wider text-neutral-400 font-mono font-semibold">2. UI Bake-offs & Design System</h3>
+        <span class="text-xs text-neutral-500 font-mono">Prototypes</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="prototypes/design-exploration/ui_direction_comparison.html" class="p-4 border border-neutral-800 hover:border-neutral-700 rounded-lg bg-neutral-900/30 block group">
+          <h5 class="text-sm font-semibold text-neutral-200 group-hover:text-white mb-1">UI Direction Bake-Off</h5>
+          <p class="text-xs text-neutral-500">Side-by-side comparison: Vintage Win98 Tactile vs Google Minimalist.</p>
+        </a>
+        <a href="prototypes/design-exploration/sidebar_bakeoff.html" class="p-4 border border-neutral-800 hover:border-neutral-700 rounded-lg bg-neutral-900/30 block group">
+          <h5 class="text-sm font-semibold text-neutral-200 group-hover:text-white mb-1">Sidebar Navigation Lab</h5>
+          <p class="text-xs text-neutral-500">Dynamic collapsible ateliers dock & quick launchers.</p>
+        </a>
+        <a href="prototypes/design-exploration/favicon_showcase.html" class="p-4 border border-neutral-800 hover:border-neutral-700 rounded-lg bg-neutral-900/30 block group">
+          <h5 class="text-sm font-semibold text-neutral-200 group-hover:text-white mb-1">Branding & App Icons</h5>
+          <p class="text-xs text-neutral-500">Visual identity showcase for all 6 specialized micro-apps.</p>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-800 py-6 text-center text-xs text-neutral-500 mono">
+    <p>Serious Studio OS &bull; Distributed Atelier Network &bull; Hosted globally via GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
