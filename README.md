@@ -1,13 +1,26 @@
 # The "Stupid Suite" by Serious Studio
-> **Autonomous Multi-App Operating System for Avant-Garde Creators, Artisans & Independent Brands**
+> **Autonomous Multi-App Operating System for Avant-Garde Creators, Artisans & Independent Brands**  
+> *Live Deployment:* [seriouscrocodile.github.io/stupid-suite](https://seriouscrocodile.github.io/stupid-suite/)
 
 ---
 
-## 1. System Vision
+## 🧭 Essential Documentation for Humans & AI Agents
 
-The **Stupid Suite** is an autonomous, domain-focused desktop operating suite designed specifically for jewelry makers, avant-garde artisans, and rogue fashion studios.
+To quickly understand the vision, codebase, and design decisions, read these dedicated dossiers:
 
-Instead of an unwieldy, overpriced cloud monolith, the Stupid Suite is divided into **6 specialized micro-applications** anchored by a unified local foundation (`Serious Core`):
+| Documentation File | Core Subject & Audience | Key Takeaways |
+| :--- | :--- | :--- |
+| 📖 [**`docs/VISION_AND_PHILOSOPHY.md`**](docs/VISION_AND_PHILOSOPHY.md) | **Vision & Atelier Manifesto** | Why the suite exists, satire of enterprise SaaS, local-first data sovereignty, loose-coupling and independent atelier personas. |
+| ⚡ [**`docs/TECH_STACK_AND_ARCHITECTURE.md`**](docs/TECH_STACK_AND_ARCHITECTURE.md) | **Engineering & System Topology** | SQLite WAL database, Python engines, Vanilla JS / Tailwind CDN, Google Flow bridge (`localhost:8100`), schema contracts and rules for AI agents. |
+| 🎨 [**`docs/DESIGN_SYSTEM_AND_INSPIRATIONS.md`**](docs/DESIGN_SYSTEM_AND_INSPIRATIONS.md) | **Design System & Aesthetics** | Dark luxury jewelry references (*Parts of Four*, *Rick Owens*, *Ask & Embla*), UI Bake-off (Vintage Win98 vs Google Minimalist), color palette & typography. |
+| 🤖 [**`AGENTS.md`**](AGENTS.md) | **Autonomous Multi-Agent Fleet** | Cognitive heuristics (Caveman, Ponytail, Grill-Me), agent roles (`@core-engine`, `@shoot-vision`, `@pixel-artisan`), and anti-sycophancy rules. |
+| 📐 [**`DESIGN_DECISIONS_AND_FEATURE_LEDGER.md`**](DESIGN_DECISIONS_AND_FEATURE_LEDGER.md) | **Architecture Decision Records (ADRs)** | Upstream creation decoupling, multi-brand boutique consignment, event suitcase lockouts, and BOM production costing. |
+
+---
+
+## 1. System Topology
+
+Rather than an unwieldy, overpriced cloud monolith, the **Stupid Suite** is divided into **6 specialized micro-applications** anchored by a unified local foundation (`Serious Core`):
 
 ```mermaid
 graph TD
@@ -23,52 +36,41 @@ graph TD
 
 ---
 
-## 2. Core Architecture Decisions
+## 2. The 6 Dedicated Micro-Applications
 
-1. **Local-First & Flow Bridge Native:**
-   - Visual rendering is hooked directly into the battle-tested local Google Flow Bridge on `http://localhost:8100` (`~/Serious-AI/perso/flow-tools-dev`).
-   - Zero cloud server dependencies or GPU bills for Serious Studio.
-2. **Upstream Creation & Loose Coupling:**
-   - `Stupid Shoot` can shoot raw concepts and moodboards before a SKU or pricing is even assigned.
-   - Bidirectional flow:
-     - `Ideation Flow:` Draft Concept in Shoot $\rightarrow$ Visual Validation $\rightarrow$ Mint SKU into Stock.
-     - `Production Flow:` Workshop batch logged in Stock $\rightarrow$ 1-Click trigger to Shoot.
-3. **Prototype-First Engineering (Anti-Bloat):**
-   - No heavy framework code is written before UI/UX prototypes are reviewed.
-   - Design exploration compares **Modernized Win98/Brutalist** tactile feel against **Antigravity / Google Workspace Minimalist** clean ergonomics.
+| Application | Path | Status | Key Capabilities |
+| :--- | :--- | :--- | :--- |
+| **`Stupid Stock`** | [`apps/stupid-stock/`](apps/stupid-stock/) | **v1.7 Live** | Multi-brand inventory, BOM margins, consignment boutiques, event suitcases, shelf coordinates. |
+| **`Stupid Shoot`** | [`apps/stupid-shoot/`](apps/stupid-shoot/) | **Prototype** | 3x3 contact sheets, local Google Flow bridge integration, alternative model casting, 2048px auto-slicing. |
+| **`Stupid Shop`** | [`apps/stupid-shop/`](apps/stupid-shop/) | **Prototype** | Shopify & Etsy sync, brand voice presets, Anti-Censorship Semantic Shield for alternative jewelry. |
+| **`Stupid Content`** | [`apps/stupid-content/`](apps/stupid-content/) | Planned | Automated Instagram carousels, wholesale B2B PDF lookbooks, seasonal drop calendars. |
+| **`Stupid Dispatch`** | [`apps/stupid-dispatch/`](apps/stupid-dispatch/) | Planned | Physical atelier coordinates, 50x30mm thermal QR barcode printing, preparer packing app. |
+| **`Stupid Money`** | [`apps/stupid-money/`](apps/stupid-money/) | Planned | Gemini Vision invoice/receipt OCR ingestion, VAT metal categorization, monthly & annual P&L. |
 
 ---
 
-## 3. Directory Layout
+## 3. Quickstart & Local Setup
 
+### For Human Developers:
+```bash
+# 1. Clone repository
+git clone https://github.com/SeriousCrocodile/stupid-suite.git
+cd stupid-suite
+
+# 2. Seed database with sample atelier shops (Ask & Embla, Kaya Movement, Parts of Four)
+python3 core/seed_db.py
+
+# 3. Launch local atelier server
+cd apps/stupid-stock && python3 server.py
+# Open http://localhost:8000 in your browser
 ```
-stupid-suite/
-├── AGENTS.md                            # Master agent directive & cognitive guardrails
-├── README.md                            # Suite overview & system topology
-├── ROADMAP.md                           # Multi-phase master roadmap
-├── STUPID_SUITE_OFFICIAL_ARCHITECTURE.md# Foundational architecture specification
-├── apps/                                # The 6 Domain Micro-Applications
-│   ├── stupid-stock/                    # Inventory, raw materials & unit margin engine
-│   ├── stupid-shoot/                    # AI photo studio, Google Flow bridge & Flowboard
-│   ├── stupid-shop/                     # Shopify/Etsy sync & Semantic Shield
-│   ├── stupid-content/                  # Social format carousels & B2B PDF lookbooks
-│   ├── stupid-dispatch/                 # Field logistics & QR fulfillment workflow
-│   └── stupid-money/                    # Vision OCR receipt ingestion & financial P&L
-├── core/                                # Shared Local Source of Truth
-│   ├── README.md                        # Serious Core specification
-│   └── schemas/                         # JSON schemas for loose coupling
-│       ├── product_draft.schema.json    # Upstream creative concept schema
-│       ├── product_sku.schema.json      # Formal cataloged inventory item schema
-│       └── shoot_job.schema.json        # Google Flow rendering job payload
-├── prototypes/                          # Design Prototypes & UX Experiments
-│   ├── README.md                        # Prototype gallery & testing logs
-│   └── design-exploration/              # UI Bake-off (Win98 Modern vs Google Minimal)
-└── agents/                              # Dedicated Agent Roles
-    ├── head-of-product.md               # Product & Engineering Orchestrator
-    ├── core-engine.md                   # SQLite & local state agent
-    ├── pixel-artisan.md                 # UI/UX design & prototype agent
-    ├── shoot-vision.md                  # Google Flow AI pipeline agent
-    ├── channel-gateway.md               # Commerce & logistics connector agent
-    ├── money-intelligence.md            # Accounting & OCR vision agent
-    └── break-tester.md                  # Robustness & chaos test agent
-```
+
+### For Claude Code / AI Agents:
+Run `claude` directly inside the cloned repository. Claude Code has immediate access to all schemas in [`core/schemas/`](core/schemas/) and can inspect or extend applications directly without installing heavy dependencies.
+
+---
+
+## 4. Worldwide Web Preview (GitHub Pages)
+
+The suite is statically compiled and accessible worldwide for atelier team members and remote collaborators:  
+👉 **[https://seriouscrocodile.github.io/stupid-suite/](https://seriouscrocodile.github.io/stupid-suite/)**
